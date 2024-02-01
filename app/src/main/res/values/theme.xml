@@ -2,13 +2,13 @@
 
     <style name="Theme.TeamUp" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <item name="colorPrimary">#1677FF</item>
+        <item name="colorPrimary">@color/blue3</item>
 
     </style>
 
     <style name="Theme.SignUp" parent="Theme.TeamUp">
 
-        <item name="colorPrimary">#13C2C2</item>
+        <item name="colorPrimary">@color/green4</item>
 
     </style>
 
