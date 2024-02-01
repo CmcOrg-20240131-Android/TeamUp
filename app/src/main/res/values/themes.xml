@@ -1,13 +1,15 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="Base.Theme.TeamUp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.TeamUp" parent="Theme.Material3.DayNight.NoActionBar">
 
-    <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#1677FF</item>
 
     </style>
 
-    <style name="Theme.TeamUp" parent="Base.Theme.TeamUp" />
+    <style name="Theme.SignUp" parent="Theme.TeamUp">
+
+        <item name="colorPrimary">#13C2C2</item>
+
+    </style>
 
 </resources>

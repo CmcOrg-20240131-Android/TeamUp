@@ -25,7 +25,9 @@
 
         <activity android:name="com.cmcorg20230301.teamup.activity.sign.SignInActivity" />
 
-        <activity android:name="com.cmcorg20230301.teamup.activity.sign.SignUpActivity" />
+        <activity
+            android:name="com.cmcorg20230301.teamup.activity.sign.SignUpActivity"
+            android:theme="@style/Theme.SignUp" />
 
     </application>
 
