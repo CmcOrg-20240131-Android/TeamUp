@@ -41,6 +41,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
+            android:id="@+id/signUpSubmit"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_marginTop="20dp"
@@ -48,7 +49,7 @@
             android:textSize="18dp" />
 
     <TextView
-            android:id="@+id/signIn"
+            android:id="@+id/signUpGoSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"

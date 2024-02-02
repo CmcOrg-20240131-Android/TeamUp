@@ -51,6 +51,9 @@ dependencies {
 
     implementation 'cn.hutool:hutool-all:5.8.16'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
+    compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    implementation 'org.slf4j:slf4j-api:2.0.11'
+    implementation 'com.github.tony19:logback-android:3.0.0'
 
 }

@@ -29,7 +29,7 @@ public class SignInActivity extends BaseActivity {
 
         setContentView(R.layout.sign_in);
 
-        TextView signUp = findViewById(R.id.signUp);
+        TextView signUp = findViewById(R.id.signInGoSignUp);
 
         signUp.setOnClickListener(v -> {
 
