@@ -8,7 +8,7 @@
 
     <style name="Theme.SignUp" parent="Theme.TeamUp">
 
-        <item name="colorPrimary">@color/green4</item>
+        <item name="colorPrimary">@color/green3</item>
 
     </style>
 
