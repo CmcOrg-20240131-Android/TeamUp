@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import androidx.annotation.ColorRes;
 
-import com.cmcorg20230301.teamup.activity.sign.SignInActivity;
+import com.cmcorg20230301.teamup.activity.sign.in.SignInActivity;
 
 public class MainActivity extends BaseActivity {
 

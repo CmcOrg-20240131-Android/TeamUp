@@ -1,4 +1,4 @@
-package com.cmcorg20230301.teamup.activity.sign;
+package com.cmcorg20230301.teamup.activity.sign.up;
 
 import android.content.Intent;
 import android.widget.TextView;
@@ -7,6 +7,7 @@ import androidx.annotation.ColorRes;
 
 import com.cmcorg20230301.teamup.BaseActivity;
 import com.cmcorg20230301.teamup.R;
+import com.cmcorg20230301.teamup.activity.sign.in.SignInActivity;
 
 /**
  * 登录页
