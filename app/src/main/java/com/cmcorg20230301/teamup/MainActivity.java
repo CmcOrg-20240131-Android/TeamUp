@@ -1,21 +1,25 @@
 package com.cmcorg20230301.teamup;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
+
+import androidx.annotation.ColorRes;
 
 import com.cmcorg20230301.teamup.activity.sign.SignInActivity;
 
 public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public @ColorRes Integer getStatusBarColorId() {
+        return R.color.black2;
+    }
 
-        super.onCreate(savedInstanceState);
+    @Override
+    public boolean getStatusBarLightFlag() {
+        return true;
+    }
 
-        getWindow().setStatusBarColor(getColor(R.color.black2));
-
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    @Override
+    public void initView() {
 
         startActivity(new Intent(this, SignInActivity.class));
 

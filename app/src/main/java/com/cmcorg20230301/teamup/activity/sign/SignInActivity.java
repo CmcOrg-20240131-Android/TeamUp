@@ -1,9 +1,9 @@
 package com.cmcorg20230301.teamup.activity.sign;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.ColorRes;
 
 import com.cmcorg20230301.teamup.BaseActivity;
 import com.cmcorg20230301.teamup.R;
@@ -14,21 +14,19 @@ import com.cmcorg20230301.teamup.R;
 public class SignInActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        getWindow().setStatusBarColor(getColor(R.color.black2));
-
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-
-        setContentView(R.layout.sign_in);
-
-        doInit();
-
+    public @ColorRes Integer getStatusBarColorId() {
+        return R.color.black2;
     }
 
-    private void doInit() {
+    @Override
+    public boolean getStatusBarLightFlag() {
+        return true;
+    }
+
+    @Override
+    public void initView() {
+
+        setContentView(R.layout.sign_in);
 
         TextView signUp = findViewById(R.id.signUp);
 
