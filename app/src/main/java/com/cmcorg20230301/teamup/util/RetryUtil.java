@@ -11,12 +11,10 @@ import cn.hutool.core.lang.func.VoidFunc0;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.http.HttpRequest;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * 重试工具类
  */
-@Slf4j
 public class RetryUtil {
 
     /**
@@ -91,7 +89,7 @@ public class RetryUtil {
 
         } catch (Throwable e) {
 
-            log.info("重试：{}", execNumber);
+            LogUtil.debug("重试：{}", execNumber);
 
             if (execNumber == 1) {
                 throw e;
@@ -125,7 +123,7 @@ public class RetryUtil {
 
         } catch (Throwable e) {
 
-            log.info("重试：{}", execNumber);
+            LogUtil.debug("重试：{}", execNumber);
 
             Log.d(CommonConstant.TAG, "execVoidFunc0: ");
 
