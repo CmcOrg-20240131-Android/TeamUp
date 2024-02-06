@@ -3,14 +3,15 @@ package com.cmcorg20230301.teamup.util;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import cn.hutool.core.lang.func.VoidFunc0;
 import cn.hutool.core.lang.func.VoidFunc1;
 import cn.hutool.core.thread.ExecutorBuilder;
 import cn.hutool.core.thread.NamedThreadFactory;
-import cn.hutool.core.thread.ThreadUtil;
 
 public class MyThreadUtil {
 
@@ -78,9 +79,36 @@ public class MyThreadUtil {
      *
      * @param voidFunc0 待执行任务
      */
-    public static ScheduledThreadPoolExecutor schedule(VoidFunc0 voidFunc0, long initialDelay, long period, boolean fixedRateOrFixedDelay) {
+    public static ScheduledFuture<?> schedule(VoidFunc0 voidFunc0,
+                                              long delay, TimeUnit unit) {
 
-        return ThreadUtil.schedule(SCHEDULED_THREAD_POOL_EXECUTOR, () -> TryUtil.tryCatch(voidFunc0), initialDelay, period, fixedRateOrFixedDelay);
+        return SCHEDULED_THREAD_POOL_EXECUTOR.schedule(() -> TryUtil.tryCatch(voidFunc0), delay, unit);
+
+    }
+
+    /**
+     * 提交任务调度请求
+     *
+     * @param voidFunc0 待执行任务
+     */
+    public static ScheduledFuture<?> scheduleAtFixedRate(VoidFunc0 voidFunc0,
+                                                         long initialDelay,
+                                                         long period, TimeUnit unit) {
+
+        return SCHEDULED_THREAD_POOL_EXECUTOR.scheduleAtFixedRate(() -> TryUtil.tryCatch(voidFunc0), initialDelay, period, unit);
+
+    }
+
+    /**
+     * 提交任务调度请求
+     *
+     * @param voidFunc0 待执行任务
+     */
+    public static ScheduledFuture<?> scheduleWithFixedDelay(VoidFunc0 voidFunc0,
+                                                            long initialDelay,
+                                                            long delay, TimeUnit unit) {
+
+        return SCHEDULED_THREAD_POOL_EXECUTOR.scheduleWithFixedDelay(() -> TryUtil.tryCatch(voidFunc0), initialDelay, delay, unit);
 
     }
 

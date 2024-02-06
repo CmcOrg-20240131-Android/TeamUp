@@ -7,6 +7,7 @@ import android.view.Window;
 import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.cmcorg20230301.teamup.exception.MyUncaughtExceptionHandler;
 import com.cmcorg20230301.teamup.util.StatusBarUtil;
 
 import org.jetbrains.annotations.Nullable;
@@ -54,6 +55,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             StatusBarUtil.setColor(statusBarColorId, getStatusBarLightFlag());
 
         }
+
+        // 线程报错处理器
+        Thread.setDefaultUncaughtExceptionHandler(MyUncaughtExceptionHandler.getInstance());
 
         // 初始化页面
         initView();
