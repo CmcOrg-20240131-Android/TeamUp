@@ -2,6 +2,7 @@ package com.cmcorg20230301.teamup.util;
 
 import android.util.Log;
 
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 
 /**
@@ -19,7 +20,25 @@ public class LogUtil {
 
     public static void error(CharSequence template, Object... params) {
 
-        Log.e(TAG, "error: " + StrUtil.format(template, params));
+        Object[] paramsArr = params;
+
+        if (ArrayUtil.isNotEmpty(paramsArr)) {
+
+            Object lastParam = paramsArr[paramsArr.length - 1];
+
+            if (lastParam instanceof Throwable) {
+
+                paramsArr = ArrayUtil.remove(paramsArr, paramsArr.length - 1);
+
+                Log.e(TAG, "error: " + StrUtil.format(template, paramsArr), (Throwable) lastParam);
+
+                return;
+
+            }
+
+        }
+
+        Log.e(TAG, "error: " + StrUtil.format(template, paramsArr));
 
     }
 
