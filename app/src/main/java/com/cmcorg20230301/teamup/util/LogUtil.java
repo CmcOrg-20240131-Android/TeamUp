@@ -17,4 +17,22 @@ public class LogUtil {
 
     }
 
+    public static void debug(String tag, CharSequence template, Object... params) {
+
+        Log.d(tag, "debug: " + StrUtil.format(template, params));
+
+    }
+
+    public static void error(CharSequence template, Object... params) {
+
+        Log.e(TAG, "error: " + StrUtil.format(template, params));
+
+    }
+
+    public static void error(String tag, CharSequence template, Object... params) {
+
+        Log.e(tag, "error: " + StrUtil.format(template, params));
+
+    }
+
 }

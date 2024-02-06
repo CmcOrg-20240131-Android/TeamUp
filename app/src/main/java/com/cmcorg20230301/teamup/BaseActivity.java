@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.view.Window;
 
 import androidx.annotation.ColorRes;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cmcorg20230301.teamup.util.StatusBarUtil;
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * 所有 activity都需要继承本类

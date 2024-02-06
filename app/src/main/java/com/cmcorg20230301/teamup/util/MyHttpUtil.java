@@ -2,6 +2,8 @@ package com.cmcorg20230301.teamup.util;
 
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 
+import org.jetbrains.annotations.Nullable;
+
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.http.HttpGlobalConfig;
 import cn.hutool.http.HttpUtil;
@@ -33,7 +35,14 @@ public class MyHttpUtil {
      * @param urlString 网址
      * @return 返回内容，如果只检查状态码，正常只返回 ""，不正常返回 null
      */
+    @Nullable
     public static <T> ApiResultVO<T> get(String urlString) {
+
+        if (urlString.startsWith("http")) {
+
+            return null;
+
+        }
 
         String resStr = HttpUtil.get(urlString);
 
