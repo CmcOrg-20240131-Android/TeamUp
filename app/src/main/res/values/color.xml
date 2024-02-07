@@ -4,12 +4,14 @@
     <color name="black1">#000000a5</color>
     <!-- 背景色 ↓ -->
     <color name="black2">#f5f5f5</color>
+    <color name="black3">#000000</color>
     <color name="blue1">#1870FF</color>
     <color name="blue2">#2F54EB</color>
     <color name="blue3">#1677FF</color>
     <color name="green2">#19AC18</color>
     <color name="green3">#13C2C2</color>
     <color name="warning2">#F9BE3A</color>
+    <color name="warning3">#FFDF3F</color>
     <color name="red3">#FF4D4F</color>
     <color name="white1">#FFFFFF</color>
 
