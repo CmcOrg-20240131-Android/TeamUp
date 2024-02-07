@@ -1,8 +1,5 @@
 package com.cmcorg20230301.teamup.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 /**
  * 规则：
  * 错误代码格式：300010 300021
@@ -11,8 +8,6 @@ import lombok.Getter;
  * 备注：可以每个业务的错误代码配置类，使用相同的 错误代码，比如每个业务的错误代码配置类都从 30001开始，原因：因为
  * ApiResultVO 任何的 error方法都会打印服务名，所有就不用关心是哪个服务报出异常，直接根据打印的服务名，找到对应的错误信息即可。
  */
-@AllArgsConstructor
-@Getter
 public enum BaseBizCodeEnum implements IBizCode {
 
     API_RESULT_OK(200, BaseBizCodeEnum.OK), //
@@ -43,6 +38,23 @@ public enum BaseBizCodeEnum implements IBizCode {
 
     private final int code;
     private final String msg;
+
+    BaseBizCodeEnum(int code, String msg) {
+
+        this.code = code;
+        this.msg = msg;
+
+    }
+
+    @Override
+    public int getCode() {
+        return code;
+    }
+
+    @Override
+    public String getMsg() {
+        return msg;
+    }
 
     public static final String OK = "操作成功";
     public static final String SEND_OK = "发送成功";
