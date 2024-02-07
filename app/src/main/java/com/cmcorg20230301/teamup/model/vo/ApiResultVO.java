@@ -7,12 +7,10 @@ import com.cmcorg20230301.teamup.exception.IBizCode;
 import org.jetbrains.annotations.Contract;
 
 import cn.hutool.core.util.StrUtil;
-import lombok.Data;
 
 /**
  * 统一响应实体类
  */
-@Data
 public class ApiResultVO<T> {
 
     /**
@@ -47,6 +45,34 @@ public class ApiResultVO<T> {
         this.data = data;
         this.successFlag = true;
 
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public String getService() {
+        return service;
     }
 
     private void setSuccessFlag(boolean successFlag) {

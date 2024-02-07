@@ -1,0 +1,79 @@
+package com.cmcorg20230301.teamup.model.enums;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * 请求类别
+ */
+public enum SysRequestCategoryEnum {
+
+    PC_BROWSER_WINDOWS(101, "windows-浏览器"), //
+    PC_BROWSER_MAC(102, "mac-浏览器"), //
+    PC_BROWSER_LINUX(103, "linux-浏览器"), //
+
+    PC_BROWSER_WINDOWS_WX(104, "windows-浏览器-微信"), //
+    PC_BROWSER_MAC_WX(105, "mac-浏览器-微信"), //
+    PC_BROWSER_LINUX_WX(106, "linux-浏览器-微信"), //
+
+    PC_CLIENT_WINDOWS(201, "windows-客户端"), //
+    PC_CLIENT_MAC(202, "mac-客户端"), //
+    PC_CLIENT_LINUX(203, "linux-客户端"), //
+
+    ANDROID(301, "安卓端"), //
+    ANDROID_BROWSER(302, "安卓-浏览器"), //
+    ANDROID_BROWSER_WX(303, "安卓-浏览器-微信"), //
+
+    IOS(401, "苹果端"), //
+    IOS_BROWSER(402, "苹果-浏览器"), //
+    IOS_BROWSER_WX(403, "苹果-浏览器-微信"), //
+
+    MINI_PROGRAM_WE_CHAT_ANDROID(501, "小程序-微信-安卓"), //
+    MINI_PROGRAM_WE_CHAT_IOS(502, "小程序-微信-苹果"), //
+
+    WX_OFFICIAL_ACCOUNT(601, "微信公众号"), //
+
+    WX_WORK(701, "企业微信"), //
+
+    ;
+
+    private final int code;
+    private final String name;
+
+    SysRequestCategoryEnum(int code, String name) {
+
+        this.code = code;
+        this.name = name;
+
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @NotNull
+    public static SysRequestCategoryEnum getByCode(@Nullable Integer code) {
+
+        if (code == null) {
+            return PC_BROWSER_WINDOWS;
+        }
+
+        for (SysRequestCategoryEnum item : SysRequestCategoryEnum.values()) {
+
+            if (item.getCode() == code) {
+
+                return item;
+
+            }
+
+        }
+
+        return PC_BROWSER_WINDOWS;
+
+    }
+
+}

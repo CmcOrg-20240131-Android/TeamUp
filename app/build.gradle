@@ -57,7 +57,5 @@ dependencies {
 
     implementation 'cn.hutool:hutool-all:5.8.16'
     implementation 'com.google.android.flexbox:flexbox:3.0.0'
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
 }
