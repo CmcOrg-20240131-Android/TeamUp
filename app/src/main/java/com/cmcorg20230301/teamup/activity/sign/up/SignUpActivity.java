@@ -29,9 +29,9 @@ public class SignUpActivity extends BaseActivity {
 
         setContentView(R.layout.sign_up);
 
-        TextView signIn = findViewById(R.id.signUpGoSignIn);
+        TextView signUpGoSignIn = findViewById(R.id.signUpGoSignIn);
 
-        signIn.setOnClickListener(v -> {
+        signUpGoSignIn.setOnClickListener(v -> {
 
             startActivity(new Intent(this, SignInActivity.class));
 
