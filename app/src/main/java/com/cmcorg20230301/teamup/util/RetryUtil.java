@@ -10,7 +10,6 @@ import java.util.function.Supplier;
 import cn.hutool.core.lang.func.VoidFunc0;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.http.HttpRequest;
-import lombok.SneakyThrows;
 
 /**
  * 重试工具类
@@ -78,7 +77,6 @@ public class RetryUtil {
      * @param gapMs      间隔多少毫秒
      * @param execNumber 传值多少，则方法会执行多少次
      */
-    @SneakyThrows
     public static <T> T execSupplier(Supplier<T> supplier, long gapMs, long execNumber) {
 
         T result;
@@ -114,8 +112,7 @@ public class RetryUtil {
      * @param gapMs      间隔多少毫秒
      * @param execNumber 传值多少，则方法会执行多少次
      */
-    @SneakyThrows
-    public static void execVoidFunc0(VoidFunc0 voidFunc0, long gapMs, long execNumber) {
+    public static void execVoidFunc0(VoidFunc0 voidFunc0, long gapMs, long execNumber) throws Exception {
 
         try {
 
