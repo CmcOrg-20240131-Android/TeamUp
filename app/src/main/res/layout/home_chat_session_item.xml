@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        app:flexDirection="row"
-        android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:flexDirection="row">
 
     <ImageView
-            android:id="@+id/homeChatSessionItemAvatar"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
+        android:id="@+id/homeChatSessionItemAvatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_alignSelf="center" />
 
     <com.google.android.flexbox.FlexboxLayout
-            app:layout_flexGrow="1"
-            android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        app:flexDirection="column"
+        app:layout_flexGrow="1">
+
+        <TextView
+            android:id="@+id/homeChatSessionItemUserName"
             android:layout_width="wrap_content"
-            app:flexDirection="column"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="用户名" />
 
         <TextView
-                android:id="@+id/homeChatSessionItemUserName"
-                android:text="用户名"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        <TextView
-                android:id="@+id/homeChatSessionItemContent"
-                android:layout_marginTop="10dp"
-                android:text="对话内容"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            android:id="@+id/homeChatSessionItemContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="对话内容" />
 
     </com.google.android.flexbox.FlexboxLayout>
 
     <TextView
-            android:id="@+id/homeChatSessionItemTime"
-            android:layout_marginLeft="10dp"
-            android:text="时间"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:id="@+id/homeChatSessionItemTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="时间" />
 
 </com.google.android.flexbox.FlexboxLayout>
