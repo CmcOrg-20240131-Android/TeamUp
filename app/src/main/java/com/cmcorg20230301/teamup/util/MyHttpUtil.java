@@ -85,7 +85,7 @@ public class MyHttpUtil {
     }
 
     /**
-     * 发送get请求
+     * 发送post请求
      *
      * @param urlString 网址
      * @return 返回内容，如果只检查状态码，正常只返回 ""，不正常返回 null
@@ -94,6 +94,22 @@ public class MyHttpUtil {
     public static <T> ApiResultVO<T> post(String urlString, String body) {
 
         HttpRequest httpRequest = HttpRequest.post(urlString).body(body);
+
+        // 执行
+        return execHttpRequest(httpRequest);
+
+    }
+
+    /**
+     * 发送post请求
+     *
+     * @param urlString 网址
+     * @return 返回内容，如果只检查状态码，正常只返回 ""，不正常返回 null
+     */
+    @NotNull
+    public static <T> ApiResultVO<T> post(String urlString, Object body) {
+
+        HttpRequest httpRequest = HttpRequest.post(urlString).body(JSONUtil.toJsonStr(body));
 
         // 执行
         return execHttpRequest(httpRequest);
