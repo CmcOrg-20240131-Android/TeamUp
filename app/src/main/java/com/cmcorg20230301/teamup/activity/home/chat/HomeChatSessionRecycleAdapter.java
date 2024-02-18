@@ -44,7 +44,7 @@ public class HomeChatSessionRecycleAdapter extends RecyclerView.Adapter<HomeChat
     @Override
     public int getItemCount() {
 
-        return 0;
+        return 50;
 
     }
 
