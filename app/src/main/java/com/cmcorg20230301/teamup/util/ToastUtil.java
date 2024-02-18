@@ -1,5 +1,6 @@
 package com.cmcorg20230301.teamup.util;
 
+import android.os.Looper;
 import android.widget.Toast;
 
 import com.cmcorg20230301.teamup.BaseActivity;
@@ -40,6 +41,8 @@ public class ToastUtil {
             return;
         }
 
+        Looper.prepare();
+
         Toast toast = Toast.makeText(BaseActivity.CURRENT_ACTIVITY, text, duration);
 
         if (oldToast != null) {
@@ -49,6 +52,8 @@ public class ToastUtil {
         oldToast = toast;
 
         toast.show();
+
+        Looper.loop();
 
     }
 

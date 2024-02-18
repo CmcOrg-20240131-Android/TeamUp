@@ -18,18 +18,18 @@ public class SignSignInNameApi {
     /**
      * 注册
      */
-    public static ApiResultVO<String> signUp(SignSignInNameSignUpDTO dto, @Nullable VoidFunc1<ApiResultVO<String>> voidFunc1) {
+    public static void signUp(SignSignInNameSignUpDTO dto, @Nullable VoidFunc1<ApiResultVO<String>> voidFunc1) {
 
-        return MyHttpUtil.post("/sign/signInName/sign/up", dto, voidFunc1);
+        MyHttpUtil.post("/sign/signInName/sign/up", dto, voidFunc1);
 
     }
 
     /**
      * 账号密码登录
      */
-    public static ApiResultVO<SignInVO> signInPassword(SignSignInNameSignInPasswordDTO dto, @Nullable VoidFunc1<ApiResultVO<SignInVO>> voidFunc1) {
+    public static void signInPassword(SignSignInNameSignInPasswordDTO dto, @Nullable VoidFunc1<ApiResultVO<SignInVO>> voidFunc1) {
 
-        return MyHttpUtil.post("/sign/signInName/sign/in/password", dto, voidFunc1);
+        MyHttpUtil.post("/sign/signInName/sign/in/password", dto, voidFunc1);
 
     }
 

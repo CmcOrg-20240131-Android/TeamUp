@@ -72,14 +72,6 @@ public class SignInActivity extends BaseActivity {
 
             CharSequence signInPasswordHint = signInPassword.getHint();
 
-            if (!ReUtil.isMatch(BaseRegexConstant.PASSWORD_REGEXP, signInPasswordHint)) {
-
-                passFlag = false;
-
-                signInPassword.setError("密码限制：必须包含大小写字母和数字，可以使用特殊字符，长度8-20");
-
-            }
-
             if (passFlag) {
 
                 String password = MyRsaUtil.passwordRsaEncrypt((String) signInPasswordHint);
