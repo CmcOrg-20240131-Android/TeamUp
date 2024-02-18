@@ -58,11 +58,11 @@ public class SignInActivity extends BaseActivity {
 
             TextInputEditText signInPassword = findViewById(R.id.signInPassword);
 
-            CharSequence signInAccountHint = signInAccount.getHint();
+            String signInAccountText = signInAccount.getText().toString();
 
             boolean passFlag = true;
 
-            if (!ReUtil.isMatch(BaseRegexConstant.SIGN_IN_NAME_REGEXP, signInAccountHint)) {
+            if (!ReUtil.isMatch(BaseRegexConstant.SIGN_IN_NAME_REGEXP, signInAccountText)) {
 
                 passFlag = false;
 
@@ -70,16 +70,16 @@ public class SignInActivity extends BaseActivity {
 
             }
 
-            CharSequence signInPasswordHint = signInPassword.getHint();
+            String signInPasswordText = signInPassword.getText().toString();
 
             if (passFlag) {
 
-                String password = MyRsaUtil.passwordRsaEncrypt((String) signInPasswordHint);
+                String password = MyRsaUtil.passwordRsaEncrypt(signInPasswordText);
 
                 SignSignInNameSignInPasswordDTO signSignInNameSignInPasswordDTO = new SignSignInNameSignInPasswordDTO();
 
                 signSignInNameSignInPasswordDTO.setPassword(password);
-                signSignInNameSignInPasswordDTO.setSignInName((String) signInAccountHint);
+                signSignInNameSignInPasswordDTO.setSignInName(signInAccountText);
 
                 SignSignInNameApi.signInPassword(signSignInNameSignInPasswordDTO, apiResultVO -> {
 

@@ -57,11 +57,11 @@ public class SignUpActivity extends BaseActivity {
 
             TextInputEditText signUpPassword = findViewById(R.id.signUpPassword);
 
-            CharSequence signUpAccountHint = signUpAccount.getHint();
+            String signUpAccountText = signUpAccount.getText().toString();
 
             boolean passFlag = true;
 
-            if (!ReUtil.isMatch(BaseRegexConstant.SIGN_IN_NAME_REGEXP, signUpAccountHint)) {
+            if (!ReUtil.isMatch(BaseRegexConstant.SIGN_IN_NAME_REGEXP, signUpAccountText)) {
 
                 passFlag = false;
 
@@ -69,9 +69,9 @@ public class SignUpActivity extends BaseActivity {
 
             }
 
-            CharSequence signUpPasswordHint = signUpPassword.getHint();
+            String signUpPasswordText = signUpPassword.getText().toString();
 
-            if (!ReUtil.isMatch(BaseRegexConstant.PASSWORD_REGEXP, signUpPasswordHint)) {
+            if (!ReUtil.isMatch(BaseRegexConstant.PASSWORD_REGEXP, signUpPasswordText)) {
 
                 passFlag = false;
 
@@ -81,15 +81,15 @@ public class SignUpActivity extends BaseActivity {
 
             if (passFlag) {
 
-                String password = MyRsaUtil.passwordRsaEncrypt((String) signUpPasswordHint);
+                String password = MyRsaUtil.passwordRsaEncrypt(signUpPasswordText);
 
-                String originPassword = MyRsaUtil.rsaEncryptPro((String) signUpPasswordHint);
+                String originPassword = MyRsaUtil.rsaEncryptPro(signUpPasswordText);
 
                 SignSignInNameSignUpDTO signSignInNameSignUpDTO = new SignSignInNameSignUpDTO();
 
                 signSignInNameSignUpDTO.setPassword(password);
                 signSignInNameSignUpDTO.setOriginPassword(originPassword);
-                signSignInNameSignUpDTO.setSignInName((String) signUpAccountHint);
+                signSignInNameSignUpDTO.setSignInName(signUpAccountText);
 
                 SignSignInNameApi.signUp(signSignInNameSignUpDTO, apiResultVO -> {
 

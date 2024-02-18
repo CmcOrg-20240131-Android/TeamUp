@@ -10,12 +10,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-import cn.hutool.core.lang.TypeReference;
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.func.VoidFunc1;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpGlobalConfig;
 import cn.hutool.http.HttpRequest;
 import cn.hutool.http.Method;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 
 /**
@@ -36,16 +37,16 @@ public class MyHttpUtil {
 
     public static final String API_URL = "https://cmcopen.top/prod-api/lx-saas";
 
-//    public static final String BASE_URL = SysUtil.devFlag() ? "http://localhost:10001" : API_URL;
+    public static final String BASE_URL = SysUtil.devFlag() ? "http://192.168.1.8:10001" : API_URL;
 
-    public static final String BASE_URL = API_URL;
+//    public static final String BASE_URL = API_URL;
 
     /**
      * 执行
      *
      * @param hiddenErrorMsgFlag 是否隐藏错误
      */
-    private static <T> void execHttpRequest(HttpRequest httpRequest, boolean hiddenErrorMsgFlag, @Nullable VoidFunc1<ApiResultVO<T>> voidFunc1, String urlString) {
+    private static <T> void execHttpRequest(HttpRequest httpRequest, boolean hiddenErrorMsgFlag, @Nullable VoidFunc1<ApiResultVO<T>> voidFunc1, String urlString, Class<T> clazz) {
 
         httpRequest.setUrl(BASE_URL + urlString);
 
@@ -59,8 +60,7 @@ public class MyHttpUtil {
 
                 String resStr = httpRequest.execute().body();
 
-                ApiResultVO<T> apiResultVO = JSONUtil.toBean(resStr, new TypeReference<ApiResultVO<T>>() {
-                }, false);
+                ApiResultVO<T> apiResultVO = JSONUtil.toBean(resStr, ApiResultVO.class, false);
 
                 Integer resCode = apiResultVO.getCode();
 
@@ -91,6 +91,13 @@ public class MyHttpUtil {
                         }
 
                     }
+
+                }
+
+                if (apiResultVO.getData() != null && apiResultVO.getData() instanceof JSONObject) {
+
+                    // 类型转换
+                    apiResultVO.setData(BeanUtil.toBean(apiResultVO.getData(), clazz));
 
                 }
 
@@ -133,48 +140,48 @@ public class MyHttpUtil {
     /**
      * 发送get请求
      */
-    public static <T> void get(String urlString, @Nullable VoidFunc1<ApiResultVO<T>> voidFunc1) {
+    public static <T> void get(String urlString, @Nullable VoidFunc1<ApiResultVO<T>> voidFunc1, Class<T> clazz) {
 
         HttpRequest httpRequest = HttpRequest.get(urlString).method(Method.GET);
 
         // 执行
-        execHttpRequest(httpRequest, false, voidFunc1, urlString);
+        execHttpRequest(httpRequest, false, voidFunc1, urlString, clazz);
 
     }
 
     /**
      * 发送get请求
      */
-    public static <T> void get(String urlString, Map<String, Object> paramMap, @Nullable VoidFunc1<ApiResultVO<T>> voidFunc1) {
+    public static <T> void get(String urlString, Map<String, Object> paramMap, @Nullable VoidFunc1<ApiResultVO<T>> voidFunc1, Class<T> clazz) {
 
         HttpRequest httpRequest = HttpRequest.get(urlString).form(paramMap);
 
         // 执行
-        execHttpRequest(httpRequest, false, voidFunc1, urlString);
+        execHttpRequest(httpRequest, false, voidFunc1, urlString, clazz);
 
     }
 
     /**
      * 发送post请求
      */
-    public static <T> void post(String urlString, Object body, @Nullable VoidFunc1<ApiResultVO<T>> voidFunc1) {
+    public static <T> void post(String urlString, Object body, @Nullable VoidFunc1<ApiResultVO<T>> voidFunc1, Class<T> clazz) {
 
         HttpRequest httpRequest = HttpRequest.post(urlString).body(JSONUtil.toJsonStr(body));
 
         // 执行
-        execHttpRequest(httpRequest, false, voidFunc1, urlString);
+        execHttpRequest(httpRequest, false, voidFunc1, urlString, clazz);
 
     }
 
     /**
      * 发送post请求
      */
-    public static <T> void postHiddenError(String urlString, Object body, @Nullable VoidFunc1<ApiResultVO<T>> voidFunc1) {
+    public static <T> void postHiddenError(String urlString, Object body, @Nullable VoidFunc1<ApiResultVO<T>> voidFunc1, Class<T> clazz) {
 
         HttpRequest httpRequest = HttpRequest.post(urlString).body(JSONUtil.toJsonStr(body));
 
         // 执行
-        execHttpRequest(httpRequest, true, voidFunc1, urlString);
+        execHttpRequest(httpRequest, true, voidFunc1, urlString, clazz);
 
     }
 
