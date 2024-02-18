@@ -22,8 +22,6 @@ public class HomeChatSessionFragment extends BaseFragment {
 
     private View view; // 定义 view用来设置 fragment的layout
 
-    public RecyclerView recyclerView; // 定义 RecyclerView
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,7 +44,7 @@ public class HomeChatSessionFragment extends BaseFragment {
         FragmentActivity fragmentActivity = getActivity();
 
         // 获取：RecyclerView
-        recyclerView = view.findViewById(R.id.homeChatSessionRecyclerView);
+        RecyclerView recyclerView = view.findViewById(R.id.homeChatSessionRecyclerView);
 
         // 创建：adapter
         HomeChatSessionRecycleAdapter recyclerAdapter = new HomeChatSessionRecycleAdapter(fragmentActivity);

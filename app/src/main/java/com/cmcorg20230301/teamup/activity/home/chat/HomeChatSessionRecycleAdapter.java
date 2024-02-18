@@ -97,7 +97,6 @@ public class HomeChatSessionRecycleAdapter extends RecyclerView.Adapter<HomeChat
 
     }
 
-    // 需要外部访问，所以需要设置set方法，方便调用
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
