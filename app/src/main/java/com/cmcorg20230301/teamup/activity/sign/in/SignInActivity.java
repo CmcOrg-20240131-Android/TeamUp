@@ -8,8 +8,13 @@ import androidx.annotation.ColorRes;
 
 import com.cmcorg20230301.teamup.BaseActivity;
 import com.cmcorg20230301.teamup.R;
+import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.activity.sign.up.SignUpActivity;
+import com.cmcorg20230301.teamup.api.http.SignSignInNameApi;
 import com.cmcorg20230301.teamup.model.constant.BaseRegexConstant;
+import com.cmcorg20230301.teamup.model.dto.SignSignInNameSignInPasswordDTO;
+import com.cmcorg20230301.teamup.util.MyRsaUtil;
+import com.cmcorg20230301.teamup.util.UserUtil;
 import com.google.android.material.textfield.TextInputEditText;
 
 import cn.hutool.core.util.ReUtil;
@@ -73,6 +78,21 @@ public class SignInActivity extends BaseActivity {
             }
 
             if (passFlag) {
+
+                String password = MyRsaUtil.passwordRsaEncrypt((String) signInPasswordHint);
+
+                SignSignInNameSignInPasswordDTO signSignInNameSignInPasswordDTO = new SignSignInNameSignInPasswordDTO();
+
+                signSignInNameSignInPasswordDTO.setPassword(password);
+                signSignInNameSignInPasswordDTO.setSignInName((String) signInAccountHint);
+
+                SignSignInNameApi.signInPassword(signSignInNameSignInPasswordDTO, apiResultVO -> {
+
+                    UserUtil.signInSuccess(apiResultVO, true);
+
+                    startActivity(new Intent(this, HomeActivity.class)); // 跳转到：主页
+
+                });
 
             }
 

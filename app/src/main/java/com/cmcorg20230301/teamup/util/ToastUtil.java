@@ -4,6 +4,8 @@ import android.widget.Toast;
 
 import com.cmcorg20230301.teamup.BaseActivity;
 
+import cn.hutool.core.util.StrUtil;
+
 /**
  * 提示工具类
  */
@@ -25,7 +27,18 @@ public class ToastUtil {
         makeText(text, Toast.LENGTH_LONG);
     }
 
+    /**
+     * 长显示
+     */
+    public static void makeText(CharSequence text) {
+        makeText(text, Toast.LENGTH_LONG);
+    }
+
     public synchronized static void makeText(CharSequence text, int duration) {
+
+        if (StrUtil.isBlank(text)) {
+            return;
+        }
 
         Toast toast = Toast.makeText(BaseActivity.CURRENT_ACTIVITY, text, duration);
 

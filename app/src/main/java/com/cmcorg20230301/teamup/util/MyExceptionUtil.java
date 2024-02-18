@@ -13,4 +13,13 @@ public class MyExceptionUtil {
 
     }
 
+    /**
+     * 打印异常日志-http
+     */
+    public static void printHttpError(Throwable e, String url) {
+
+        LogUtil.error("异常日志打印：页面：{}，url：{}", BaseActivity.CURRENT_ACTIVITY.getClass().getName(), url, e);
+
+    }
+
 }
