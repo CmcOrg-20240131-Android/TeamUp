@@ -60,13 +60,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         Thread.setDefaultUncaughtExceptionHandler(MyUncaughtExceptionHandler.getInstance());
 
         // 初始化页面
-        initView();
+        initView(savedInstanceState);
 
     }
 
     /**
      * 初始化页面
      */
-    public abstract void initView();
+    public abstract void initView(@Nullable Bundle savedInstanceState);
 
 }

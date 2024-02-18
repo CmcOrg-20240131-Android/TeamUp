@@ -1,6 +1,7 @@
 package com.cmcorg20230301.teamup.activity.sign.in;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -16,6 +17,8 @@ import com.cmcorg20230301.teamup.model.dto.SignSignInNameSignInPasswordDTO;
 import com.cmcorg20230301.teamup.util.MyRsaUtil;
 import com.cmcorg20230301.teamup.util.UserUtil;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.jetbrains.annotations.Nullable;
 
 import cn.hutool.core.util.ReUtil;
 
@@ -35,7 +38,7 @@ public class SignInActivity extends BaseActivity {
     }
 
     @Override
-    public void initView() {
+    public void initView(@Nullable Bundle savedInstanceState) {
 
         setContentView(R.layout.sign_in);
 
