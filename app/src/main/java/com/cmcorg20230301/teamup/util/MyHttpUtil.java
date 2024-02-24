@@ -37,9 +37,9 @@ public class MyHttpUtil {
 
     public static final String API_URL = "https://cmcopen.top/prod-api/lx-saas";
 
-    public static final String BASE_URL = SysUtil.devFlag() ? "http://192.168.1.8:10001" : API_URL;
+//    public static final String BASE_URL = SysUtil.devFlag() ? "http://192.168.1.8:10001" : API_URL;
 
-//    public static final String BASE_URL = API_URL;
+    public static final String BASE_URL = API_URL;
 
     /**
      * 执行

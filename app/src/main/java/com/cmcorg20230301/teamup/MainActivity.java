@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.ColorRes;
 
-import com.cmcorg20230301.teamup.activity.home.HomeActivity;
+import com.cmcorg20230301.teamup.activity.sign.in.SignInActivity;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +24,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
 
-        startActivity(new Intent(this, HomeActivity.class));
+        startActivity(new Intent(this, SignInActivity.class));
 
         finish();
 

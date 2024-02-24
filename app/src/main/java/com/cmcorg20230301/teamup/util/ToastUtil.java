@@ -1,6 +1,5 @@
 package com.cmcorg20230301.teamup.util;
 
-import android.os.Looper;
 import android.widget.Toast;
 
 import com.cmcorg20230301.teamup.BaseActivity;
@@ -11,8 +10,6 @@ import cn.hutool.core.util.StrUtil;
  * 提示工具类
  */
 public class ToastUtil {
-
-    private static Toast oldToast = null; // 记录上一个 toast
 
     /**
      * 短显示
@@ -35,25 +32,17 @@ public class ToastUtil {
         makeText(text, Toast.LENGTH_LONG);
     }
 
-    public synchronized static void makeText(CharSequence text, int duration) {
+    public static void makeText(CharSequence text, int duration) {
 
         if (StrUtil.isBlank(text)) {
             return;
         }
 
-        Looper.prepare();
+        BaseActivity.CURRENT_ACTIVITY.runOnUiThread(() -> {
 
-        Toast toast = Toast.makeText(BaseActivity.CURRENT_ACTIVITY, text, duration);
+            Toast.makeText(BaseActivity.CURRENT_ACTIVITY, text, duration).show();
 
-        if (oldToast != null) {
-            oldToast.cancel();
-        }
-
-        oldToast = toast;
-
-        toast.show();
-
-        Looper.loop();
+        });
 
     }
 
