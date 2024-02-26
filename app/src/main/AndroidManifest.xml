@@ -30,10 +30,12 @@
         <activity android:name="com.cmcorg20230301.teamup.activity.sign.in.SignInActivity" />
 
         <activity
-            android:name="com.cmcorg20230301.teamup.activity.sign.up.SignUpActivity"
-            android:theme="@style/Theme.SignUp" />
+                android:name="com.cmcorg20230301.teamup.activity.sign.up.SignUpActivity"
+                android:theme="@style/Theme.SignUp" />
 
         <activity android:name="com.cmcorg20230301.teamup.activity.home.HomeActivity" />
+
+        <activity android:name="com.cmcorg20230301.teamup.activity.sign.SignActivity" />
 
     </application>
 
