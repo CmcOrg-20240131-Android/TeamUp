@@ -2,15 +2,18 @@ package com.cmcorg20230301.teamup.activity.sign.in;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
-import com.cmcorg20230301.teamup.BaseActivity;
+import com.cmcorg20230301.teamup.BaseFragment;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
-import com.cmcorg20230301.teamup.activity.sign.up.SignUpActivity;
+import com.cmcorg20230301.teamup.activity.sign.up.SignUpFragment;
 import com.cmcorg20230301.teamup.api.http.SignSignInNameApi;
 import com.cmcorg20230301.teamup.model.constant.BaseRegexConstant;
 import com.cmcorg20230301.teamup.model.dto.SignSignInNameSignInPasswordDTO;
@@ -21,37 +24,28 @@ import com.cmcorg20230301.teamup.util.MyRsaUtil;
 import com.cmcorg20230301.teamup.util.UserUtil;
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.jetbrains.annotations.Nullable;
-
 import cn.hutool.core.util.ReUtil;
 
 /**
- * 注册页
+ * 登录页
  */
-public class SignInActivity extends BaseActivity {
+public class SignInFragment extends BaseFragment {
 
     @Override
-    public @ColorRes Integer getStatusBarColorId() {
-        return R.color.white1;
+    public Integer getLayoutId() {
+        return R.layout.sign_in;
     }
 
     @Override
-    public boolean getStatusBarLightFlag() {
-        return true;
-    }
-
-    @Override
-    public void initView(@Nullable Bundle savedInstanceState) {
-
-        setContentView(R.layout.sign_in);
+    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         TextView signInGoSignUp = findViewById(R.id.signInGoSignUp);
 
-        SignInActivity that = this;
-
         signInGoSignUp.setOnClickListener(v -> {
 
-            startActivity(new Intent(that, SignUpActivity.class));
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.signFragment, SignUpFragment.class, null)
+                    .commit();
 
         });
 
@@ -93,7 +87,7 @@ public class SignInActivity extends BaseActivity {
 
                         UserUtil.signInSuccess(apiResultVO, true);
 
-                        startActivity(new Intent(that, HomeActivity.class)); // 跳转到：主页
+                        startActivity(new Intent(getActivity(), HomeActivity.class)); // 跳转到：主页
 
                     }
 

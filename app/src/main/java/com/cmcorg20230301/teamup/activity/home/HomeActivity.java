@@ -17,7 +17,7 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public @ColorRes Integer getStatusBarColorId() {
-        return R.color.black2;
+        return R.color.white1;
     }
 
     @Override

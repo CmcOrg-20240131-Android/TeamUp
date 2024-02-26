@@ -20,23 +20,20 @@ import com.cmcorg20230301.teamup.R;
  */
 public class HomeChatSessionFragment extends BaseFragment {
 
-    private View view; // 定义 view用来设置 fragment的layout
-
     private RecyclerView recyclerView;
 
     private HomeChatSessionRecycleAdapter recyclerAdapter;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public Integer getLayoutId() {
+        return R.layout.home_chat_session;
+    }
 
-        // 布局
-        view = inflater.inflate(R.layout.home_chat_session, container, false);
+    @Override
+    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         // 初始化：RecyclerView
         initRecyclerView();
-
-        return view;
 
     }
 

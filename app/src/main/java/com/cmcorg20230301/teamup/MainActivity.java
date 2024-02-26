@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.ColorRes;
 
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
-import com.cmcorg20230301.teamup.activity.sign.in.SignInActivity;
+import com.cmcorg20230301.teamup.activity.sign.SignActivity;
 import com.cmcorg20230301.teamup.model.enums.SharedPreferencesKeyEnum;
 import com.cmcorg20230301.teamup.util.SharedPreferencesUtil;
 
@@ -33,7 +33,7 @@ public class MainActivity extends BaseActivity {
 
         if (StrUtil.isBlank(jwt)) {
 
-            startActivity(new Intent(this, SignInActivity.class));
+            startActivity(new Intent(this, SignActivity.class));
 
         } else {
 

@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.cmcorg20230301.teamup.BaseActivity;
 import com.cmcorg20230301.teamup.R;
+import com.cmcorg20230301.teamup.activity.sign.in.SignInFragment;
 
 /**
  * 登录/注册页
@@ -25,6 +26,12 @@ public class SignActivity extends BaseActivity {
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
+
+        setContentView(R.layout.sign);
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.signFragment, SignInFragment.class, null)
+                .commit();
 
     }
 

@@ -6,4 +6,10 @@ import com.cmcorg20230301.teamup.BaseFragment;
  * 聊天会话-内容页
  */
 public class HomeChatSessionContentFragment extends BaseFragment {
+
+    @Override
+    public Integer getLayoutId() {
+        return null;
+    }
+
 }
