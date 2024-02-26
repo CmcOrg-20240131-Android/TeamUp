@@ -44,7 +44,7 @@ public class SignInFragment extends BaseFragment {
         signInGoSignUp.setOnClickListener(v -> {
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.signFragment, SignUpFragment.class, null)
+                    .replace(R.id.signFragment, SignUpFragment.class, null)
                     .commit();
 
         });

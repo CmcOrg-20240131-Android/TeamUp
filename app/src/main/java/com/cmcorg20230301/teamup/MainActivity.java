@@ -5,14 +5,11 @@ import android.os.Bundle;
 
 import androidx.annotation.ColorRes;
 
-import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.activity.sign.SignActivity;
 import com.cmcorg20230301.teamup.model.enums.SharedPreferencesKeyEnum;
 import com.cmcorg20230301.teamup.util.SharedPreferencesUtil;
 
 import org.jetbrains.annotations.Nullable;
-
-import cn.hutool.core.util.StrUtil;
 
 public class MainActivity extends BaseActivity {
 
@@ -31,15 +28,15 @@ public class MainActivity extends BaseActivity {
 
         String jwt = SharedPreferencesUtil.getSharedPreferences().getString(SharedPreferencesKeyEnum.JWT.name(), null);
 
-        if (StrUtil.isBlank(jwt)) {
+//        if (StrUtil.isBlank(jwt)) {
 
-            startActivity(new Intent(this, SignActivity.class));
-
-        } else {
-
-            startActivity(new Intent(this, HomeActivity.class));
-
-        }
+        startActivity(new Intent(this, SignActivity.class));
+//
+//        } else {
+//
+//            startActivity(new Intent(this, HomeActivity.class));
+//
+//        }
 
         finish();
 

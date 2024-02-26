@@ -1,5 +1,6 @@
 package com.cmcorg20230301.teamup.activity.sign.up;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.cmcorg20230301.teamup.BaseFragment;
 import com.cmcorg20230301.teamup.R;
@@ -33,6 +35,18 @@ public class SignUpFragment extends BaseFragment {
         return R.layout.sign_up;
     }
 
+    @NonNull
+    @Override
+    public LayoutInflater onGetLayoutInflater(@Nullable Bundle savedInstanceState) {
+
+        LayoutInflater inflater = super.onGetLayoutInflater(savedInstanceState);
+
+        Context contextThemeWrapper = new ContextThemeWrapper(requireContext(), R.style.Theme_SignUp);
+
+        return inflater.cloneInContext(contextThemeWrapper);
+
+    }
+
     @Override
     public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -41,7 +55,7 @@ public class SignUpFragment extends BaseFragment {
         signUpGoSignIn.setOnClickListener(v -> {
 
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.signFragment, SignInFragment.class, null)
+                    .replace(R.id.signFragment, SignInFragment.class, null)
                     .commit();
 
         });
@@ -96,7 +110,7 @@ public class SignUpFragment extends BaseFragment {
                         ToastUtil.makeText(apiResultVO.getMsg());
 
                         getSupportFragmentManager().beginTransaction()
-                                .add(R.id.signFragment, SignInFragment.class, null)
+                                .replace(R.id.signFragment, SignInFragment.class, null)
                                 .commit();
 
                     }

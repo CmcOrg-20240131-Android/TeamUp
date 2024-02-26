@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.cmcorg20230301.teamup.BaseActivity;
+import com.cmcorg20230301.teamup.activity.sign.SignActivity;
 import com.cmcorg20230301.teamup.model.enums.SharedPreferencesKeyEnum;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.SignInVO;
@@ -31,7 +32,7 @@ public class UserUtil {
         }
 
         // 跳转到：登录页面
-        BaseActivity.CURRENT_ACTIVITY.startActivity(new Intent(BaseActivity.CURRENT_ACTIVITY, SignInActivity.class));
+        BaseActivity.CURRENT_ACTIVITY.startActivity(new Intent(BaseActivity.CURRENT_ACTIVITY, SignActivity.class));
 
     }
 
