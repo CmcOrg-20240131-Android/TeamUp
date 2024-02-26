@@ -13,6 +13,8 @@ import com.cmcorg20230301.teamup.activity.sign.in.SignInActivity;
 import com.cmcorg20230301.teamup.api.http.SignSignInNameApi;
 import com.cmcorg20230301.teamup.model.constant.BaseRegexConstant;
 import com.cmcorg20230301.teamup.model.dto.SignSignInNameSignUpDTO;
+import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
+import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.util.MyRsaUtil;
 import com.cmcorg20230301.teamup.util.ToastUtil;
 import com.google.android.material.textfield.TextInputEditText;
@@ -28,7 +30,7 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     public @ColorRes Integer getStatusBarColorId() {
-        return R.color.black2;
+        return R.color.white1;
     }
 
     @Override
@@ -43,9 +45,11 @@ public class SignUpActivity extends BaseActivity {
 
         TextView signUpGoSignIn = findViewById(R.id.signUpGoSignIn);
 
+        SignUpActivity that = this;
+
         signUpGoSignIn.setOnClickListener(v -> {
 
-            startActivity(new Intent(this, SignInActivity.class));
+            startActivity(new Intent(that, SignInActivity.class));
 
         });
 
@@ -91,11 +95,16 @@ public class SignUpActivity extends BaseActivity {
                 signSignInNameSignUpDTO.setOriginPassword(originPassword);
                 signSignInNameSignUpDTO.setSignInName(signUpAccountText);
 
-                SignSignInNameApi.signUp(signSignInNameSignUpDTO, apiResultVO -> {
+                SignSignInNameApi.signUp(signSignInNameSignUpDTO, new IHttpHandle<String>() {
 
-                    ToastUtil.makeText(apiResultVO.getMsg());
+                    @Override
+                    public void success(ApiResultVO<String> apiResultVO) {
 
-                    startActivity(new Intent(this, SignInActivity.class)); // 跳转到：登录页面
+                        ToastUtil.makeText(apiResultVO.getMsg());
+
+                        startActivity(new Intent(that, SignInActivity.class)); // 跳转到：登录页面
+
+                    }
 
                 });
 

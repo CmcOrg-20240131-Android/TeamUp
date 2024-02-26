@@ -14,6 +14,9 @@ import com.cmcorg20230301.teamup.activity.sign.up.SignUpActivity;
 import com.cmcorg20230301.teamup.api.http.SignSignInNameApi;
 import com.cmcorg20230301.teamup.model.constant.BaseRegexConstant;
 import com.cmcorg20230301.teamup.model.dto.SignSignInNameSignInPasswordDTO;
+import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
+import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
+import com.cmcorg20230301.teamup.model.vo.SignInVO;
 import com.cmcorg20230301.teamup.util.MyRsaUtil;
 import com.cmcorg20230301.teamup.util.UserUtil;
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,7 +32,7 @@ public class SignInActivity extends BaseActivity {
 
     @Override
     public @ColorRes Integer getStatusBarColorId() {
-        return R.color.black2;
+        return R.color.white1;
     }
 
     @Override
@@ -44,9 +47,11 @@ public class SignInActivity extends BaseActivity {
 
         TextView signInGoSignUp = findViewById(R.id.signInGoSignUp);
 
+        SignInActivity that = this;
+
         signInGoSignUp.setOnClickListener(v -> {
 
-            startActivity(new Intent(this, SignUpActivity.class));
+            startActivity(new Intent(that, SignUpActivity.class));
 
         });
 
@@ -81,11 +86,16 @@ public class SignInActivity extends BaseActivity {
                 signSignInNameSignInPasswordDTO.setPassword(password);
                 signSignInNameSignInPasswordDTO.setSignInName(signInAccountText);
 
-                SignSignInNameApi.signInPassword(signSignInNameSignInPasswordDTO, apiResultVO -> {
+                SignSignInNameApi.signInPassword(signSignInNameSignInPasswordDTO, new IHttpHandle<SignInVO>() {
 
-                    UserUtil.signInSuccess(apiResultVO, true);
+                    @Override
+                    public void success(ApiResultVO<SignInVO> apiResultVO) {
 
-                    startActivity(new Intent(this, HomeActivity.class)); // 跳转到：主页
+                        UserUtil.signInSuccess(apiResultVO, true);
+
+                        startActivity(new Intent(that, HomeActivity.class)); // 跳转到：主页
+
+                    }
 
                 });
 

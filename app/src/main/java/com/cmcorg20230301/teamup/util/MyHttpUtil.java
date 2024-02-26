@@ -104,7 +104,7 @@ public class MyHttpUtil {
     /**
      * 处理：错误代码
      */
-    private static <T> void handleErrorCode(boolean hiddenErrorMsgFlag, @androidx.annotation.Nullable IHttpHandle<T> iHttpHandle, ApiResultVO<T> apiResultVO, Integer resCode) {
+    private static <T> void handleErrorCode(boolean hiddenErrorMsgFlag, @Nullable IHttpHandle<T> iHttpHandle, ApiResultVO<T> apiResultVO, Integer resCode) {
 
         if (BaseBizCodeEnum.NOT_LOGGED_IN_YET.getCode() == resCode) { // 这个代码需要跳转到：登录页面
 
@@ -177,7 +177,7 @@ public class MyHttpUtil {
     /**
      * 发送get请求
      */
-    public static <T> void get(String urlString, @Nullable IHttpHandle<ApiResultVO<T>> iHttpHandle, Class<T> clazz) {
+    public static <T> void get(String urlString, @Nullable IHttpHandle<T> iHttpHandle, Class<T> clazz) {
 
         HttpRequest httpRequest = HttpRequest.get(urlString).method(Method.GET);
 
