@@ -1,5 +1,6 @@
 package com.cmcorg20230301.teamup;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -18,6 +21,30 @@ import androidx.fragment.app.FragmentManager;
 public abstract class BaseFragment extends Fragment {
 
     public abstract @LayoutRes Integer getLayoutId();
+
+    public @StyleRes Integer getThemeId() {
+
+        return null;
+
+    }
+
+    @NonNull
+    @Override
+    public LayoutInflater onGetLayoutInflater(@Nullable Bundle savedInstanceState) {
+
+        LayoutInflater inflater = super.onGetLayoutInflater(savedInstanceState);
+
+        Integer themeId = getThemeId();
+
+        if (themeId == null) {
+            return inflater;
+        }
+
+        Context contextThemeWrapper = new ContextThemeWrapper(getActivity(), themeId);
+
+        return inflater.cloneInContext(contextThemeWrapper);
+
+    }
 
     public View view; // 定义 view用来设置 fragment的layout
 
