@@ -10,7 +10,6 @@
         android:id="@+id/homeChatSessionRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_flexGrow="1"
         tools:itemCount="20"
         tools:listitem="@layout/home_chat_session_item" />

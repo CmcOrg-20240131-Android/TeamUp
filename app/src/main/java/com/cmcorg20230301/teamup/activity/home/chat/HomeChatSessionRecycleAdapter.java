@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
 
 import cn.hutool.core.date.DateUtil;
@@ -38,6 +39,8 @@ public class HomeChatSessionRecycleAdapter extends RecyclerView.Adapter<HomeChat
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.homeChatSessionItemTime.setText(DateUtil.now());
+
+        Glide.with(context).load("https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg").into(holder.homeChatSessionItemAvatar);
 
     }
 
