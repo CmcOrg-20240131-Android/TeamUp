@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="30dp"
-    android:paddingVertical="50dp"
     app:flexDirection="column">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -13,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_flexGrow="1"
         tools:itemCount="20"
         tools:listitem="@layout/home_chat_session_item" />
 
