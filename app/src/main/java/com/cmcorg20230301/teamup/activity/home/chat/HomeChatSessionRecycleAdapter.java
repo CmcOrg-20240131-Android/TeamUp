@@ -31,6 +31,11 @@ public class HomeChatSessionRecycleAdapter extends RecyclerView.Adapter<HomeChat
         // 创建自定义布局
         View itemView = View.inflate(context, R.layout.home_chat_session_item, null);
 
+        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        itemView.setLayoutParams(layoutParams);
+
         return new ViewHolder(itemView);
 
     }
