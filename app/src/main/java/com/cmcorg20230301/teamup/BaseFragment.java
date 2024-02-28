@@ -20,8 +20,6 @@ import androidx.fragment.app.FragmentManager;
  */
 public abstract class BaseFragment extends Fragment {
 
-    public static BaseFragment CURRENT_FRAGMENT;
-
     public abstract @LayoutRes Integer getLayoutId();
 
     public @StyleRes Integer getThemeId() {
@@ -51,8 +49,6 @@ public abstract class BaseFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        CURRENT_FRAGMENT = this;
 
         // 布局
         view = inflater.inflate(getLayoutId(), container, false);
