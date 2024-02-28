@@ -23,9 +23,7 @@ public abstract class BaseFragment extends Fragment {
     public abstract @LayoutRes Integer getLayoutId();
 
     public @StyleRes Integer getThemeId() {
-
         return null;
-
     }
 
     @NonNull
