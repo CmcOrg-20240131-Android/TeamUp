@@ -14,6 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cmcorg20230301.teamup.BaseFragment;
 import com.cmcorg20230301.teamup.R;
+import com.cmcorg20230301.teamup.api.http.SysImSessionApi;
+import com.cmcorg20230301.teamup.model.dto.SysImSessionSelfPageDTO;
+import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
+import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
+import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
+import com.cmcorg20230301.teamup.model.vo.Page;
+import com.cmcorg20230301.teamup.util.MyThreadUtil;
+
+import java.util.List;
 
 /**
  * 聊天会话页
@@ -24,6 +33,8 @@ public class HomeChatSessionFragment extends BaseFragment {
 
     private HomeChatSessionRecycleAdapter recyclerAdapter;
 
+    private List<SysImSessionDO> dataList;
+
     @Override
     public Integer getLayoutId() {
         return R.layout.home_chat_session;
@@ -31,6 +42,19 @@ public class HomeChatSessionFragment extends BaseFragment {
 
     @Override
     public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        MyThreadUtil.execute(() -> {
+
+            SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(), new IHttpHandle<Page<SysImSessionDO>>() {
+
+                @Override
+                public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
+
+                }
+
+            });
+
+        });
 
         // 初始化：RecyclerView
         initRecyclerView();
@@ -48,7 +72,7 @@ public class HomeChatSessionFragment extends BaseFragment {
         recyclerView = view.findViewById(R.id.homeChatSessionRecyclerView);
 
         // 创建：adapter
-        recyclerAdapter = new HomeChatSessionRecycleAdapter(fragmentActivity);
+        recyclerAdapter = new HomeChatSessionRecycleAdapter(fragmentActivity, dataList);
 
         // 给：RecyclerView设置adapter
         recyclerView.setAdapter(recyclerAdapter);

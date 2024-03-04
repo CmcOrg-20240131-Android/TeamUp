@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
+import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
+
+import java.util.Date;
+import java.util.List;
 
 import cn.hutool.core.date.DateUtil;
 
@@ -18,9 +22,12 @@ public class HomeChatSessionRecycleAdapter extends RecyclerView.Adapter<HomeChat
 
     private Context context;
 
-    public HomeChatSessionRecycleAdapter(Context context) {
+    private List<SysImSessionDO> dataList;
+
+    public HomeChatSessionRecycleAdapter(Context context, List<SysImSessionDO> dataList) {
 
         this.context = context;
+        this.dataList = dataList;
 
     }
 
@@ -47,16 +54,22 @@ public class HomeChatSessionRecycleAdapter extends RecyclerView.Adapter<HomeChat
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.homeChatSessionItemTime.setText(DateUtil.now());
+        SysImSessionDO sysImSessionDO = dataList.get(position);
 
         Glide.with(context).load("https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg").into(holder.homeChatSessionItemAvatar);
+
+        holder.homeChatSessionItemUserName.setText(sysImSessionDO.getName());
+
+        holder.homeChatSessionItemContent.setText(sysImSessionDO.getLastContent());
+
+        holder.homeChatSessionItemTime.setText(DateUtil.formatDateTime(new Date(sysImSessionDO.getLastContentCreateTs())));
 
     }
 
     @Override
     public int getItemCount() {
 
-        return 50;
+        return dataList.size();
 
     }
 
