@@ -50,6 +50,8 @@ public class HomeChatSessionFragment extends BaseFragment {
                 @Override
                 public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
 
+                    dataList = apiResultVO.getData().getRecords();
+
                 }
 
             });
