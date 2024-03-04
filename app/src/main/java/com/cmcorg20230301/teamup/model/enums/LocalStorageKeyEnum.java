@@ -1,6 +1,6 @@
 package com.cmcorg20230301.teamup.model.enums;
 
-public enum SharedPreferencesKeyEnum {
+public enum LocalStorageKeyEnum {
 
     JWT, // jwt
 
@@ -21,5 +21,7 @@ public enum SharedPreferencesKeyEnum {
     SIGN_IN_TYPE, // 登录方式
 
     SIGN_IN_TYPE_SINGLE, // 登录方式：统一登录
+
+    IM_SESSION_LIST, // 会话列表集合
 
 }

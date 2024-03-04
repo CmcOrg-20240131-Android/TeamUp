@@ -17,12 +17,17 @@ import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApi;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionSelfPageDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
+import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
+import com.cmcorg20230301.teamup.util.MyLocalStorage;
 import com.cmcorg20230301.teamup.util.MyThreadUtil;
 
 import java.util.List;
+
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 
 /**
  * 聊天会话页
@@ -33,8 +38,6 @@ public class HomeChatSessionFragment extends BaseFragment {
 
     private HomeChatSessionRecycleAdapter recyclerAdapter;
 
-    private List<SysImSessionDO> dataList;
-
     @Override
     public Integer getLayoutId() {
         return R.layout.home_chat_session;
@@ -43,6 +46,15 @@ public class HomeChatSessionFragment extends BaseFragment {
     @Override
     public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        String imSessionListJsonStr = MyLocalStorage.getItem(LocalStorageKeyEnum.IM_SESSION_LIST);
+
+        if (StrUtil.isNotBlank(imSessionListJsonStr)) {
+
+            // 初始化：RecyclerView
+            initRecyclerView(JSONUtil.toList(imSessionListJsonStr, SysImSessionDO.class));
+
+        }
+
         MyThreadUtil.execute(() -> {
 
             SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(), new IHttpHandle<Page<SysImSessionDO>>() {
@@ -50,7 +62,8 @@ public class HomeChatSessionFragment extends BaseFragment {
                 @Override
                 public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
 
-                    dataList = apiResultVO.getData().getRecords();
+                    // 初始化：RecyclerView
+                    initRecyclerView(apiResultVO.getData().getRecords());
 
                 }
 
@@ -58,15 +71,12 @@ public class HomeChatSessionFragment extends BaseFragment {
 
         });
 
-        // 初始化：RecyclerView
-        initRecyclerView();
-
     }
 
     /**
      * 初始化：RecyclerView
      */
-    private void initRecyclerView() {
+    private void initRecyclerView(List<SysImSessionDO> dataList) {
 
         FragmentActivity fragmentActivity = getActivity();
 

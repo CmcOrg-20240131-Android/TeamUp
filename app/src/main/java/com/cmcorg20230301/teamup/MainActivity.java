@@ -7,7 +7,7 @@ import androidx.annotation.ColorRes;
 
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.activity.sign.SignActivity;
-import com.cmcorg20230301.teamup.model.enums.SharedPreferencesKeyEnum;
+import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.util.SharedPreferencesUtil;
 
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
 
-        String jwt = SharedPreferencesUtil.getSharedPreferences().getString(SharedPreferencesKeyEnum.JWT.name(), null);
+        String jwt = SharedPreferencesUtil.getSharedPreferences().getString(LocalStorageKeyEnum.JWT.name(), null);
 
         if (StrUtil.isBlank(jwt)) {
 

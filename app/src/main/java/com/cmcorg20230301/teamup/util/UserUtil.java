@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 import com.cmcorg20230301.teamup.BaseActivity;
 import com.cmcorg20230301.teamup.activity.sign.SignActivity;
-import com.cmcorg20230301.teamup.model.enums.SharedPreferencesKeyEnum;
+import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.SignInVO;
 
@@ -51,9 +51,9 @@ public class UserUtil {
 
         SharedPreferences.Editor editor = SharedPreferencesUtil.getEditor();
 
-        editor.putString(SharedPreferencesKeyEnum.JWT.name(), signInVO.getJwt());
+        editor.putString(LocalStorageKeyEnum.JWT.name(), signInVO.getJwt());
 
-        editor.putLong(SharedPreferencesKeyEnum.JWT_EXPIRE_TS.name(), signInVO.getJwtExpireTs());
+        editor.putLong(LocalStorageKeyEnum.JWT_EXPIRE_TS.name(), signInVO.getJwtExpireTs());
 
         editor.apply();
 

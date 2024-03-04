@@ -2,7 +2,7 @@ package com.cmcorg20230301.teamup.util;
 
 import com.cmcorg20230301.teamup.exception.BaseBizCodeEnum;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
-import com.cmcorg20230301.teamup.model.enums.SharedPreferencesKeyEnum;
+import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.enums.SysRequestCategoryEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
@@ -50,7 +50,7 @@ public class MyHttpUtil {
 
         httpRequest.setUrl(BASE_URL + urlString);
 
-        httpRequest.header("Authorization", SharedPreferencesUtil.getSharedPreferences().getString(SharedPreferencesKeyEnum.JWT.name(), ""));
+        httpRequest.header("Authorization", SharedPreferencesUtil.getSharedPreferences().getString(LocalStorageKeyEnum.JWT.name(), ""));
 
         httpRequest.header("category", String.valueOf(SysRequestCategoryEnum.ANDROID.getCode()));
 
@@ -110,7 +110,7 @@ public class MyHttpUtil {
 
             if (!hiddenErrorMsgFlag) {
 
-                String jwt = SharedPreferencesUtil.getSharedPreferences().getString(SharedPreferencesKeyEnum.JWT.name(), null);
+                String jwt = MyLocalStorage.getItem(LocalStorageKeyEnum.JWT.name(), null);
 
                 if (StrUtil.isNotBlank(jwt)) {
 
