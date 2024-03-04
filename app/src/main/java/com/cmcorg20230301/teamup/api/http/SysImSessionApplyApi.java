@@ -1,5 +1,7 @@
 package com.cmcorg20230301.teamup.api.http;
 
+import com.cmcorg20230301.teamup.model.dto.NotEmptyIdSet;
+import com.cmcorg20230301.teamup.model.dto.NotNullId;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionApplyPrivateChatSelfPageDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionApplyDO;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
@@ -21,6 +23,26 @@ public class SysImSessionApplyApi {
     public static void privateChatMyPageSelf(SysImSessionApplyPrivateChatSelfPageDTO dto, @Nullable IHttpHandle<Page<SysImSessionApplyDO>> iHttpHandle) {
 
         MyHttpUtil.post("/sys/im/session/apply/privateChat/page/self", dto, iHttpHandle, new TypeReference<Page<SysImSessionApplyDO>>() {
+        });
+
+    }
+
+    /**
+     * 私聊：申请添加
+     */
+    public static void privateChatApply(NotNullId dto, @Nullable IHttpHandle<String> iHttpHandle) {
+
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/apply", dto, iHttpHandle, new TypeReference<String>() {
+        });
+
+    }
+
+    /**
+     * 私聊：同意添加
+     */
+    public static void privateChatAgree(NotEmptyIdSet dto, @Nullable IHttpHandle<String> iHttpHandle) {
+
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/agree", dto, iHttpHandle, new TypeReference<String>() {
         });
 
     }
