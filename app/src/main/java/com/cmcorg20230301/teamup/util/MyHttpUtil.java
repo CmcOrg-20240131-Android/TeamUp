@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpGlobalConfig;
 import cn.hutool.http.HttpRequest;
@@ -46,7 +46,7 @@ public class MyHttpUtil {
      *
      * @param hiddenErrorMsgFlag 是否隐藏错误
      */
-    private static <T> void execHttpRequest(HttpRequest httpRequest, boolean hiddenErrorMsgFlag, @Nullable IHttpHandle<T> iHttpHandle, String urlString, Class<T> clazz) {
+    private static <T> void execHttpRequest(HttpRequest httpRequest, boolean hiddenErrorMsgFlag, @Nullable IHttpHandle<T> iHttpHandle, String urlString, TypeReference<T> typeReference) {
 
         httpRequest.setUrl(BASE_URL + urlString);
 
@@ -67,7 +67,7 @@ public class MyHttpUtil {
                 if (apiResultVO.getData() != null && apiResultVO.getData() instanceof JSONObject) {
 
                     // 类型转换
-                    apiResultVO.setData(BeanUtil.toBean(apiResultVO.getData(), clazz));
+                    apiResultVO.setData(JSONUtil.toBean((JSONObject) apiResultVO.getData(), typeReference, false));
 
                 }
 
@@ -177,48 +177,48 @@ public class MyHttpUtil {
     /**
      * 发送get请求
      */
-    public static <T> void get(String urlString, @Nullable IHttpHandle<T> iHttpHandle, Class<T> clazz) {
+    public static <T> void get(String urlString, @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.get(urlString).method(Method.GET);
 
         // 执行
-        execHttpRequest(httpRequest, false, iHttpHandle, urlString, clazz);
+        execHttpRequest(httpRequest, false, iHttpHandle, urlString, typeReference);
 
     }
 
     /**
      * 发送get请求
      */
-    public static <T> void get(String urlString, Map<String, Object> paramMap, @Nullable IHttpHandle<T> iHttpHandle, Class<T> clazz) {
+    public static <T> void get(String urlString, Map<String, Object> paramMap, @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.get(urlString).form(paramMap);
 
         // 执行
-        execHttpRequest(httpRequest, false, iHttpHandle, urlString, clazz);
+        execHttpRequest(httpRequest, false, iHttpHandle, urlString, typeReference);
 
     }
 
     /**
      * 发送post请求
      */
-    public static <T> void post(String urlString, Object body, @Nullable IHttpHandle<T> iHttpHandle, Class<T> clazz) {
+    public static <T> void post(String urlString, Object body, @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.post(urlString).body(JSONUtil.toJsonStr(body));
 
         // 执行
-        execHttpRequest(httpRequest, false, iHttpHandle, urlString, clazz);
+        execHttpRequest(httpRequest, false, iHttpHandle, urlString, typeReference);
 
     }
 
     /**
      * 发送post请求
      */
-    public static <T> void postHiddenError(String urlString, Object body, @Nullable IHttpHandle<T> iHttpHandle, Class<T> clazz) {
+    public static <T> void postHiddenError(String urlString, Object body, @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.post(urlString).body(JSONUtil.toJsonStr(body));
 
         // 执行
-        execHttpRequest(httpRequest, true, iHttpHandle, urlString, clazz);
+        execHttpRequest(httpRequest, true, iHttpHandle, urlString, typeReference);
 
     }
 
