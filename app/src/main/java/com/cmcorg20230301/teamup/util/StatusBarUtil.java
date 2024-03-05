@@ -4,7 +4,7 @@ import android.view.View;
 
 import androidx.annotation.ColorRes;
 
-import com.cmcorg20230301.teamup.BaseActivity;
+import com.cmcorg20230301.teamup.model.base.BaseActivity;
 
 /**
  * 状态栏工具类

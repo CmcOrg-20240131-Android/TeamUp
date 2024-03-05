@@ -1,6 +1,6 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
-import com.cmcorg20230301.teamup.BaseFragment;
+import com.cmcorg20230301.teamup.model.base.BaseFragment;
 
 /**
  * 聊天会话-内容页

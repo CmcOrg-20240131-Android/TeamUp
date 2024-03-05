@@ -6,9 +6,9 @@ import android.view.MenuItem;
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 
-import com.cmcorg20230301.teamup.BaseActivity;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionFragment;
+import com.cmcorg20230301.teamup.model.base.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 

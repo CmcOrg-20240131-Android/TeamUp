@@ -24,4 +24,8 @@ public enum LocalStorageKeyEnum {
 
     IM_SESSION_LIST, // 会话列表集合
 
+    IM_CONTACT_LIST, // 联系人列表集合
+
+    IM_CONTACT_APPLY_LIST, // 联系人申请列表集合
+
 }

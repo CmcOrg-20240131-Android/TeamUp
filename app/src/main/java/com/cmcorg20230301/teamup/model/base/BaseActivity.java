@@ -1,4 +1,4 @@
-package com.cmcorg20230301.teamup;
+package com.cmcorg20230301.teamup.model.base;
 
 import android.content.Context;
 import android.os.Bundle;

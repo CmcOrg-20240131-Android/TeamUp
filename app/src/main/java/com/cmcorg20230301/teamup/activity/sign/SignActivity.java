@@ -5,9 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
 
-import com.cmcorg20230301.teamup.BaseActivity;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.sign.in.SignInFragment;
+import com.cmcorg20230301.teamup.model.base.BaseActivity;
 
 /**
  * 登录/注册页

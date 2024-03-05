@@ -1,6 +1,6 @@
 package com.cmcorg20230301.teamup.util;
 
-import com.cmcorg20230301.teamup.BaseActivity;
+import com.cmcorg20230301.teamup.model.base.BaseActivity;
 
 public class MyExceptionUtil {
 

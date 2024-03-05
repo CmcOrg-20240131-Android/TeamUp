@@ -7,6 +7,7 @@ import androidx.annotation.ColorRes;
 
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.activity.sign.SignActivity;
+import com.cmcorg20230301.teamup.model.base.BaseActivity;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 
 import org.jetbrains.annotations.Nullable;

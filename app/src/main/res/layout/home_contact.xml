@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:flexDirection="column">
+
+    <TextView
+            android:id="@+id/homeContactGoHomeContactFindNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="新的朋友"
+            android:textSize="16dp" />
+
+    <TextView
+            android:id="@+id/homeContactGoHomeContactApply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="好友申请"
+            android:textSize="16dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/homeContactRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_flexGrow="1"
+            tools:itemCount="20"
+            tools:listitem="@layout/home_contact_item" />
+
+</com.google.android.flexbox.FlexboxLayout>

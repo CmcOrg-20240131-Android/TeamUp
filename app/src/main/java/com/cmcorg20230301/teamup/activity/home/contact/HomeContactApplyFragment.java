@@ -1,4 +1,4 @@
-package com.cmcorg20230301.teamup.activity.home.chat;
+package com.cmcorg20230301.teamup.activity.home.contact;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,28 +30,28 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 
 /**
- * 聊天会话页
+ * 联系人申请页
  */
-public class HomeChatSessionFragment extends BaseFragment {
+public class HomeContactApplyFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
 
-    private HomeChatSessionRecycleAdapter recyclerAdapter;
+    private HomeContactApplyRecycleAdapter recyclerAdapter;
 
     @Override
     public Integer getLayoutId() {
-        return R.layout.home_chat_session;
+        return R.layout.home_contact_apply;
     }
 
     @Override
     public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        String imSessionListJsonStr = MyLocalStorage.getItem(LocalStorageKeyEnum.IM_SESSION_LIST);
+        String imContactListJsonStr = MyLocalStorage.getItem(LocalStorageKeyEnum.IM_CONTACT_APPLY_LIST);
 
-        if (StrUtil.isNotBlank(imSessionListJsonStr)) {
+        if (StrUtil.isNotBlank(imContactListJsonStr)) {
 
             // 初始化：RecyclerView
-            initRecyclerView(JSONUtil.toList(imSessionListJsonStr, SysImSessionDO.class));
+            initRecyclerView(JSONUtil.toList(imContactListJsonStr, SysImSessionDO.class));
 
         }
 
@@ -84,7 +84,7 @@ public class HomeChatSessionFragment extends BaseFragment {
         recyclerView = view.findViewById(R.id.homeChatSessionRecyclerView);
 
         // 创建：adapter
-        recyclerAdapter = new HomeChatSessionRecycleAdapter(fragmentActivity, dataList);
+        recyclerAdapter = new HomeContactApplyRecycleAdapter(fragmentActivity, dataList);
 
         // 给：RecyclerView设置adapter
         recyclerView.setAdapter(recyclerAdapter);
@@ -96,7 +96,7 @@ public class HomeChatSessionFragment extends BaseFragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
-        recyclerAdapter.setOnItemClickListener(new HomeChatSessionRecycleAdapter.OnItemClickListener() {
+        recyclerAdapter.setOnItemClickListener(new HomeContactApplyRecycleAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view) {

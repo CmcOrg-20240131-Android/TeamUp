@@ -3,8 +3,8 @@ package com.cmcorg20230301.teamup.util;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.cmcorg20230301.teamup.BaseActivity;
 import com.cmcorg20230301.teamup.activity.sign.SignActivity;
+import com.cmcorg20230301.teamup.model.base.BaseActivity;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.SignInVO;

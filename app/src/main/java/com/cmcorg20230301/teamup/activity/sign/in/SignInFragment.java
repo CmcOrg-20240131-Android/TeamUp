@@ -10,11 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.cmcorg20230301.teamup.BaseFragment;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.activity.sign.up.SignUpFragment;
 import com.cmcorg20230301.teamup.api.http.SignSignInNameApi;
+import com.cmcorg20230301.teamup.model.base.BaseFragment;
 import com.cmcorg20230301.teamup.model.constant.BaseRegexConstant;
 import com.cmcorg20230301.teamup.model.dto.SignSignInNameSignInPasswordDTO;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;

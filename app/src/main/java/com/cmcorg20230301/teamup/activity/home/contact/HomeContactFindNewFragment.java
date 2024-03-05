@@ -1,4 +1,4 @@
-package com.cmcorg20230301.teamup.activity.home.chat;
+package com.cmcorg20230301.teamup.activity.home.contact;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,63 +13,31 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cmcorg20230301.teamup.R;
-import com.cmcorg20230301.teamup.api.http.SysImSessionApi;
 import com.cmcorg20230301.teamup.model.base.BaseFragment;
-import com.cmcorg20230301.teamup.model.dto.SysImSessionSelfPageDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
-import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
-import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
-import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
-import com.cmcorg20230301.teamup.model.vo.Page;
-import com.cmcorg20230301.teamup.util.MyLocalStorage;
-import com.cmcorg20230301.teamup.util.MyThreadUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
-
 /**
- * 聊天会话页
+ * 联系人申请页
  */
-public class HomeChatSessionFragment extends BaseFragment {
+public class HomeContactFindNewFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
 
-    private HomeChatSessionRecycleAdapter recyclerAdapter;
+    private HomeContactFindNewRecycleAdapter recyclerAdapter;
 
     @Override
     public Integer getLayoutId() {
-        return R.layout.home_chat_session;
+        return R.layout.home_contact_apply;
     }
 
     @Override
     public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        String imSessionListJsonStr = MyLocalStorage.getItem(LocalStorageKeyEnum.IM_SESSION_LIST);
-
-        if (StrUtil.isNotBlank(imSessionListJsonStr)) {
-
-            // 初始化：RecyclerView
-            initRecyclerView(JSONUtil.toList(imSessionListJsonStr, SysImSessionDO.class));
-
-        }
-
-        MyThreadUtil.execute(() -> {
-
-            SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(), new IHttpHandle<Page<SysImSessionDO>>() {
-
-                @Override
-                public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
-
-                    // 初始化：RecyclerView
-                    initRecyclerView(apiResultVO.getData().getRecords());
-
-                }
-
-            });
-
-        });
+        // 初始化：RecyclerView
+        initRecyclerView(new ArrayList<>());
 
     }
 
@@ -84,7 +52,7 @@ public class HomeChatSessionFragment extends BaseFragment {
         recyclerView = view.findViewById(R.id.homeChatSessionRecyclerView);
 
         // 创建：adapter
-        recyclerAdapter = new HomeChatSessionRecycleAdapter(fragmentActivity, dataList);
+        recyclerAdapter = new HomeContactFindNewRecycleAdapter(fragmentActivity, dataList);
 
         // 给：RecyclerView设置adapter
         recyclerView.setAdapter(recyclerAdapter);
@@ -96,7 +64,7 @@ public class HomeChatSessionFragment extends BaseFragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
-        recyclerAdapter.setOnItemClickListener(new HomeChatSessionRecycleAdapter.OnItemClickListener() {
+        recyclerAdapter.setOnItemClickListener(new HomeContactFindNewRecycleAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view) {
