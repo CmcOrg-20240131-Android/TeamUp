@@ -1,32 +1,54 @@
 package com.cmcorg20230301.teamup.util;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import com.cmcorg20230301.teamup.BaseActivity;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 
 import cn.hutool.json.JSONUtil;
 
 public class MyLocalStorage {
 
-    public static void clear() {
+    /**
+     * 获取：SharedPreferences
+     */
+    private static SharedPreferences getSharedPreferences() {
 
-        SharedPreferencesUtil.clear();
+        return BaseActivity.CURRENT_ACTIVITY.getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
+
+    }
+
+    /**
+     * 获取：SharedPreferences的 Editor，备注：请使用 .apply()
+     */
+    private static SharedPreferences.Editor getEditor() {
+
+        return getSharedPreferences().edit();
+
+    }
+
+    private static void clear() {
+
+        getEditor().clear().apply();
 
     }
 
     public static String getItem(LocalStorageKeyEnum localStorageKeyEnum) {
 
-        return SharedPreferencesUtil.getSharedPreferences().getString(localStorageKeyEnum.name(), null);
+        return getSharedPreferences().getString(localStorageKeyEnum.name(), null);
 
     }
 
     public static void removeItem(LocalStorageKeyEnum localStorageKeyEnum) {
 
-        SharedPreferencesUtil.getEditor().remove(localStorageKeyEnum.name()).apply();
+        getEditor().remove(localStorageKeyEnum.name()).apply();
 
     }
 
     public static void setItem(LocalStorageKeyEnum localStorageKeyEnum, Object object) {
 
-        SharedPreferencesUtil.getEditor().putString(localStorageKeyEnum.name(), JSONUtil.toJsonStr(object)).apply();
+        getEditor().putString(localStorageKeyEnum.name(), JSONUtil.toJsonStr(object)).apply();
 
     }
 
