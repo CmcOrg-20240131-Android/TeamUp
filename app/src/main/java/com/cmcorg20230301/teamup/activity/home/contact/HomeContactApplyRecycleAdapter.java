@@ -2,7 +2,6 @@ package com.cmcorg20230301.teamup.activity.home.contact;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,37 +18,20 @@ import java.util.List;
 
 import cn.hutool.core.date.DateUtil;
 
-public class HomeContactApplyRecycleAdapter extends BaseRecycleAdapter<HomeContactApplyRecycleAdapter.ViewHolder> {
-
-    private Context context;
-
-    private List<SysImSessionDO> dataList;
+public class HomeContactApplyRecycleAdapter extends BaseRecycleAdapter<HomeContactApplyRecycleAdapter.ViewHolder, SysImSessionDO> {
 
     public HomeContactApplyRecycleAdapter(Context context, List<SysImSessionDO> dataList) {
-
-        this.context = context;
-        this.dataList = dataList;
-
+        super(context, dataList);
     }
 
     @Override
-    public int getItemViewType(int position) {
-        return position;
+    public Integer getItemViewId() {
+        return R.layout.home_chat_session_item;
     }
 
-    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        // 创建自定义布局
-        View itemView = View.inflate(context, R.layout.home_chat_session_item, null);
-
-        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        itemView.setLayoutParams(layoutParams);
-
+    public ViewHolder getViewHolder(View itemView) {
         return new ViewHolder(itemView);
-
     }
 
     @Override
@@ -64,13 +46,6 @@ public class HomeContactApplyRecycleAdapter extends BaseRecycleAdapter<HomeConta
         holder.homeChatSessionItemContent.setText(sysImSessionDO.getLastContent());
 
         holder.homeChatSessionItemTime.setText(DateUtil.formatDateTime(new Date(sysImSessionDO.getLastContentCreateTs())));
-
-    }
-
-    @Override
-    public int getItemCount() {
-
-        return dataList.size();
 
     }
 
@@ -112,21 +87,6 @@ public class HomeContactApplyRecycleAdapter extends BaseRecycleAdapter<HomeConta
 
         }
 
-    }
-
-    /**
-     * 设置item的监听事件的接口
-     */
-    public interface OnItemClickListener {
-
-        void onItemClick(View view);
-
-    }
-
-    private OnItemClickListener onItemClickListener;
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
     }
 
 }
