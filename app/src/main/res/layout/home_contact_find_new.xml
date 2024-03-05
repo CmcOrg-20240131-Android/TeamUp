@@ -6,6 +6,19 @@
         android:layout_height="match_parent"
         app:flexDirection="column">
 
+    <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="昵称">
+
+        <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/homeContactFindNewNickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/homeContactFindNewRecyclerView"
             android:layout_width="match_parent"
