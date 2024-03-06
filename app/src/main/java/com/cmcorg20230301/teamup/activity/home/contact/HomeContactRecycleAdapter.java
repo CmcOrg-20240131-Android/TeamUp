@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
@@ -18,7 +17,7 @@ import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
 
-public class HomeContactRecycleAdapter extends BaseRecycleAdapter<HomeContactRecycleAdapter.ViewHolder, SysImSessionApplyPrivateChatSelfPageVO> {
+public class HomeContactRecycleAdapter extends BaseRecycleAdapter<HomeContactRecycleAdapter.MyViewHolder, SysImSessionApplyPrivateChatSelfPageVO> {
 
     public HomeContactRecycleAdapter(Context context, List<SysImSessionApplyPrivateChatSelfPageVO> dataList) {
         super(context, dataList);
@@ -30,16 +29,14 @@ public class HomeContactRecycleAdapter extends BaseRecycleAdapter<HomeContactRec
     }
 
     @Override
-    public ViewHolder getViewHolder(View itemView) {
-        return new ViewHolder(itemView);
+    public MyViewHolder getViewHolder(View itemView) {
+        return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolderData(@NonNull MyViewHolder holder, int position, SysImSessionApplyPrivateChatSelfPageVO data) {
 
-        SysImSessionApplyPrivateChatSelfPageVO sysImSessionApplyPrivateChatSelfPageVO = dataList.get(position);
-
-        String avatarUrl = sysImSessionApplyPrivateChatSelfPageVO.getAvatarUrl();
+        String avatarUrl = data.getAvatarUrl();
 
         if (StrUtil.isBlank(avatarUrl)) {
 
@@ -49,37 +46,23 @@ public class HomeContactRecycleAdapter extends BaseRecycleAdapter<HomeContactRec
 
         Glide.with(context).load(avatarUrl).into(holder.homeContactItemAvatar);
 
-        holder.homeContactItemNickname.setText(sysImSessionApplyPrivateChatSelfPageVO.getNickname());
+        holder.homeContactItemNickname.setText(data.getNickname());
 
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends BaseRecycleAdapter.MyViewHolder<SysImSessionApplyPrivateChatSelfPageVO> {
 
         ImageView homeContactItemAvatar;
 
         TextView homeContactItemNickname;
 
-        public ViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
             homeContactItemAvatar = itemView.findViewById(R.id.homeContactItemAvatar);
 
             homeContactItemNickname = itemView.findViewById(R.id.homeContactItemNickname);
-
-            // 在adapter中设置点击事件
-            itemView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(v);
-                    }
-
-                }
-
-            });
 
         }
 

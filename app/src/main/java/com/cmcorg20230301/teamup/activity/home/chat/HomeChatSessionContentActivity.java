@@ -29,7 +29,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         Intent intent = getIntent();
 
-        String extraStr = intent.getStringExtra(CommonConstant.EXTRA);
+        String sessionIdStr = intent.getStringExtra(CommonConstant.EXTRA);
 
         setContentView(R.layout.home_chat_session_content);
 

@@ -17,6 +17,11 @@ public class SysImSessionApplyPrivateChatSelfPageVO {
      */
     private String avatarUrl;
 
+    /**
+     * 会话主键 id
+     */
+    private Long sessionId;
+
     public Long getUserId() {
         return userId;
     }
@@ -39,5 +44,13 @@ public class SysImSessionApplyPrivateChatSelfPageVO {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
     }
 }
