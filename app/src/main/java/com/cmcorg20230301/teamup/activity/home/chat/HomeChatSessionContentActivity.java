@@ -6,13 +6,14 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import cn.hutool.core.convert.Convert;
 import com.cmcorg20230301.teamup.R;
+import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.api.http.SysImSessionContentApi;
 import com.cmcorg20230301.teamup.model.base.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentListDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
-import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
@@ -28,12 +29,24 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
     private HomeChatSessionContentRecycleAdapter recyclerAdapter;
 
+    private Long sessionId;
+
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
 
         Intent intent = getIntent();
 
-        String sessionIdStr = intent.getStringExtra(CommonConstant.EXTRA);
+        sessionId = Convert.toLong(intent.getStringExtra(CommonConstant.EXTRA));
+
+        if (sessionId == null) {
+
+            BaseActivity.getAppNav(HomeActivity.class);
+
+            finish();
+
+            return;
+
+        }
 
         setContentView(R.layout.home_chat_session_content);
 
@@ -41,11 +54,13 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
             SysImSessionContentListDTO sysImSessionContentListDTO = new SysImSessionContentListDTO();
 
+            sysImSessionContentListDTO.setSessionId(sessionId);
+
             SysImSessionContentApi.scrollPageUserSelf(sysImSessionContentListDTO,
-                new IHttpHandle<Page<SysImSessionDO>>() {
+                new IHttpHandle<Page<SysImSessionContentDO>>() {
 
                     @Override
-                    public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
+                    public void success(ApiResultVO<Page<SysImSessionContentDO>> apiResultVO) {
 
                         // 初始化：RecyclerView
                         initRecyclerView(apiResultVO.getData().getRecords());

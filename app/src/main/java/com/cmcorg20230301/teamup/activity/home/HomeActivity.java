@@ -1,17 +1,19 @@
 package com.cmcorg20230301.teamup.activity.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
-
+import androidx.fragment.app.Fragment;
+import cn.hutool.core.util.StrUtil;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionFragment;
 import com.cmcorg20230301.teamup.model.base.BaseActivity;
+import com.cmcorg20230301.teamup.model.constant.CommonConstant;
+import com.cmcorg20230301.teamup.util.MyExceptionUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -60,8 +62,28 @@ public class HomeActivity extends BaseActivity {
 
             });
 
+        Intent intent = getIntent();
+
+        String fragmentClassName = intent.getStringExtra(CommonConstant.EXTRA);
+
+        Class<? extends Fragment> fClass = HomeChatSessionFragment.class;
+
+        if (StrUtil.isNotBlank(fragmentClassName)) {
+
+            try {
+
+                fClass = (Class<? extends Fragment>) Class.forName(fragmentClassName);
+
+            } catch (ClassNotFoundException e) {
+
+                MyExceptionUtil.printError(e);
+
+            }
+
+        }
+
         getSupportFragmentManager().beginTransaction()
-            .add(R.id.homeFragment, HomeChatSessionFragment.class, null)
+            .add(R.id.homeFragment, fClass, null)
             .commit();
 
     }
