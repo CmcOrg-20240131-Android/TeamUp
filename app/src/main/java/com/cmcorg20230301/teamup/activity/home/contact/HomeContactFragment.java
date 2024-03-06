@@ -87,7 +87,7 @@ public class HomeContactFragment extends BaseFragment {
         FragmentActivity fragmentActivity = getActivity();
 
         // 获取：RecyclerView
-        recyclerView = view.findViewById(R.id.homeChatSessionRecyclerView);
+        recyclerView = view.findViewById(R.id.homeContactRecyclerView);
 
         // 创建：adapter
         recyclerAdapter = new HomeContactRecycleAdapter(fragmentActivity, dataList);
