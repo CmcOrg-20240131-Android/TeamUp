@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.model.base.BaseFragment;
+import com.cmcorg20230301.teamup.model.base.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
 
 import java.util.ArrayList;
@@ -64,7 +65,7 @@ public class HomeContactFindNewActivity extends BaseFragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
-        recyclerAdapter.setOnItemClickListener(new HomeContactFindNewRecycleAdapter.OnItemClickListener() {
+        recyclerAdapter.setOnItemClickListener(new BaseRecycleAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view) {

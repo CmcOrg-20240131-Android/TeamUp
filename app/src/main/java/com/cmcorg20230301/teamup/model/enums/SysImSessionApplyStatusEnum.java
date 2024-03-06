@@ -1,11 +1,9 @@
 package com.cmcorg20230301.teamup.model.enums;
 
-import com.cmcorg20230301.teamup.model.configuration.ISysImSessionContentType;
-
 /**
  * 会话申请状态，枚举类
  */
-public enum SysImSessionApplyStatusEnum implements ISysImSessionContentType {
+public enum SysImSessionApplyStatusEnum {
 
     APPLYING(101), // 申请中
 
@@ -23,7 +21,6 @@ public enum SysImSessionApplyStatusEnum implements ISysImSessionContentType {
         this.code = code;
     }
 
-    @Override
     public int getCode() {
         return code;
     }

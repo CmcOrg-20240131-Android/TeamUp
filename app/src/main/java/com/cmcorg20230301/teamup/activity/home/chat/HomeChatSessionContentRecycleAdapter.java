@@ -11,14 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.model.base.BaseRecycleAdapter;
+import com.cmcorg20230301.teamup.model.constant.CommonConstant;
+import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
 
 import java.util.List;
 
 import cn.hutool.core.date.DateUtil;
 
-public class HomeChatSessionContentRecycleAdapter extends BaseRecycleAdapter<HomeChatSessionContentRecycleAdapter.ViewHolder, Object> {
+public class HomeChatSessionContentRecycleAdapter extends BaseRecycleAdapter<HomeChatSessionContentRecycleAdapter.ViewHolder, SysImSessionContentDO> {
 
-    public HomeChatSessionContentRecycleAdapter(Context context, List<Object> dataList) {
+    public HomeChatSessionContentRecycleAdapter(Context context, List<SysImSessionContentDO> dataList) {
         super(context, dataList);
     }
 
@@ -35,33 +37,33 @@ public class HomeChatSessionContentRecycleAdapter extends BaseRecycleAdapter<Hom
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.homeChatSessionItemTime.setText(DateUtil.now());
+        holder.homeChatSessionContentItemTime.setText(DateUtil.now());
 
-        Glide.with(context).load("https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg").into(holder.homeChatSessionItemAvatar);
+        Glide.with(context).load(CommonConstant.FIXED_AVATAR_URL).into(holder.homeChatSessionContentItemAvatar);
 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView homeChatSessionItemAvatar;
+        ImageView homeChatSessionContentItemAvatar;
 
-        TextView homeChatSessionItemUserName;
+        TextView homeChatSessionContentItemUserName;
 
-        TextView homeChatSessionItemContent;
+        TextView homeChatSessionContentItemContent;
 
-        TextView homeChatSessionItemTime;
+        TextView homeChatSessionContentItemTime;
 
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
-            homeChatSessionItemAvatar = itemView.findViewById(R.id.homeChatSessionItemAvatar);
+            homeChatSessionContentItemAvatar = itemView.findViewById(R.id.homeChatSessionContentItemAvatar);
 
-            homeChatSessionItemUserName = itemView.findViewById(R.id.homeChatSessionItemUserName);
+            homeChatSessionContentItemUserName = itemView.findViewById(R.id.homeChatSessionContentItemUserName);
 
-            homeChatSessionItemContent = itemView.findViewById(R.id.homeChatSessionItemContent);
+            homeChatSessionContentItemContent = itemView.findViewById(R.id.homeChatSessionContentItemContent);
 
-            homeChatSessionItemTime = itemView.findViewById(R.id.homeChatSessionItemTime);
+            homeChatSessionContentItemTime = itemView.findViewById(R.id.homeChatSessionContentItemTime);
 
             // 在adapter中设置点击事件
             itemView.setOnClickListener(new View.OnClickListener() {

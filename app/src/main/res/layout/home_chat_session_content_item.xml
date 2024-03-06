@@ -8,8 +8,8 @@
     app:flexDirection="row">
 
     <ImageView
-        android:id="@+id/homeChatSessionItemAvatar"
-        android:layout_width="50dp"
+        android:id="@+id/homeChatSessionContentItemAvatar"
+            android:layout_width="50dp"
         android:layout_height="50dp"
         app:layout_alignSelf="center" />
 
@@ -21,14 +21,14 @@
         app:layout_flexGrow="1">
 
         <TextView
-            android:id="@+id/homeChatSessionItemUserName"
-            android:layout_width="wrap_content"
+                android:id="@+id/homeChatSessionContentItemUserName"
+                android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="用户名" />
 
         <TextView
-            android:id="@+id/homeChatSessionItemContent"
-            android:layout_width="wrap_content"
+                android:id="@+id/homeChatSessionContentItemContent"
+                android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="对话内容" />
@@ -36,8 +36,8 @@
     </com.google.android.flexbox.FlexboxLayout>
 
     <TextView
-        android:id="@+id/homeChatSessionItemTime"
-        android:layout_width="wrap_content"
+            android:id="@+id/homeChatSessionContentItemTime"
+            android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:text="2024-02-07 20:18:56" />

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApplyApi;
 import com.cmcorg20230301.teamup.model.base.BaseFragment;
+import com.cmcorg20230301.teamup.model.base.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionApplyPrivateChatSelfPageDTO;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
@@ -109,7 +110,7 @@ public class HomeContactFragment extends BaseFragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
-        recyclerAdapter.setOnItemClickListener(new HomeContactRecycleAdapter.OnItemClickListener() {
+        recyclerAdapter.setOnItemClickListener(new BaseRecycleAdapter.OnItemClickListener() {
 
             @Override
             public void onItemClick(View view) {
