@@ -18,7 +18,8 @@ import java.util.List;
 
 import cn.hutool.core.date.DateUtil;
 
-public class HomeChatSessionRecycleAdapter extends BaseRecycleAdapter<HomeChatSessionRecycleAdapter.MyViewHolder, SysImSessionDO> {
+public class HomeChatSessionRecycleAdapter extends
+    BaseRecycleAdapter<HomeChatSessionRecycleAdapter.MyViewHolder, SysImSessionDO> {
 
     public HomeChatSessionRecycleAdapter(Context context, List<SysImSessionDO> dataList) {
         super(context, dataList);
@@ -35,15 +36,18 @@ public class HomeChatSessionRecycleAdapter extends BaseRecycleAdapter<HomeChatSe
     }
 
     @Override
-    public void onBindViewHolderData(@NonNull MyViewHolder holder, int position, SysImSessionDO data) {
+    public void onBindViewHolderData(@NonNull MyViewHolder holder, int position,
+        SysImSessionDO data) {
 
-        Glide.with(context).load(CommonConstant.FIXED_AVATAR_URL).into(holder.homeChatSessionItemAvatar);
+        Glide.with(context).load(CommonConstant.FIXED_AVATAR_URL)
+            .into(holder.homeChatSessionItemAvatar);
 
         holder.homeChatSessionItemUserName.setText(data.getName());
 
         holder.homeChatSessionItemContent.setText(data.getLastContent());
 
-        holder.homeChatSessionItemTime.setText(DateUtil.formatDateTime(new Date(data.getLastContentCreateTs())));
+        holder.homeChatSessionItemTime.setText(
+            DateUtil.formatDateTime(new Date(data.getLastContentCreateTs())));
 
     }
 

@@ -112,7 +112,8 @@ public class RetryUtil {
      * @param gapMs      间隔多少毫秒
      * @param execNumber 传值多少，则方法会执行多少次
      */
-    public static void execVoidFunc0(VoidFunc0 voidFunc0, long gapMs, long execNumber) throws Exception {
+    public static void execVoidFunc0(VoidFunc0 voidFunc0, long gapMs, long execNumber)
+        throws Exception {
 
         try {
 

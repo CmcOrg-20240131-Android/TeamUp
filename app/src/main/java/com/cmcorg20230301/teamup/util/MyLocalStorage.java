@@ -15,7 +15,8 @@ public class MyLocalStorage {
      */
     private static SharedPreferences getSharedPreferences() {
 
-        return BaseActivity.CURRENT_ACTIVITY.getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
+        return BaseActivity.CURRENT_ACTIVITY.getSharedPreferences("SharedPreferences",
+            Context.MODE_PRIVATE);
 
     }
 

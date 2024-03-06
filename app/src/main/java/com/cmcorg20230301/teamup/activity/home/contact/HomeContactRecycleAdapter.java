@@ -17,9 +17,11 @@ import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
 
-public class HomeContactRecycleAdapter extends BaseRecycleAdapter<HomeContactRecycleAdapter.MyViewHolder, SysImSessionApplyPrivateChatSelfPageVO> {
+public class HomeContactRecycleAdapter extends
+    BaseRecycleAdapter<HomeContactRecycleAdapter.MyViewHolder, SysImSessionApplyPrivateChatSelfPageVO> {
 
-    public HomeContactRecycleAdapter(Context context, List<SysImSessionApplyPrivateChatSelfPageVO> dataList) {
+    public HomeContactRecycleAdapter(Context context,
+        List<SysImSessionApplyPrivateChatSelfPageVO> dataList) {
         super(context, dataList);
     }
 
@@ -34,7 +36,8 @@ public class HomeContactRecycleAdapter extends BaseRecycleAdapter<HomeContactRec
     }
 
     @Override
-    public void onBindViewHolderData(@NonNull MyViewHolder holder, int position, SysImSessionApplyPrivateChatSelfPageVO data) {
+    public void onBindViewHolderData(@NonNull MyViewHolder holder, int position,
+        SysImSessionApplyPrivateChatSelfPageVO data) {
 
         String avatarUrl = data.getAvatarUrl();
 
@@ -50,7 +53,8 @@ public class HomeContactRecycleAdapter extends BaseRecycleAdapter<HomeContactRec
 
     }
 
-    class MyViewHolder extends BaseRecycleAdapter.MyViewHolder<SysImSessionApplyPrivateChatSelfPageVO> {
+    class MyViewHolder extends
+        BaseRecycleAdapter.MyViewHolder<SysImSessionApplyPrivateChatSelfPageVO> {
 
         ImageView homeContactItemAvatar;
 

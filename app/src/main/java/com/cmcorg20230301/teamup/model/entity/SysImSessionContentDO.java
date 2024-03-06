@@ -28,8 +28,7 @@ public class SysImSessionContentDO extends BaseEntity {
     private Boolean showFlag;
 
     /**
-     * 内容类型
-     * {@link ISysImSessionContentType}
+     * 内容类型 {@link ISysImSessionContentType}
      */
     private Integer type;
 

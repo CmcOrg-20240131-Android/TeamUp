@@ -37,15 +37,16 @@ public class SignInFragment extends BaseFragment {
     }
 
     @Override
-    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+        @Nullable Bundle savedInstanceState) {
 
         TextView signInGoSignUp = findViewById(R.id.signInGoSignUp);
 
         signInGoSignUp.setOnClickListener(v -> {
 
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.signFragment, SignUpFragment.class, null)
-                    .commit();
+                .replace(R.id.signFragment, SignUpFragment.class, null)
+                .commit();
 
         });
 
@@ -80,18 +81,19 @@ public class SignInFragment extends BaseFragment {
                 signSignInNameSignInPasswordDTO.setPassword(password);
                 signSignInNameSignInPasswordDTO.setSignInName(signInAccountText);
 
-                SignSignInNameApi.signInPassword(signSignInNameSignInPasswordDTO, new IHttpHandle<SignInVO>() {
+                SignSignInNameApi.signInPassword(signSignInNameSignInPasswordDTO,
+                    new IHttpHandle<SignInVO>() {
 
-                    @Override
-                    public void success(ApiResultVO<SignInVO> apiResultVO) {
+                        @Override
+                        public void success(ApiResultVO<SignInVO> apiResultVO) {
 
-                        UserUtil.signInSuccess(apiResultVO, true);
+                            UserUtil.signInSuccess(apiResultVO, true);
 
-                        BaseActivity.getAppNav(HomeActivity.class); // 跳转到：主页
+                            BaseActivity.getAppNav(HomeActivity.class); // 跳转到：主页
 
-                    }
+                        }
 
-                });
+                    });
 
             }
 

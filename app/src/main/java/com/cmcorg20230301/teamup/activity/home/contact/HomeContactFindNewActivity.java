@@ -35,7 +35,8 @@ public class HomeContactFindNewActivity extends BaseFragment {
     }
 
     @Override
-    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+        @Nullable Bundle savedInstanceState) {
 
         // 初始化：RecyclerView
         initRecyclerView(new ArrayList<>());
@@ -59,10 +60,12 @@ public class HomeContactFindNewActivity extends BaseFragment {
         recyclerView.setAdapter(recyclerAdapter);
 
         // 设置：layoutManager
-        recyclerView.setLayoutManager(new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(
+            new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
 
         // 设置：item的分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(
+            new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(new BaseRecycleAdapter.OnItemClickListener() {

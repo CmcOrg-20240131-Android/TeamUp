@@ -39,15 +39,16 @@ public class SignUpFragment extends BaseFragment {
     }
 
     @Override
-    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+        @Nullable Bundle savedInstanceState) {
 
         TextView signUpGoSignIn = findViewById(R.id.signUpGoSignIn);
 
         signUpGoSignIn.setOnClickListener(v -> {
 
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.signFragment, SignInFragment.class, null)
-                    .commit();
+                .replace(R.id.signFragment, SignInFragment.class, null)
+                .commit();
 
         });
 
@@ -77,7 +78,8 @@ public class SignUpFragment extends BaseFragment {
 
                 passFlag = false;
 
-                signUpPassword.setError("密码限制：必须包含大小写字母和数字，可以使用特殊字符，长度8-20");
+                signUpPassword.setError(
+                    "密码限制：必须包含大小写字母和数字，可以使用特殊字符，长度8-20");
 
             }
 
@@ -101,8 +103,8 @@ public class SignUpFragment extends BaseFragment {
                         ToastUtil.makeText(apiResultVO.getMsg());
 
                         getSupportFragmentManager().beginTransaction()
-                                .replace(R.id.signFragment, SignInFragment.class, null)
-                                .commit();
+                            .replace(R.id.signFragment, SignInFragment.class, null)
+                            .commit();
 
                     }
 

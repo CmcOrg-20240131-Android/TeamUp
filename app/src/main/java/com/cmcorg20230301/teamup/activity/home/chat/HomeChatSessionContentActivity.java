@@ -31,30 +31,30 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
 
-      Intent intent = getIntent();
+        Intent intent = getIntent();
 
-      String sessionIdStr = intent.getStringExtra(CommonConstant.EXTRA);
+        String sessionIdStr = intent.getStringExtra(CommonConstant.EXTRA);
 
-      setContentView(R.layout.home_chat_session_content);
+        setContentView(R.layout.home_chat_session_content);
 
-      MyThreadUtil.execute(() -> {
+        MyThreadUtil.execute(() -> {
 
-        SysImSessionContentListDTO sysImSessionContentListDTO = new SysImSessionContentListDTO();
+            SysImSessionContentListDTO sysImSessionContentListDTO = new SysImSessionContentListDTO();
 
-        SysImSessionContentApi.scrollPageUserSelf(sysImSessionContentListDTO,
-            new IHttpHandle<Page<SysImSessionDO>>() {
+            SysImSessionContentApi.scrollPageUserSelf(sysImSessionContentListDTO,
+                new IHttpHandle<Page<SysImSessionDO>>() {
 
-              @Override
-              public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
+                    @Override
+                    public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
 
-                // 初始化：RecyclerView
-                initRecyclerView(apiResultVO.getData().getRecords());
+                        // 初始化：RecyclerView
+                        initRecyclerView(apiResultVO.getData().getRecords());
 
-              }
+                    }
 
-            });
+                });
 
-      });
+        });
 
     }
 
@@ -63,27 +63,27 @@ public class HomeChatSessionContentActivity extends BaseActivity {
      */
     private void initRecyclerView(List<SysImSessionContentDO> dataList) {
 
-      // 获取：RecyclerView
-      recyclerView = findViewById(R.id.homeChatSessionContentRecyclerView);
+        // 获取：RecyclerView
+        recyclerView = findViewById(R.id.homeChatSessionContentRecyclerView);
 
-      // 创建：adapter
-      recyclerAdapter = new HomeChatSessionContentRecycleAdapter(this, dataList);
+        // 创建：adapter
+        recyclerAdapter = new HomeChatSessionContentRecycleAdapter(this, dataList);
 
-      // 给：RecyclerView设置adapter
-      recyclerView.setAdapter(recyclerAdapter);
+        // 给：RecyclerView设置adapter
+        recyclerView.setAdapter(recyclerAdapter);
 
-      // 设置：layoutManager
-      recyclerView.setLayoutManager(
-          new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        // 设置：layoutManager
+        recyclerView.setLayoutManager(
+            new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-      // 设置：item的分割线
-      recyclerView.addItemDecoration(
-          new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        // 设置：item的分割线
+        recyclerView.addItemDecoration(
+            new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-      // 设置：元素点击事件
-      recyclerAdapter.setOnItemClickListener(myViewHolder -> {
+        // 设置：元素点击事件
+        recyclerAdapter.setOnItemClickListener(myViewHolder -> {
 
-      });
+        });
 
     }
 

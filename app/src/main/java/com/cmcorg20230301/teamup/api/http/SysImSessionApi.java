@@ -18,10 +18,12 @@ public class SysImSessionApi {
     /**
      * 分页排序查询-会话列表-自我
      */
-    public static void myPageSelf(SysImSessionSelfPageDTO dto, @Nullable IHttpHandle<Page<SysImSessionDO>> iHttpHandle) {
+    public static void myPageSelf(SysImSessionSelfPageDTO dto,
+        @Nullable IHttpHandle<Page<SysImSessionDO>> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/page/self", dto, iHttpHandle, new TypeReference<Page<SysImSessionDO>>() {
-        });
+        MyHttpUtil.post("/sys/im/session/page/self", dto, iHttpHandle,
+            new TypeReference<Page<SysImSessionDO>>() {
+            });
 
     }
 

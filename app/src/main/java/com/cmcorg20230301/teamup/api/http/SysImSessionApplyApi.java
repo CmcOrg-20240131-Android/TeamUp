@@ -25,30 +25,36 @@ public class SysImSessionApplyApi {
     /**
      * 分页排序查询-搜索新的朋友列表
      */
-    public static void privateChatFindNewPage(SysImSessionApplyPrivateChatFindNewPageDTO dto, @Nullable IHttpHandle<Page<SysImSessionApplyPrivateChatFindNewPageVO>> iHttpHandle) {
+    public static void privateChatFindNewPage(SysImSessionApplyPrivateChatFindNewPageDTO dto,
+        @Nullable IHttpHandle<Page<SysImSessionApplyPrivateChatFindNewPageVO>> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/findNew/page", dto, iHttpHandle, new TypeReference<Page<SysImSessionApplyPrivateChatFindNewPageVO>>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/findNew/page", dto, iHttpHandle,
+            new TypeReference<Page<SysImSessionApplyPrivateChatFindNewPageVO>>() {
+            });
 
     }
 
     /**
      * 分页排序查询-私聊申请列表-自我
      */
-    public static void privateChatApplyPageSelf(SysImSessionApplyPrivateChatApplySelfPageDTO dto, @Nullable IHttpHandle<Page<SysImSessionApplyPrivateChatApplySelfPageVO>> iHttpHandle) {
+    public static void privateChatApplyPageSelf(SysImSessionApplyPrivateChatApplySelfPageDTO dto,
+        @Nullable IHttpHandle<Page<SysImSessionApplyPrivateChatApplySelfPageVO>> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/apply/page/self", dto, iHttpHandle, new TypeReference<Page<SysImSessionApplyPrivateChatApplySelfPageVO>>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/apply/page/self", dto, iHttpHandle,
+            new TypeReference<Page<SysImSessionApplyPrivateChatApplySelfPageVO>>() {
+            });
 
     }
 
     /**
      * 分页排序查询-好友列表-自我
      */
-    public static void privateChatPageSelf(SysImSessionApplyPrivateChatSelfPageDTO dto, @Nullable IHttpHandle<Page<SysImSessionApplyPrivateChatSelfPageVO>> iHttpHandle) {
+    public static void privateChatPageSelf(SysImSessionApplyPrivateChatSelfPageDTO dto,
+        @Nullable IHttpHandle<Page<SysImSessionApplyPrivateChatSelfPageVO>> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/page/self", dto, iHttpHandle, new TypeReference<Page<SysImSessionApplyPrivateChatSelfPageVO>>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/page/self", dto, iHttpHandle,
+            new TypeReference<Page<SysImSessionApplyPrivateChatSelfPageVO>>() {
+            });
 
     }
 
@@ -57,28 +63,33 @@ public class SysImSessionApplyApi {
      */
     public static void privateChatApply(NotNullId dto, @Nullable IHttpHandle<String> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/apply", dto, iHttpHandle, new TypeReference<String>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/apply", dto, iHttpHandle,
+            new TypeReference<String>() {
+            });
 
     }
 
     /**
      * 私聊：同意添加
      */
-    public static void privateChatAgree(NotEmptyIdSet dto, @Nullable IHttpHandle<String> iHttpHandle) {
+    public static void privateChatAgree(NotEmptyIdSet dto,
+        @Nullable IHttpHandle<String> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/agree", dto, iHttpHandle, new TypeReference<String>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/agree", dto, iHttpHandle,
+            new TypeReference<String>() {
+            });
 
     }
 
     /**
      * 私聊：拒绝添加
      */
-    public static void privateChatReject(SysImSessionApplyPrivateChatRejectDTO dto, @Nullable IHttpHandle<String> iHttpHandle) {
+    public static void privateChatReject(SysImSessionApplyPrivateChatRejectDTO dto,
+        @Nullable IHttpHandle<String> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/reject", dto, iHttpHandle, new TypeReference<String>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/reject", dto, iHttpHandle,
+            new TypeReference<String>() {
+            });
 
     }
 
@@ -87,38 +98,45 @@ public class SysImSessionApplyApi {
      */
     public static void privateChatBlock(NotNullId dto, @Nullable IHttpHandle<String> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/block", dto, iHttpHandle, new TypeReference<String>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/block", dto, iHttpHandle,
+            new TypeReference<String>() {
+            });
 
     }
 
     /**
      * 私聊：拉黑取消
      */
-    public static void privateChatBlockCancel(NotEmptyIdSet dto, @Nullable IHttpHandle<String> iHttpHandle) {
+    public static void privateChatBlockCancel(NotEmptyIdSet dto,
+        @Nullable IHttpHandle<String> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/block/cancel", dto, iHttpHandle, new TypeReference<String>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/block/cancel", dto, iHttpHandle,
+            new TypeReference<String>() {
+            });
 
     }
 
     /**
      * 私聊：申请取消
      */
-    public static void privateChatApplyCancel(NotNullId dto, @Nullable IHttpHandle<String> iHttpHandle) {
+    public static void privateChatApplyCancel(NotNullId dto,
+        @Nullable IHttpHandle<String> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/apply/cancel", dto, iHttpHandle, new TypeReference<String>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/apply/cancel", dto, iHttpHandle,
+            new TypeReference<String>() {
+            });
 
     }
 
     /**
      * 私聊：申请隐藏
      */
-    public static void privateChatApplyHidden(NotNullId dto, @Nullable IHttpHandle<String> iHttpHandle) {
+    public static void privateChatApplyHidden(NotNullId dto,
+        @Nullable IHttpHandle<String> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/apply/hidden", dto, iHttpHandle, new TypeReference<String>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/apply/hidden", dto, iHttpHandle,
+            new TypeReference<String>() {
+            });
 
     }
 
@@ -127,8 +145,9 @@ public class SysImSessionApplyApi {
      */
     public static void privateChatDelete(NotNullId dto, @Nullable IHttpHandle<String> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/apply/privateChat/delete", dto, iHttpHandle, new TypeReference<String>() {
-        });
+        MyHttpUtil.post("/sys/im/session/apply/privateChat/delete", dto, iHttpHandle,
+            new TypeReference<String>() {
+            });
 
     }
 

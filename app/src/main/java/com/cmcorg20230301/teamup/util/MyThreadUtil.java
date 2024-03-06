@@ -23,13 +23,18 @@ public class MyThreadUtil {
 
         int availableProcessors = Runtime.getRuntime().availableProcessors();
 
-        NamedThreadFactory myTaskExecutorThreadFactory = new NamedThreadFactory("myTaskExecutor-", false);
+        NamedThreadFactory myTaskExecutorThreadFactory = new NamedThreadFactory("myTaskExecutor-",
+            false);
 
-        NamedThreadFactory myTaskSchedulerThreadFactory = new NamedThreadFactory("myTaskScheduler-", false);
+        NamedThreadFactory myTaskSchedulerThreadFactory = new NamedThreadFactory("myTaskScheduler-",
+            false);
 
-        THREAD_POOL_EXECUTOR = ExecutorBuilder.create().useSynchronousQueue().setCorePoolSize(availableProcessors * 10).setThreadFactory(myTaskExecutorThreadFactory).build();
+        THREAD_POOL_EXECUTOR = ExecutorBuilder.create().useSynchronousQueue()
+            .setCorePoolSize(availableProcessors * 10).setThreadFactory(myTaskExecutorThreadFactory)
+            .build();
 
-        SCHEDULED_THREAD_POOL_EXECUTOR = new ScheduledThreadPoolExecutor(availableProcessors * 10, myTaskSchedulerThreadFactory);
+        SCHEDULED_THREAD_POOL_EXECUTOR = new ScheduledThreadPoolExecutor(availableProcessors * 10,
+            myTaskSchedulerThreadFactory);
 
     }
 
@@ -54,7 +59,8 @@ public class MyThreadUtil {
     /**
      * 异步执行
      */
-    public static void execute(VoidFunc0 voidFunc0, @Nullable CountDownLatch countDownLatch, @Nullable VoidFunc1<Throwable> exceptionVoidFunc1, @Nullable VoidFunc0 finallyVoidFunc0) {
+    public static void execute(VoidFunc0 voidFunc0, @Nullable CountDownLatch countDownLatch,
+        @Nullable VoidFunc1<Throwable> exceptionVoidFunc1, @Nullable VoidFunc0 finallyVoidFunc0) {
 
         execute(() -> {
 
@@ -80,9 +86,10 @@ public class MyThreadUtil {
      * @param voidFunc0 待执行任务
      */
     public static ScheduledFuture<?> schedule(VoidFunc0 voidFunc0,
-                                              long delay, TimeUnit unit) {
+        long delay, TimeUnit unit) {
 
-        return SCHEDULED_THREAD_POOL_EXECUTOR.schedule(() -> TryUtil.tryCatch(voidFunc0), delay, unit);
+        return SCHEDULED_THREAD_POOL_EXECUTOR.schedule(() -> TryUtil.tryCatch(voidFunc0), delay,
+            unit);
 
     }
 
@@ -92,10 +99,11 @@ public class MyThreadUtil {
      * @param voidFunc0 待执行任务
      */
     public static ScheduledFuture<?> scheduleAtFixedRate(VoidFunc0 voidFunc0,
-                                                         long initialDelay,
-                                                         long period, TimeUnit unit) {
+        long initialDelay,
+        long period, TimeUnit unit) {
 
-        return SCHEDULED_THREAD_POOL_EXECUTOR.scheduleAtFixedRate(() -> TryUtil.tryCatch(voidFunc0), initialDelay, period, unit);
+        return SCHEDULED_THREAD_POOL_EXECUTOR.scheduleAtFixedRate(() -> TryUtil.tryCatch(voidFunc0),
+            initialDelay, period, unit);
 
     }
 
@@ -105,10 +113,11 @@ public class MyThreadUtil {
      * @param voidFunc0 待执行任务
      */
     public static ScheduledFuture<?> scheduleWithFixedDelay(VoidFunc0 voidFunc0,
-                                                            long initialDelay,
-                                                            long delay, TimeUnit unit) {
+        long initialDelay,
+        long delay, TimeUnit unit) {
 
-        return SCHEDULED_THREAD_POOL_EXECUTOR.scheduleWithFixedDelay(() -> TryUtil.tryCatch(voidFunc0), initialDelay, delay, unit);
+        return SCHEDULED_THREAD_POOL_EXECUTOR.scheduleWithFixedDelay(
+            () -> TryUtil.tryCatch(voidFunc0), initialDelay, delay, unit);
 
     }
 

@@ -18,7 +18,8 @@ import java.util.List;
 
 import cn.hutool.core.date.DateUtil;
 
-public class HomeContactFindNewRecycleAdapter extends BaseRecycleAdapter<HomeContactFindNewRecycleAdapter.ViewHolder, SysImSessionDO> {
+public class HomeContactFindNewRecycleAdapter extends
+    BaseRecycleAdapter<HomeContactFindNewRecycleAdapter.ViewHolder, SysImSessionDO> {
 
     public HomeContactFindNewRecycleAdapter(Context context, List<SysImSessionDO> dataList) {
         super(context, dataList);
@@ -39,13 +40,16 @@ public class HomeContactFindNewRecycleAdapter extends BaseRecycleAdapter<HomeCon
 
         SysImSessionDO sysImSessionDO = dataList.get(position);
 
-        Glide.with(context).load("https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg").into(holder.homeChatSessionItemAvatar);
+        Glide.with(context).load(
+                "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg")
+            .into(holder.homeChatSessionItemAvatar);
 
         holder.homeChatSessionItemUserName.setText(sysImSessionDO.getName());
 
         holder.homeChatSessionItemContent.setText(sysImSessionDO.getLastContent());
 
-        holder.homeChatSessionItemTime.setText(DateUtil.formatDateTime(new Date(sysImSessionDO.getLastContentCreateTs())));
+        holder.homeChatSessionItemTime.setText(
+            DateUtil.formatDateTime(new Date(sysImSessionDO.getLastContentCreateTs())));
 
     }
 

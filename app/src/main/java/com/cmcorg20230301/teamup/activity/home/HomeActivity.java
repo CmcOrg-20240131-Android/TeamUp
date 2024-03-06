@@ -36,34 +36,33 @@ public class HomeActivity extends BaseActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+        bottomNavigationView.setOnItemReselectedListener(
+            new NavigationBarView.OnItemReselectedListener() {
 
-            @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+                @Override
+                public void onNavigationItemReselected(@NonNull MenuItem item) {
 
-                int itemId = item.getItemId();
+                    int itemId = item.getItemId();
 
-                if (itemId == R.id.bnm1) {
+                    if (itemId == R.id.bnm1) {
 
-                    getSupportFragmentManager().beginTransaction()
+                        getSupportFragmentManager().beginTransaction()
                             .replace(R.id.homeFragment, HomeChatSessionFragment.class, null)
                             .commit();
 
-                } else if (itemId == R.id.bnm2) {
+                    } else if (itemId == R.id.bnm2) {
 
+                    } else if (itemId == R.id.bnm3) {
 
-                } else if (itemId == R.id.bnm3) {
-
+                    }
 
                 }
 
-            }
-
-        });
+            });
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.homeFragment, HomeChatSessionFragment.class, null)
-                .commit();
+            .add(R.id.homeFragment, HomeChatSessionFragment.class, null)
+            .commit();
 
     }
 

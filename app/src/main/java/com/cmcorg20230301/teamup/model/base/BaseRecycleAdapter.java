@@ -15,7 +15,8 @@ import java.util.List;
 /**
  * 基础：RecyclerView适配器
  */
-public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHolder<D>, D> extends RecyclerView.Adapter<T> {
+public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHolder<D>, D> extends
+    RecyclerView.Adapter<T> {
 
     protected Context context;
 
@@ -48,7 +49,8 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
         // 创建自定义布局
         View itemView = View.inflate(context, getItemViewId(), null);
 
-        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         itemView.setLayoutParams(layoutParams);
 

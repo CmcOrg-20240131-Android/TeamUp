@@ -30,8 +30,8 @@ public class SignActivity extends BaseActivity {
         setContentView(R.layout.sign);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.signFragment, SignInFragment.class, null)
-                .commit();
+            .add(R.id.signFragment, SignInFragment.class, null)
+            .commit();
 
     }
 

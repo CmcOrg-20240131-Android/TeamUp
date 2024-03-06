@@ -18,7 +18,8 @@ public class SignSignInNameApi {
     /**
      * 注册
      */
-    public static void signUp(SignSignInNameSignUpDTO dto, @Nullable IHttpHandle<String> iHttpHandle) {
+    public static void signUp(SignSignInNameSignUpDTO dto,
+        @Nullable IHttpHandle<String> iHttpHandle) {
 
         MyHttpUtil.post("/sign/signInName/sign/up", dto, iHttpHandle, new TypeReference<String>() {
         });
@@ -28,10 +29,12 @@ public class SignSignInNameApi {
     /**
      * 账号密码登录
      */
-    public static void signInPassword(SignSignInNameSignInPasswordDTO dto, @Nullable IHttpHandle<SignInVO> iHttpHandle) {
+    public static void signInPassword(SignSignInNameSignInPasswordDTO dto,
+        @Nullable IHttpHandle<SignInVO> iHttpHandle) {
 
-        MyHttpUtil.post("/sign/signInName/sign/in/password", dto, iHttpHandle, new TypeReference<SignInVO>() {
-        });
+        MyHttpUtil.post("/sign/signInName/sign/in/password", dto, iHttpHandle,
+            new TypeReference<SignInVO>() {
+            });
 
     }
 

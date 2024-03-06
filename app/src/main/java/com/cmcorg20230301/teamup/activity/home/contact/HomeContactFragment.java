@@ -47,14 +47,16 @@ public class HomeContactFragment extends BaseFragment {
     }
 
     @Override
-    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+        @Nullable Bundle savedInstanceState) {
 
         String imContactListJsonStr = MyLocalStorage.getItem(LocalStorageKeyEnum.IM_CONTACT_LIST);
 
         if (StrUtil.isNotBlank(imContactListJsonStr)) {
 
             // 初始化：RecyclerView
-            initRecyclerView(JSONUtil.toList(imContactListJsonStr, SysImSessionApplyPrivateChatSelfPageVO.class));
+            initRecyclerView(JSONUtil.toList(imContactListJsonStr,
+                SysImSessionApplyPrivateChatSelfPageVO.class));
 
         } else {
 
@@ -65,21 +67,24 @@ public class HomeContactFragment extends BaseFragment {
 
         MyThreadUtil.execute(() -> {
 
-            SysImSessionApplyApi.privateChatPageSelf(new SysImSessionApplyPrivateChatSelfPageDTO(), new IHttpHandle<Page<SysImSessionApplyPrivateChatSelfPageVO>>() {
+            SysImSessionApplyApi.privateChatPageSelf(new SysImSessionApplyPrivateChatSelfPageDTO(),
+                new IHttpHandle<Page<SysImSessionApplyPrivateChatSelfPageVO>>() {
 
-                @Override
-                public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatSelfPageVO>> apiResultVO) {
+                    @Override
+                    public void success(
+                        ApiResultVO<Page<SysImSessionApplyPrivateChatSelfPageVO>> apiResultVO) {
 
-                    // 初始化：RecyclerView
-                    initRecyclerView(apiResultVO.getData().getRecords());
+                        // 初始化：RecyclerView
+                        initRecyclerView(apiResultVO.getData().getRecords());
 
-                }
+                    }
 
-            });
+                });
 
         });
 
-        TextView homeContactGoHomeContactFindNew = findViewById(R.id.homeContactGoHomeContactFindNew);
+        TextView homeContactGoHomeContactFindNew = findViewById(
+            R.id.homeContactGoHomeContactFindNew);
 
         homeContactGoHomeContactFindNew.setOnClickListener(v -> {
 
@@ -104,15 +109,18 @@ public class HomeContactFragment extends BaseFragment {
         recyclerView.setAdapter(recyclerAdapter);
 
         // 设置：layoutManager
-        recyclerView.setLayoutManager(new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(
+            new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
 
         // 设置：item的分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(
+            new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(myViewHolder -> {
 
-            BaseActivity.getAppNav(HomeChatSessionContentActivity.class, myViewHolder.data.getSessionId());
+            BaseActivity.getAppNav(HomeChatSessionContentActivity.class,
+                myViewHolder.data.getSessionId());
 
         });
 

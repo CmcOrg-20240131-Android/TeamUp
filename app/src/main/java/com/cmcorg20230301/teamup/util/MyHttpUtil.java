@@ -46,11 +46,13 @@ public class MyHttpUtil {
      *
      * @param hiddenErrorMsgFlag 是否隐藏错误
      */
-    private static <T> void execHttpRequest(HttpRequest httpRequest, boolean hiddenErrorMsgFlag, @Nullable IHttpHandle<T> iHttpHandle, String urlString, TypeReference<T> typeReference) {
+    private static <T> void execHttpRequest(HttpRequest httpRequest, boolean hiddenErrorMsgFlag,
+        @Nullable IHttpHandle<T> iHttpHandle, String urlString, TypeReference<T> typeReference) {
 
         httpRequest.setUrl(BASE_URL + urlString);
 
-        httpRequest.header("Authorization", SharedPreferencesUtil.getSharedPreferences().getString(LocalStorageKeyEnum.JWT.name(), ""));
+        httpRequest.header("Authorization", SharedPreferencesUtil.getSharedPreferences()
+            .getString(LocalStorageKeyEnum.JWT.name(), ""));
 
         httpRequest.header("category", String.valueOf(SysRequestCategoryEnum.ANDROID.getCode()));
 
@@ -67,7 +69,8 @@ public class MyHttpUtil {
                 if (apiResultVO.getData() != null && apiResultVO.getData() instanceof JSONObject) {
 
                     // 类型转换
-                    apiResultVO.setData(JSONUtil.toBean((JSONObject) apiResultVO.getData(), typeReference, false));
+                    apiResultVO.setData(
+                        JSONUtil.toBean((JSONObject) apiResultVO.getData(), typeReference, false));
 
                 }
 
@@ -104,7 +107,8 @@ public class MyHttpUtil {
     /**
      * 处理：错误代码
      */
-    private static <T> void handleErrorCode(boolean hiddenErrorMsgFlag, @Nullable IHttpHandle<T> iHttpHandle, ApiResultVO<T> apiResultVO, Integer resCode) {
+    private static <T> void handleErrorCode(boolean hiddenErrorMsgFlag,
+        @Nullable IHttpHandle<T> iHttpHandle, ApiResultVO<T> apiResultVO, Integer resCode) {
 
         if (BaseBizCodeEnum.NOT_LOGGED_IN_YET.getCode() == resCode) { // 这个代码需要跳转到：登录页面
 
@@ -143,7 +147,8 @@ public class MyHttpUtil {
     /**
      * 处理：ApiResultVO
      */
-    private static <T> void handleSuccessApiResultVO(@Nullable IHttpHandle<T> iHttpHandle, ApiResultVO<T> apiResultVO) {
+    private static <T> void handleSuccessApiResultVO(@Nullable IHttpHandle<T> iHttpHandle,
+        ApiResultVO<T> apiResultVO) {
 
         if (apiResultVO != null && iHttpHandle != null) {
 
@@ -160,7 +165,8 @@ public class MyHttpUtil {
     /**
      * 处理：ApiResultVO
      */
-    private static <T> void handleErrorApiResultVO(@Nullable IHttpHandle<T> iHttpHandle, @Nullable ApiResultVO<T> apiResultVO) {
+    private static <T> void handleErrorApiResultVO(@Nullable IHttpHandle<T> iHttpHandle,
+        @Nullable ApiResultVO<T> apiResultVO) {
 
         if (iHttpHandle != null) {
 
@@ -177,7 +183,8 @@ public class MyHttpUtil {
     /**
      * 发送get请求
      */
-    public static <T> void get(String urlString, @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
+    public static <T> void get(String urlString, @Nullable IHttpHandle<T> iHttpHandle,
+        TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.get(urlString).method(Method.GET);
 
@@ -189,7 +196,8 @@ public class MyHttpUtil {
     /**
      * 发送get请求
      */
-    public static <T> void get(String urlString, Map<String, Object> paramMap, @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
+    public static <T> void get(String urlString, Map<String, Object> paramMap,
+        @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.get(urlString).form(paramMap);
 
@@ -201,7 +209,8 @@ public class MyHttpUtil {
     /**
      * 发送post请求
      */
-    public static <T> void post(String urlString, Object body, @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
+    public static <T> void post(String urlString, Object body, @Nullable IHttpHandle<T> iHttpHandle,
+        TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.post(urlString).body(JSONUtil.toJsonStr(body));
 
@@ -213,7 +222,8 @@ public class MyHttpUtil {
     /**
      * 发送post请求
      */
-    public static <T> void postHiddenError(String urlString, Object body, @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
+    public static <T> void postHiddenError(String urlString, Object body,
+        @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.post(urlString).body(JSONUtil.toJsonStr(body));
 

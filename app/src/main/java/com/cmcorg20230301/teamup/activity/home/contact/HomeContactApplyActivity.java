@@ -45,9 +45,11 @@ public class HomeContactApplyActivity extends BaseFragment {
     }
 
     @Override
-    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public void initView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+        @Nullable Bundle savedInstanceState) {
 
-        String imContactListJsonStr = MyLocalStorage.getItem(LocalStorageKeyEnum.IM_CONTACT_APPLY_LIST);
+        String imContactListJsonStr = MyLocalStorage.getItem(
+            LocalStorageKeyEnum.IM_CONTACT_APPLY_LIST);
 
         if (StrUtil.isNotBlank(imContactListJsonStr)) {
 
@@ -58,17 +60,18 @@ public class HomeContactApplyActivity extends BaseFragment {
 
         MyThreadUtil.execute(() -> {
 
-            SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(), new IHttpHandle<Page<SysImSessionDO>>() {
+            SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(),
+                new IHttpHandle<Page<SysImSessionDO>>() {
 
-                @Override
-                public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
+                    @Override
+                    public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
 
-                    // 初始化：RecyclerView
-                    initRecyclerView(apiResultVO.getData().getRecords());
+                        // 初始化：RecyclerView
+                        initRecyclerView(apiResultVO.getData().getRecords());
 
-                }
+                    }
 
-            });
+                });
 
         });
 
@@ -91,10 +94,12 @@ public class HomeContactApplyActivity extends BaseFragment {
         recyclerView.setAdapter(recyclerAdapter);
 
         // 设置：layoutManager
-        recyclerView.setLayoutManager(new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(
+            new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
 
         // 设置：item的分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(
+            new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(new BaseRecycleAdapter.OnItemClickListener() {
