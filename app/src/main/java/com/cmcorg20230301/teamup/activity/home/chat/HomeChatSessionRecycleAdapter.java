@@ -18,7 +18,7 @@ import java.util.List;
 
 import cn.hutool.core.date.DateUtil;
 
-public class HomeChatSessionRecycleAdapter extends BaseRecycleAdapter<HomeChatSessionRecycleAdapter.ViewHolder, SysImSessionDO> {
+public class HomeChatSessionRecycleAdapter extends BaseRecycleAdapter<HomeChatSessionRecycleAdapter.MyViewHolder, SysImSessionDO> {
 
     public HomeChatSessionRecycleAdapter(Context context, List<SysImSessionDO> dataList) {
         super(context, dataList);
@@ -30,12 +30,12 @@ public class HomeChatSessionRecycleAdapter extends BaseRecycleAdapter<HomeChatSe
     }
 
     @Override
-    public ViewHolder getViewHolder(View itemView) {
-        return new ViewHolder(itemView);
+    public MyViewHolder getViewHolder(View itemView) {
+        return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         super.onBindViewHolder(holder, position);
 
@@ -51,7 +51,7 @@ public class HomeChatSessionRecycleAdapter extends BaseRecycleAdapter<HomeChatSe
 
     }
 
-    class ViewHolder extends BaseRecycleAdapter.ViewHolder<SysImSessionDO> {
+    class MyViewHolder extends BaseRecycleAdapter.ViewHolder<SysImSessionDO> {
 
         ImageView homeChatSessionItemAvatar;
 
@@ -61,7 +61,7 @@ public class HomeChatSessionRecycleAdapter extends BaseRecycleAdapter<HomeChatSe
 
         TextView homeChatSessionItemTime;
 
-        public ViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
