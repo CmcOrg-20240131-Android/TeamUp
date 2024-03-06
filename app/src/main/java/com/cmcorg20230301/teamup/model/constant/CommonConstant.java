@@ -7,6 +7,8 @@ public interface CommonConstant {
 
     String TAG = "TeamUp";
 
+    String EXTRA = "extra";
+
     String FIXED_AVATAR_URL = "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg"; // 固定头像的地址
 
     int API_OK_CODE = 200; // api请求成功的 code

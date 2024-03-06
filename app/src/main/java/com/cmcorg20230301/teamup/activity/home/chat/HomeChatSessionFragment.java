@@ -2,7 +2,6 @@ package com.cmcorg20230301.teamup.activity.home.chat;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -14,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApi;
+import com.cmcorg20230301.teamup.model.base.BaseActivity;
 import com.cmcorg20230301.teamup.model.base.BaseFragment;
-import com.cmcorg20230301.teamup.model.base.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionSelfPageDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
@@ -97,12 +96,9 @@ public class HomeChatSessionFragment extends BaseFragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
-        recyclerAdapter.setOnItemClickListener(new BaseRecycleAdapter.OnItemClickListener() {
+        recyclerAdapter.setOnItemClickListener(viewHolder -> {
 
-            @Override
-            public void onItemClick(View view) {
-
-            }
+            BaseActivity.getAppNav(HomeChatSessionContentActivity.class, viewHolder.data);
 
         });
 

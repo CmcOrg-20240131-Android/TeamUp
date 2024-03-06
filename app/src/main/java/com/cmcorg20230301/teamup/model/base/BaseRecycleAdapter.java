@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 基础：RecyclerView适配器
  */
-public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> extends RecyclerView.Adapter<T> {
+public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.ViewHolder<D>, D> extends RecyclerView.Adapter<T> {
 
     protected Context context;
 
@@ -36,7 +36,9 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> e
 
     @Override
     public int getItemViewType(int position) {
+
         return position;
+
     }
 
     @NonNull
@@ -50,7 +52,20 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> e
 
         itemView.setLayoutParams(layoutParams);
 
-        return getViewHolder(itemView);
+        T viewHolder = getViewHolder(itemView);
+
+        // 在adapter中设置点击事件
+        viewHolder.itemView.setOnClickListener(v -> {
+
+            if (onItemClickListener != null) {
+
+                onItemClickListener.onItemClick(viewHolder);
+
+            }
+
+        });
+
+        return viewHolder;
 
     }
 
@@ -61,17 +76,38 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> e
 
     }
 
-    /**
-     * 设置：item的监听事件的接口
-     */
-    public interface OnItemClickListener {
+    @Override
+    public void onBindViewHolder(@NonNull T holder, int position) {
 
-        void onItemClick(View view);
+        holder.data = dataList.get(position);
 
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+    /**
+     * 设置：item的监听事件的接口
+     */
+    public interface OnItemClickListener<D> {
+
+        void onItemClick(BaseRecycleAdapter.ViewHolder<D> viewHolder);
+
+    }
+
+    public void setOnItemClickListener(OnItemClickListener<D> onItemClickListener) {
+
         this.onItemClickListener = onItemClickListener;
+
+    }
+
+    public static class ViewHolder<D> extends RecyclerView.ViewHolder {
+
+        public D data;
+
+        public ViewHolder(@NonNull View itemView) {
+
+            super(itemView);
+
+        }
+
     }
 
 }

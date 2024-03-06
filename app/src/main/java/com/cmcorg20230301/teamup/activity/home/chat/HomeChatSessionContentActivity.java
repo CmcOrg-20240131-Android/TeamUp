@@ -1,5 +1,6 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -26,6 +27,8 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
+
+        Intent intent = getIntent();
 
         setContentView(R.layout.home_chat_session_content);
 

@@ -9,9 +9,13 @@ import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.cmcorg20230301.teamup.exception.MyUncaughtExceptionHandler;
+import com.cmcorg20230301.teamup.model.constant.CommonConstant;
+import com.cmcorg20230301.teamup.util.LogUtil;
 import com.cmcorg20230301.teamup.util.StatusBarUtil;
 
 import org.jetbrains.annotations.Nullable;
+
+import cn.hutool.json.JSONUtil;
 
 /**
  * 所有 activity都需要继承本类
@@ -75,7 +79,24 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public static <T extends BaseActivity> void getAppNav(Class<T> tClass) {
 
-        CURRENT_ACTIVITY.startActivity(new Intent(CURRENT_ACTIVITY, tClass));
+        getAppNav(tClass, null);
+
+    }
+
+    /**
+     * 页面跳转
+     */
+    public static <T extends BaseActivity> void getAppNav(Class<T> tClass, @Nullable Object extra) {
+
+        Intent intent = new Intent(CURRENT_ACTIVITY, tClass);
+
+        String dataJsonStr = JSONUtil.toJsonStr(extra);
+
+        intent.putExtra(CommonConstant.EXTRA, dataJsonStr);
+
+        CURRENT_ACTIVITY.startActivity(intent);
+
+        LogUtil.debug("路由跳转：{}，数据：{}", tClass.getSimpleName(), dataJsonStr);
 
     }
 
