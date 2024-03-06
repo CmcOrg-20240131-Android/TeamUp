@@ -28,7 +28,7 @@ public class MyLocalStorage {
 
     }
 
-    private static void clear() {
+    public static void clear() {
 
         getEditor().clear().apply();
 

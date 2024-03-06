@@ -1,8 +1,5 @@
 package com.cmcorg20230301.teamup.util;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-
 import com.cmcorg20230301.teamup.activity.sign.SignActivity;
 import com.cmcorg20230301.teamup.model.base.BaseActivity;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
@@ -23,7 +20,7 @@ public class UserUtil {
      */
     public static void signOut(@Nullable String msg) {
 
-        SharedPreferencesUtil.clear();
+        MyLocalStorage.clear();
 
         if (StrUtil.isNotBlank(msg)) {
 
@@ -32,7 +29,7 @@ public class UserUtil {
         }
 
         // 跳转到：登录页面
-        BaseActivity.CURRENT_ACTIVITY.startActivity(new Intent(BaseActivity.CURRENT_ACTIVITY, SignActivity.class));
+        BaseActivity.getAppNav(SignActivity.class);
 
     }
 
@@ -45,17 +42,13 @@ public class UserUtil {
             return;
         }
 
-        SharedPreferencesUtil.clear();
+        MyLocalStorage.clear();
 
         SignInVO signInVO = apiResultVO.getData();
 
-        SharedPreferences.Editor editor = SharedPreferencesUtil.getEditor();
+        MyLocalStorage.setItem(LocalStorageKeyEnum.JWT, signInVO.getJwt());
 
-        editor.putString(LocalStorageKeyEnum.JWT.name(), signInVO.getJwt());
-
-        editor.putLong(LocalStorageKeyEnum.JWT_EXPIRE_TS.name(), signInVO.getJwtExpireTs());
-
-        editor.apply();
+        MyLocalStorage.setItem(LocalStorageKeyEnum.JWT_EXPIRE_TS, signInVO.getJwtExpireTs());
 
         if (showMsg) {
 

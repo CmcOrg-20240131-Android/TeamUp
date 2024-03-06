@@ -1,6 +1,5 @@
 package com.cmcorg20230301.teamup;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.ColorRes;
@@ -9,6 +8,7 @@ import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.activity.sign.SignActivity;
 import com.cmcorg20230301.teamup.model.base.BaseActivity;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
+import com.cmcorg20230301.teamup.util.MyLocalStorage;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -29,15 +29,15 @@ public class MainActivity extends BaseActivity {
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
 
-        String jwt = SharedPreferencesUtil.getSharedPreferences().getString(LocalStorageKeyEnum.JWT.name(), null);
+        String jwt = MyLocalStorage.getItem(LocalStorageKeyEnum.JWT);
 
         if (StrUtil.isBlank(jwt)) {
 
-            startActivity(new Intent(this, SignActivity.class));
+            BaseActivity.getAppNav(SignActivity.class);
 
         } else {
 
-            startActivity(new Intent(this, HomeActivity.class));
+            BaseActivity.getAppNav(HomeActivity.class);
 
         }
 

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -74,6 +75,12 @@ public class HomeContactFragment extends BaseFragment {
                 }
 
             });
+
+        });
+
+        TextView homeContactGoHomeContactFindNew = findViewById(R.id.homeContactGoHomeContactFindNew);
+
+        homeContactGoHomeContactFindNew.setOnClickListener(v -> {
 
         });
 

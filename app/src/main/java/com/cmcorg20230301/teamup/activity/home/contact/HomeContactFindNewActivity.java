@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * 联系人申请页
  */
-public class HomeContactFindNewFragment extends BaseFragment {
+public class HomeContactFindNewActivity extends BaseFragment {
 
     private RecyclerView recyclerView;
 

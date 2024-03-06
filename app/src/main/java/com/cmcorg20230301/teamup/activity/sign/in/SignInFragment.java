@@ -1,6 +1,5 @@
 package com.cmcorg20230301.teamup.activity.sign.in;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.activity.sign.up.SignUpFragment;
 import com.cmcorg20230301.teamup.api.http.SignSignInNameApi;
+import com.cmcorg20230301.teamup.model.base.BaseActivity;
 import com.cmcorg20230301.teamup.model.base.BaseFragment;
 import com.cmcorg20230301.teamup.model.constant.BaseRegexConstant;
 import com.cmcorg20230301.teamup.model.dto.SignSignInNameSignInPasswordDTO;
@@ -87,7 +87,7 @@ public class SignInFragment extends BaseFragment {
 
                         UserUtil.signInSuccess(apiResultVO, true);
 
-                        startActivity(new Intent(getActivity(), HomeActivity.class)); // 跳转到：主页
+                        BaseActivity.getAppNav(HomeActivity.class); // 跳转到：主页
 
                     }
 

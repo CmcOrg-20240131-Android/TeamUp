@@ -32,7 +32,7 @@ import cn.hutool.json.JSONUtil;
 /**
  * 联系人申请页
  */
-public class HomeContactApplyFragment extends BaseFragment {
+public class HomeContactApplyActivity extends BaseFragment {
 
     private RecyclerView recyclerView;
 

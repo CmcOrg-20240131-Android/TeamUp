@@ -1,6 +1,7 @@
 package com.cmcorg20230301.teamup.model.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 
@@ -68,5 +69,14 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 初始化页面
      */
     public abstract void initView(@Nullable Bundle savedInstanceState);
+
+    /**
+     * 页面跳转
+     */
+    public static <T extends BaseActivity> void getAppNav(Class<T> tClass) {
+
+        CURRENT_ACTIVITY.startActivity(new Intent(CURRENT_ACTIVITY, tClass));
+
+    }
 
 }
