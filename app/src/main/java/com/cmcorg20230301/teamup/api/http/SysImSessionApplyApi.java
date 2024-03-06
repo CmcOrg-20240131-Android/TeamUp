@@ -45,7 +45,7 @@ public class SysImSessionApplyApi {
     /**
      * 分页排序查询-好友列表-自我
      */
-    public void privateChatPageSelf(SysImSessionApplyPrivateChatSelfPageDTO dto, @Nullable IHttpHandle<Page<SysImSessionApplyPrivateChatSelfPageVO>> iHttpHandle) {
+    public static void privateChatPageSelf(SysImSessionApplyPrivateChatSelfPageDTO dto, @Nullable IHttpHandle<Page<SysImSessionApplyPrivateChatSelfPageVO>> iHttpHandle) {
 
         MyHttpUtil.post("/sys/im/session/apply/privateChat/page/self", dto, iHttpHandle, new TypeReference<Page<SysImSessionApplyPrivateChatSelfPageVO>>() {
         });

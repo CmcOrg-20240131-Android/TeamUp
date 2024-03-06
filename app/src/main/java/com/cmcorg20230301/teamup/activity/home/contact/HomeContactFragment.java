@@ -13,17 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cmcorg20230301.teamup.R;
-import com.cmcorg20230301.teamup.api.http.SysImSessionApi;
+import com.cmcorg20230301.teamup.api.http.SysImSessionApplyApi;
 import com.cmcorg20230301.teamup.model.base.BaseFragment;
-import com.cmcorg20230301.teamup.model.dto.SysImSessionSelfPageDTO;
-import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
+import com.cmcorg20230301.teamup.model.dto.SysImSessionApplyPrivateChatSelfPageDTO;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
+import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatSelfPageVO;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
 import com.cmcorg20230301.teamup.util.MyThreadUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
@@ -51,16 +52,21 @@ public class HomeContactFragment extends BaseFragment {
         if (StrUtil.isNotBlank(imContactListJsonStr)) {
 
             // 初始化：RecyclerView
-            initRecyclerView(JSONUtil.toList(imContactListJsonStr, SysImSessionDO.class));
+            initRecyclerView(JSONUtil.toList(imContactListJsonStr, SysImSessionApplyPrivateChatSelfPageVO.class));
+
+        } else {
+
+            // 初始化：RecyclerView
+            initRecyclerView(new ArrayList<>());
 
         }
 
         MyThreadUtil.execute(() -> {
 
-            SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(), new IHttpHandle<Page<SysImSessionDO>>() {
+            SysImSessionApplyApi.privateChatPageSelf(new SysImSessionApplyPrivateChatSelfPageDTO(), new IHttpHandle<Page<SysImSessionApplyPrivateChatSelfPageVO>>() {
 
                 @Override
-                public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
+                public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatSelfPageVO>> apiResultVO) {
 
                     // 初始化：RecyclerView
                     initRecyclerView(apiResultVO.getData().getRecords());
@@ -76,7 +82,7 @@ public class HomeContactFragment extends BaseFragment {
     /**
      * 初始化：RecyclerView
      */
-    private void initRecyclerView(List<SysImSessionDO> dataList) {
+    private void initRecyclerView(List<SysImSessionApplyPrivateChatSelfPageVO> dataList) {
 
         FragmentActivity fragmentActivity = getActivity();
 

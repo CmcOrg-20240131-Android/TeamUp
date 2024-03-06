@@ -6,8 +6,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,10 +27,10 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> e
 
     public abstract T getViewHolder(View itemView);
 
-    public BaseRecycleAdapter(Context context, List<D> dataList) {
+    public BaseRecycleAdapter(Context context, @Nullable List<D> dataList) {
 
         this.context = context;
-        this.dataList = dataList;
+        this.dataList = dataList == null ? new ArrayList<>() : dataList;
 
     }
 
@@ -55,7 +57,7 @@ public abstract class BaseRecycleAdapter<T extends RecyclerView.ViewHolder, D> e
     @Override
     public int getItemCount() {
 
-        return dataList.size();
+        return dataList == null ? 0 : dataList.size();
 
     }
 

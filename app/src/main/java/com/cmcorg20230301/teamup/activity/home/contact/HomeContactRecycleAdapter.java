@@ -11,22 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.model.base.BaseRecycleAdapter;
-import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
+import com.cmcorg20230301.teamup.model.constant.CommonConstant;
+import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatSelfPageVO;
 
-import java.util.Date;
 import java.util.List;
 
-import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 
-public class HomeContactRecycleAdapter extends BaseRecycleAdapter<HomeContactRecycleAdapter.ViewHolder, SysImSessionDO> {
+public class HomeContactRecycleAdapter extends BaseRecycleAdapter<HomeContactRecycleAdapter.ViewHolder, SysImSessionApplyPrivateChatSelfPageVO> {
 
-    public HomeContactRecycleAdapter(Context context, List<SysImSessionDO> dataList) {
+    public HomeContactRecycleAdapter(Context context, List<SysImSessionApplyPrivateChatSelfPageVO> dataList) {
         super(context, dataList);
     }
 
     @Override
     public Integer getItemViewId() {
-        return R.layout.home_chat_session_item;
+        return R.layout.home_contact_item;
     }
 
     @Override
@@ -37,39 +37,35 @@ public class HomeContactRecycleAdapter extends BaseRecycleAdapter<HomeContactRec
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        SysImSessionDO sysImSessionDO = dataList.get(position);
+        SysImSessionApplyPrivateChatSelfPageVO sysImSessionApplyPrivateChatSelfPageVO = dataList.get(position);
 
-        Glide.with(context).load("https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg").into(holder.homeChatSessionItemAvatar);
+        String avatarUrl = sysImSessionApplyPrivateChatSelfPageVO.getAvatarUrl();
 
-        holder.homeChatSessionItemUserName.setText(sysImSessionDO.getName());
+        if (StrUtil.isBlank(avatarUrl)) {
 
-        holder.homeChatSessionItemContent.setText(sysImSessionDO.getLastContent());
+            avatarUrl = CommonConstant.FIXED_AVATAR_URL;
 
-        holder.homeChatSessionItemTime.setText(DateUtil.formatDateTime(new Date(sysImSessionDO.getLastContentCreateTs())));
+        }
+
+        Glide.with(context).load(avatarUrl).into(holder.homeContactItemAvatar);
+
+        holder.homeContactItemNickname.setText(sysImSessionApplyPrivateChatSelfPageVO.getNickname());
 
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView homeChatSessionItemAvatar;
+        ImageView homeContactItemAvatar;
 
-        TextView homeChatSessionItemUserName;
-
-        TextView homeChatSessionItemContent;
-
-        TextView homeChatSessionItemTime;
+        TextView homeContactItemNickname;
 
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
-            homeChatSessionItemAvatar = itemView.findViewById(R.id.homeChatSessionItemAvatar);
+            homeContactItemAvatar = itemView.findViewById(R.id.homeContactItemAvatar);
 
-            homeChatSessionItemUserName = itemView.findViewById(R.id.homeChatSessionItemUserName);
-
-            homeChatSessionItemContent = itemView.findViewById(R.id.homeChatSessionItemContent);
-
-            homeChatSessionItemTime = itemView.findViewById(R.id.homeChatSessionItemTime);
+            homeContactItemNickname = itemView.findViewById(R.id.homeContactItemNickname);
 
             // 在adapter中设置点击事件
             itemView.setOnClickListener(new View.OnClickListener() {
