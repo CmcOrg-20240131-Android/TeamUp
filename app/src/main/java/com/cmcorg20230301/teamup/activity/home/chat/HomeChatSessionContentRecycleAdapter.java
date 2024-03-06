@@ -37,9 +37,13 @@ public class HomeChatSessionContentRecycleAdapter extends BaseRecycleAdapter<Hom
     @Override
     public void onBindViewHolderData(@NonNull MyViewHolder holder, int position, SysImSessionContentDO data) {
 
-        holder.homeChatSessionContentItemTime.setText(DateUtil.formatDateTime(new Date(data.getCreateTs())));
-
         Glide.with(context).load(CommonConstant.FIXED_AVATAR_URL).into(holder.homeChatSessionContentItemAvatar);
+
+        holder.homeChatSessionContentItemUserName.setText("");
+
+        holder.homeChatSessionContentItemContent.setText(data.getContent());
+
+        holder.homeChatSessionContentItemTime.setText(DateUtil.formatDateTime(new Date(data.getCreateTs())));
 
     }
 
