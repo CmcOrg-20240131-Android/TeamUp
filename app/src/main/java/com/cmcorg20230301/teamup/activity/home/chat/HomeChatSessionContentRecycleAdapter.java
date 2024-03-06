@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
@@ -14,11 +13,12 @@ import com.cmcorg20230301.teamup.model.base.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
 
+import java.util.Date;
 import java.util.List;
 
 import cn.hutool.core.date.DateUtil;
 
-public class HomeChatSessionContentRecycleAdapter extends BaseRecycleAdapter<HomeChatSessionContentRecycleAdapter.ViewHolder, SysImSessionContentDO> {
+public class HomeChatSessionContentRecycleAdapter extends BaseRecycleAdapter<HomeChatSessionContentRecycleAdapter.MyViewHolder, SysImSessionContentDO> {
 
     public HomeChatSessionContentRecycleAdapter(Context context, List<SysImSessionContentDO> dataList) {
         super(context, dataList);
@@ -30,20 +30,20 @@ public class HomeChatSessionContentRecycleAdapter extends BaseRecycleAdapter<Hom
     }
 
     @Override
-    public ViewHolder getViewHolder(View itemView) {
-        return new ViewHolder(itemView);
+    public MyViewHolder getViewHolder(View itemView) {
+        return new MyViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolderData(@NonNull MyViewHolder holder, int position, SysImSessionContentDO data) {
 
-        holder.homeChatSessionContentItemTime.setText(DateUtil.now());
+        holder.homeChatSessionContentItemTime.setText(DateUtil.formatDateTime(new Date(data.getCreateTs())));
 
         Glide.with(context).load(CommonConstant.FIXED_AVATAR_URL).into(holder.homeChatSessionContentItemAvatar);
 
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends BaseRecycleAdapter.MyViewHolder<SysImSessionContentDO> {
 
         ImageView homeChatSessionContentItemAvatar;
 
@@ -53,7 +53,7 @@ public class HomeChatSessionContentRecycleAdapter extends BaseRecycleAdapter<Hom
 
         TextView homeChatSessionContentItemTime;
 
-        public ViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
@@ -64,20 +64,6 @@ public class HomeChatSessionContentRecycleAdapter extends BaseRecycleAdapter<Hom
             homeChatSessionContentItemContent = itemView.findViewById(R.id.homeChatSessionContentItemContent);
 
             homeChatSessionContentItemTime = itemView.findViewById(R.id.homeChatSessionContentItemTime);
-
-            // 在adapter中设置点击事件
-            itemView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(v);
-                    }
-
-                }
-
-            });
 
         }
 

@@ -96,9 +96,9 @@ public class HomeChatSessionFragment extends BaseFragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
-        recyclerAdapter.setOnItemClickListener(viewHolder -> {
+        recyclerAdapter.setOnItemClickListener(myViewHolder -> {
 
-            BaseActivity.getAppNav(HomeChatSessionContentActivity.class, viewHolder.data);
+            BaseActivity.getAppNav(HomeChatSessionContentActivity.class, myViewHolder.data.getId());
 
         });
 

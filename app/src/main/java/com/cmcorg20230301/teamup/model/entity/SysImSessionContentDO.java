@@ -38,4 +38,53 @@ public class SysImSessionContentDO extends BaseEntity {
      */
     private Long createTs;
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(Long sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Boolean getShowFlag() {
+        return showFlag;
+    }
+
+    public void setShowFlag(Boolean showFlag) {
+        this.showFlag = showFlag;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Long getCreateTs() {
+        return createTs;
+    }
+
+    public void setCreateTs(Long createTs) {
+        this.createTs = createTs;
+    }
 }

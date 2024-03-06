@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 基础：RecyclerView适配器
  */
-public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.ViewHolder<D>, D> extends RecyclerView.Adapter<T> {
+public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHolder<D>, D> extends RecyclerView.Adapter<T> {
 
     protected Context context;
 
@@ -81,14 +81,22 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.ViewHolder
 
         holder.data = dataList.get(position);
 
+        if (holder.data != null) {
+
+            onBindViewHolderData(holder, position, holder.data);
+
+        }
+
     }
+
+    public abstract void onBindViewHolderData(@NonNull T holder, int position, D data);
 
     /**
      * 设置：item的监听事件的接口
      */
     public interface OnItemClickListener<D> {
 
-        void onItemClick(BaseRecycleAdapter.ViewHolder<D> viewHolder);
+        void onItemClick(MyViewHolder<D> myViewHolder);
 
     }
 
@@ -98,11 +106,11 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.ViewHolder
 
     }
 
-    public static class ViewHolder<D> extends RecyclerView.ViewHolder {
+    public static class MyViewHolder<D> extends RecyclerView.ViewHolder {
 
         public D data;
 
-        public ViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView) {
 
             super(itemView);
 

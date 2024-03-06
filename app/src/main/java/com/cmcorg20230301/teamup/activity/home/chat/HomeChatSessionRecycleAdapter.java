@@ -35,23 +35,19 @@ public class HomeChatSessionRecycleAdapter extends BaseRecycleAdapter<HomeChatSe
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
-        super.onBindViewHolder(holder, position);
-
-        SysImSessionDO sysImSessionDO = holder.data;
+    public void onBindViewHolderData(@NonNull MyViewHolder holder, int position, SysImSessionDO data) {
 
         Glide.with(context).load(CommonConstant.FIXED_AVATAR_URL).into(holder.homeChatSessionItemAvatar);
 
-        holder.homeChatSessionItemUserName.setText(sysImSessionDO.getName());
+        holder.homeChatSessionItemUserName.setText(data.getName());
 
-        holder.homeChatSessionItemContent.setText(sysImSessionDO.getLastContent());
+        holder.homeChatSessionItemContent.setText(data.getLastContent());
 
-        holder.homeChatSessionItemTime.setText(DateUtil.formatDateTime(new Date(sysImSessionDO.getLastContentCreateTs())));
+        holder.homeChatSessionItemTime.setText(DateUtil.formatDateTime(new Date(data.getLastContentCreateTs())));
 
     }
 
-    class MyViewHolder extends BaseRecycleAdapter.ViewHolder<SysImSessionDO> {
+    class MyViewHolder extends BaseRecycleAdapter.MyViewHolder<SysImSessionDO> {
 
         ImageView homeChatSessionItemAvatar;
 

@@ -2,7 +2,6 @@ package com.cmcorg20230301.teamup.activity.home.chat;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -11,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.model.base.BaseActivity;
-import com.cmcorg20230301.teamup.model.base.BaseRecycleAdapter;
+import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
 
 import java.util.List;
@@ -29,6 +28,8 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     public void initView(@Nullable Bundle savedInstanceState) {
 
         Intent intent = getIntent();
+
+        String extraStr = intent.getStringExtra(CommonConstant.EXTRA);
 
         setContentView(R.layout.home_chat_session_content);
 
@@ -55,12 +56,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
-        recyclerAdapter.setOnItemClickListener(new BaseRecycleAdapter.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(View view) {
-
-            }
+        recyclerAdapter.setOnItemClickListener(myViewHolder -> {
 
         });
 
