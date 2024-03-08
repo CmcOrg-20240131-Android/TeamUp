@@ -4,6 +4,13 @@ import java.util.Set;
 
 public class NotEmptyIdSet {
 
+    public NotEmptyIdSet() {
+    }
+
+    public NotEmptyIdSet(Set<Long> idSet) {
+        this.idSet = idSet;
+    }
+
     /**
      * 主键 idSet
      */
