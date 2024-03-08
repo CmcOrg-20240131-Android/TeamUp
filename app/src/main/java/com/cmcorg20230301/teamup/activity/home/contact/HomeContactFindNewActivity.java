@@ -10,11 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cmcorg20230301.teamup.R;
+import com.cmcorg20230301.teamup.api.http.SysImSessionApplyApi;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
+import com.cmcorg20230301.teamup.model.dto.SysImSessionApplyPrivateChatFindNewPageDTO;
+import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
+import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
+import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatFindNewPageVO;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
+
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 联系人申请页
@@ -41,6 +48,25 @@ public class HomeContactFindNewActivity extends BaseActivity {
 
                         String searchNickname = textView.getText().toString();
 
+                        if (StrUtil.isBlank(searchNickname)) {
+
+                            SysImSessionApplyPrivateChatFindNewPageDTO sysImSessionApplyPrivateChatFindNewPageDTO = new SysImSessionApplyPrivateChatFindNewPageDTO();
+
+                            sysImSessionApplyPrivateChatFindNewPageDTO.setNickname(searchNickname);
+
+                            SysImSessionApplyApi.privateChatFindNewPage(sysImSessionApplyPrivateChatFindNewPageDTO, new IHttpHandle<Page<SysImSessionApplyPrivateChatFindNewPageVO>>() {
+
+                                @Override
+                                public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatFindNewPageVO>> apiResultVO) {
+
+                                    initRecyclerView(apiResultVO.getData().getRecords());
+
+                                }
+
+                            });
+
+                        }
+
                         return false; // false 隐藏键盘 true 不隐藏键盘
 
                     }
@@ -65,11 +91,11 @@ public class HomeContactFindNewActivity extends BaseActivity {
 
         // 设置：layoutManager
         recyclerView.setLayoutManager(
-            new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         // 设置：item的分割线
         recyclerView.addItemDecoration(
-            new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(myViewHolder -> {
