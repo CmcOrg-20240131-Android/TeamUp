@@ -56,7 +56,7 @@ public class HomeContactApplyActivity extends BaseActivity {
     }
 
     /**
-     * 刷新页面
+     * 执行：初始化 RecyclerView
      */
     private void doInitRecyclerView() {
 
@@ -68,8 +68,12 @@ public class HomeContactApplyActivity extends BaseActivity {
                     @Override
                     public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatApplySelfPageVO>> apiResultVO) {
 
-                        // 初始化：RecyclerView
-                        initRecyclerView(apiResultVO.getData().getRecords());
+                        runOnUiThread(() -> {
+
+                            // 初始化：RecyclerView
+                            initRecyclerView(apiResultVO.getData().getRecords());
+
+                        });
 
                     }
 

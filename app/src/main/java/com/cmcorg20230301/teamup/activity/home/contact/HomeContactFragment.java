@@ -55,12 +55,12 @@ public class HomeContactFragment extends BaseFragment {
         if (StrUtil.isNotBlank(imContactListJsonStr)) {
 
             // 初始化：RecyclerView
-            initRecyclerView(JSONUtil.toList(imContactListJsonStr, SysImSessionApplyPrivateChatSelfPageVO.class));
+            doInitRecyclerView(JSONUtil.toList(imContactListJsonStr, SysImSessionApplyPrivateChatSelfPageVO.class));
 
         } else {
 
             // 初始化：RecyclerView
-            initRecyclerView(new ArrayList<>());
+            doInitRecyclerView(new ArrayList<>());
 
         }
 
@@ -73,7 +73,7 @@ public class HomeContactFragment extends BaseFragment {
                     public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatSelfPageVO>> apiResultVO) {
 
                         // 初始化：RecyclerView
-                        initRecyclerView(apiResultVO.getData().getRecords());
+                        doInitRecyclerView(apiResultVO.getData().getRecords());
 
                     }
 
@@ -94,6 +94,20 @@ public class HomeContactFragment extends BaseFragment {
         homeContactGoHomeContactApply.setOnClickListener(v -> {
 
             BaseActivity.getAppNav(HomeContactApplyActivity.class);
+
+        });
+
+    }
+
+    /**
+     * 执行：初始化 RecyclerView
+     */
+    private void doInitRecyclerView(List<SysImSessionApplyPrivateChatSelfPageVO> dataList) {
+
+        getActivity().runOnUiThread(() -> {
+
+            // 初始化：RecyclerView
+            initRecyclerView(dataList);
 
         });
 

@@ -67,11 +67,25 @@ public class HomeChatSessionContentActivity extends BaseActivity {
                     public void success(ApiResultVO<Page<SysImSessionContentDO>> apiResultVO) {
 
                         // 初始化：RecyclerView
-                        initRecyclerView(apiResultVO.getData().getRecords());
+                        doInitRecyclerView(apiResultVO.getData().getRecords());
 
                     }
 
                 });
+
+        });
+
+    }
+
+    /**
+     * 执行：初始化 RecyclerView
+     */
+    private void doInitRecyclerView(List<SysImSessionContentDO> dataList) {
+
+        runOnUiThread(() -> {
+
+            // 初始化：RecyclerView
+            initRecyclerView(dataList);
 
         });
 

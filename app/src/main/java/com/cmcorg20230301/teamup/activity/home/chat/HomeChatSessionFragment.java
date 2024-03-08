@@ -52,9 +52,11 @@ public class HomeChatSessionFragment extends BaseFragment {
         if (StrUtil.isNotBlank(imSessionListJsonStr)) {
 
             // 初始化：RecyclerView
-            initRecyclerView(JSONUtil.toList(imSessionListJsonStr, SysImSessionDO.class));
+            doInitRecyclerView(JSONUtil.toList(imSessionListJsonStr, SysImSessionDO.class));
 
         }
+
+        FragmentActivity fragmentActivity = getActivity();
 
         MyThreadUtil.execute(() -> {
 
@@ -63,12 +65,25 @@ public class HomeChatSessionFragment extends BaseFragment {
                 @Override
                 public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
 
-                    // 初始化：RecyclerView
-                    initRecyclerView(apiResultVO.getData().getRecords());
+                    doInitRecyclerView(apiResultVO.getData().getRecords());
 
                 }
 
             });
+
+        });
+
+    }
+
+    /**
+     * 执行：初始化 RecyclerView
+     */
+    private void doInitRecyclerView(List<SysImSessionDO> dataList) {
+
+        getActivity().runOnUiThread(() -> {
+
+            // 初始化：RecyclerView
+            initRecyclerView(dataList);
 
         });
 

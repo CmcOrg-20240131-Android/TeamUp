@@ -63,7 +63,7 @@ public class HomeContactFindNewActivity extends BaseActivity {
                             public void
                                 success(ApiResultVO<Page<SysImSessionApplyPrivateChatFindNewPageVO>> apiResultVO) {
 
-                                initRecyclerView(apiResultVO.getData().getRecords());
+                                doInitRecyclerView(apiResultVO.getData().getRecords());
 
                             }
 
@@ -74,6 +74,20 @@ public class HomeContactFindNewActivity extends BaseActivity {
                 return false; // false 隐藏键盘 true 不隐藏键盘
 
             }
+
+        });
+
+    }
+
+    /**
+     * 执行：初始化 RecyclerView
+     */
+    private void doInitRecyclerView(List<SysImSessionApplyPrivateChatFindNewPageVO> dataList) {
+
+        runOnUiThread(() -> {
+
+            // 初始化：RecyclerView
+            initRecyclerView(dataList);
 
         });
 
@@ -112,7 +126,7 @@ public class HomeContactFindNewActivity extends BaseActivity {
                     ToastUtil.makeText("申请成功");
 
                     // 刷新页面
-                    initRecyclerView(new ArrayList<>());
+                    doInitRecyclerView(new ArrayList<>());
 
                 }
 
