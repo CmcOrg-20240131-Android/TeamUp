@@ -1,21 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <item
-    android:id="@+id/bnm1"
-    android:enabled="true"
-    android:icon="@drawable/svg_message"
-    android:title="消息" />
+    <item
+        android:id="@+id/bnm1"
+        android:enabled="true"
+        android:icon="@drawable/svg_message"
+        android:title="消息" />
 
-  <item
-    android:id="@+id/bnm2"
-    android:enabled="true"
-    android:icon="@drawable/svg_team"
-    android:title="联系人" />
+    <item
+        android:id="@+id/bnm2"
+        android:enabled="true"
+        android:icon="@drawable/svg_team"
+        android:title="联系人" />
 
-  <item
-    android:id="@+id/bnm3"
-    android:enabled="true"
-    android:icon="@drawable/svg_user"
-    android:title="我的" />
+    <item
+        android:id="@+id/bnm3"
+        android:enabled="true"
+        android:icon="@drawable/svg_user"
+        android:title="我的" />
 
 </menu>

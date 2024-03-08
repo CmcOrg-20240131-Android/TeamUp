@@ -1,16 +1,7 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
+import java.util.List;
+
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApi;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
@@ -23,7 +14,20 @@ import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
 import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
-import java.util.List;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 
 /**
  * 聊天会话页
@@ -54,18 +58,17 @@ public class HomeChatSessionFragment extends BaseFragment {
 
         MyThreadUtil.execute(() -> {
 
-            SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(),
-                new IHttpHandle<Page<SysImSessionDO>>() {
+            SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(), new IHttpHandle<Page<SysImSessionDO>>() {
 
-                    @Override
-                    public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
+                @Override
+                public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
 
-                        // 初始化：RecyclerView
-                        initRecyclerView(apiResultVO.getData().getRecords());
+                    // 初始化：RecyclerView
+                    initRecyclerView(apiResultVO.getData().getRecords());
 
-                    }
+                }
 
-                });
+            });
 
         });
 
@@ -88,12 +91,10 @@ public class HomeChatSessionFragment extends BaseFragment {
         recyclerView.setAdapter(recyclerAdapter);
 
         // 设置：layoutManager
-        recyclerView.setLayoutManager(
-            new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
 
         // 设置：item的分割线
-        recyclerView.addItemDecoration(
-            new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(myViewHolder -> {

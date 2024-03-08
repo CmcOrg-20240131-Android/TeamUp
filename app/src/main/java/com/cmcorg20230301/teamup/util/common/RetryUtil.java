@@ -1,12 +1,15 @@
 package com.cmcorg20230301.teamup.util.common;
 
+import java.io.InputStream;
+import java.util.function.Supplier;
+
+import com.cmcorg20230301.teamup.model.constant.CommonConstant;
+
 import android.util.Log;
+
 import cn.hutool.core.lang.func.VoidFunc0;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.http.HttpRequest;
-import com.cmcorg20230301.teamup.model.constant.CommonConstant;
-import java.io.InputStream;
-import java.util.function.Supplier;
 
 /**
  * 重试工具类
@@ -71,7 +74,7 @@ public class RetryUtil {
     /**
      * 执行
      *
-     * @param gapMs      间隔多少毫秒
+     * @param gapMs 间隔多少毫秒
      * @param execNumber 传值多少，则方法会执行多少次
      */
     public static <T> T execSupplier(Supplier<T> supplier, long gapMs, long execNumber) {
@@ -106,11 +109,10 @@ public class RetryUtil {
     /**
      * 执行
      *
-     * @param gapMs      间隔多少毫秒
+     * @param gapMs 间隔多少毫秒
      * @param execNumber 传值多少，则方法会执行多少次
      */
-    public static void execVoidFunc0(VoidFunc0 voidFunc0, long gapMs, long execNumber)
-        throws Exception {
+    public static void execVoidFunc0(VoidFunc0 voidFunc0, long gapMs, long execNumber) throws Exception {
 
         try {
 

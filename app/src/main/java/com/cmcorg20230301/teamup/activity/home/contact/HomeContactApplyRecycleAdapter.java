@@ -1,22 +1,24 @@
 package com.cmcorg20230301.teamup.activity.home.contact;
 
-import android.content.Context;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
+import java.util.List;
+
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatApplySelfPageVO;
 import com.cmcorg20230301.teamup.util.UserUtil;
-import java.util.List;
 
-public class HomeContactApplyRecycleAdapter extends
-    BaseRecycleAdapter<HomeContactApplyRecycleAdapter.ViewHolder, SysImSessionApplyPrivateChatApplySelfPageVO> {
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-    public HomeContactApplyRecycleAdapter(Context context,
-        List<SysImSessionApplyPrivateChatApplySelfPageVO> dataList) {
+import androidx.annotation.NonNull;
+
+public class HomeContactApplyRecycleAdapter
+    extends BaseRecycleAdapter<HomeContactApplyRecycleAdapter.ViewHolder, SysImSessionApplyPrivateChatApplySelfPageVO> {
+
+    public HomeContactApplyRecycleAdapter(Context context, List<SysImSessionApplyPrivateChatApplySelfPageVO> dataList) {
         super(context, dataList);
     }
 
@@ -42,8 +44,7 @@ public class HomeContactApplyRecycleAdapter extends
 
     }
 
-    class ViewHolder extends
-        BaseRecycleAdapter.MyViewHolder<SysImSessionApplyPrivateChatApplySelfPageVO> {
+    class ViewHolder extends BaseRecycleAdapter.MyViewHolder<SysImSessionApplyPrivateChatApplySelfPageVO> {
 
         ImageView homeContactApplyItemAvatar;
 

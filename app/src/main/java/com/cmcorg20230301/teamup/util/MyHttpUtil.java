@@ -1,12 +1,9 @@
 package com.cmcorg20230301.teamup.util;
 
-import cn.hutool.core.lang.TypeReference;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpGlobalConfig;
-import cn.hutool.http.HttpRequest;
-import cn.hutool.http.Method;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import java.util.Map;
+
+import org.jetbrains.annotations.Nullable;
+
 import com.cmcorg20230301.teamup.exception.BaseBizCodeEnum;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
@@ -16,8 +13,14 @@ import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
 import com.cmcorg20230301.teamup.util.common.TryUtil;
-import java.util.Map;
-import org.jetbrains.annotations.Nullable;
+
+import cn.hutool.core.lang.TypeReference;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpGlobalConfig;
+import cn.hutool.http.HttpRequest;
+import cn.hutool.http.Method;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 
 /**
  * 网络请求工具类
@@ -37,7 +40,7 @@ public class MyHttpUtil {
 
     public static final String API_URL = "https://cmcopen.top/prod-api/lx-saas";
 
-//    public static final String BASE_URL = SysUtil.devFlag() ? "http://192.168.1.8:10001" : API_URL;
+    // public static final String BASE_URL = SysUtil.devFlag() ? "http://192.168.1.8:10001" : API_URL;
 
     public static final String BASE_URL = API_URL;
 
@@ -68,8 +71,7 @@ public class MyHttpUtil {
                 if (apiResultVO.getData() != null && apiResultVO.getData() instanceof JSONObject) {
 
                     // 类型转换
-                    apiResultVO.setData(
-                        JSONUtil.toBean((JSONObject) apiResultVO.getData(), typeReference, false));
+                    apiResultVO.setData(JSONUtil.toBean((JSONObject)apiResultVO.getData(), typeReference, false));
 
                 }
 
@@ -106,8 +108,8 @@ public class MyHttpUtil {
     /**
      * 处理：错误代码
      */
-    private static <T> void handleErrorCode(boolean hiddenErrorMsgFlag,
-        @Nullable IHttpHandle<T> iHttpHandle, ApiResultVO<T> apiResultVO, Integer resCode) {
+    private static <T> void handleErrorCode(boolean hiddenErrorMsgFlag, @Nullable IHttpHandle<T> iHttpHandle,
+        ApiResultVO<T> apiResultVO, Integer resCode) {
 
         if (BaseBizCodeEnum.NOT_LOGGED_IN_YET.getCode() == resCode) { // 这个代码需要跳转到：登录页面
 
@@ -146,8 +148,7 @@ public class MyHttpUtil {
     /**
      * 处理：ApiResultVO
      */
-    private static <T> void handleSuccessApiResultVO(@Nullable IHttpHandle<T> iHttpHandle,
-        ApiResultVO<T> apiResultVO) {
+    private static <T> void handleSuccessApiResultVO(@Nullable IHttpHandle<T> iHttpHandle, ApiResultVO<T> apiResultVO) {
 
         if (apiResultVO != null && iHttpHandle != null) {
 
@@ -182,8 +183,7 @@ public class MyHttpUtil {
     /**
      * 发送get请求
      */
-    public static <T> void get(String urlString, @Nullable IHttpHandle<T> iHttpHandle,
-        TypeReference<T> typeReference) {
+    public static <T> void get(String urlString, @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.get(urlString).method(Method.GET);
 
@@ -195,8 +195,8 @@ public class MyHttpUtil {
     /**
      * 发送get请求
      */
-    public static <T> void get(String urlString, Map<String, Object> paramMap,
-        @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
+    public static <T> void get(String urlString, Map<String, Object> paramMap, @Nullable IHttpHandle<T> iHttpHandle,
+        TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.get(urlString).form(paramMap);
 
@@ -221,8 +221,8 @@ public class MyHttpUtil {
     /**
      * 发送post请求
      */
-    public static <T> void postHiddenError(String urlString, Object body,
-        @Nullable IHttpHandle<T> iHttpHandle, TypeReference<T> typeReference) {
+    public static <T> void postHiddenError(String urlString, Object body, @Nullable IHttpHandle<T> iHttpHandle,
+        TypeReference<T> typeReference) {
 
         HttpRequest httpRequest = HttpRequest.post(urlString).body(JSONUtil.toJsonStr(body));
 

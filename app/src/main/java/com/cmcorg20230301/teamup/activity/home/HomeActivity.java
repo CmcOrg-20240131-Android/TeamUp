@@ -1,12 +1,7 @@
 package com.cmcorg20230301.teamup.activity.home;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import androidx.annotation.ColorRes;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import cn.hutool.core.util.StrUtil;
+import org.jetbrains.annotations.Nullable;
+
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionFragment;
 import com.cmcorg20230301.teamup.activity.home.contact.HomeContactFragment;
@@ -15,7 +10,16 @@ import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.util.MyExceptionUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import org.jetbrains.annotations.Nullable;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 主页
@@ -39,33 +43,30 @@ public class HomeActivity extends BaseActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        bottomNavigationView.setOnItemReselectedListener(
-            new NavigationBarView.OnItemReselectedListener() {
+        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
 
-                @Override
-                public void onNavigationItemReselected(@NonNull MenuItem item) {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem item) {
 
-                    int itemId = item.getItemId();
+                int itemId = item.getItemId();
 
-                    if (itemId == R.id.bnm1) {
+                if (itemId == R.id.bnm1) {
 
-                        getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.homeFragment, HomeChatSessionFragment.class, null)
-                            .commit();
+                    getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.homeFragment, HomeChatSessionFragment.class, null).commit();
 
-                    } else if (itemId == R.id.bnm2) {
+                } else if (itemId == R.id.bnm2) {
 
-                        getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.homeFragment, HomeContactFragment.class, null)
-                            .commit();
+                    getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.homeFragment, HomeContactFragment.class, null).commit();
 
-                    } else if (itemId == R.id.bnm3) {
-
-                    }
+                } else if (itemId == R.id.bnm3) {
 
                 }
 
-            });
+            }
+
+        });
 
         Intent intent = getIntent();
 
@@ -77,7 +78,7 @@ public class HomeActivity extends BaseActivity {
 
             try {
 
-                fClass = (Class<? extends Fragment>) Class.forName(fragmentClassName);
+                fClass = (Class<? extends Fragment>)Class.forName(fragmentClassName);
 
             } catch (ClassNotFoundException e) {
 
@@ -93,9 +94,7 @@ public class HomeActivity extends BaseActivity {
 
         }
 
-        getSupportFragmentManager().beginTransaction()
-            .add(R.id.homeFragment, fClass, null)
-            .commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.homeFragment, fClass, null).commit();
 
     }
 

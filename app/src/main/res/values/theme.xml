@@ -1,10 +1,10 @@
 <resources>
 
-  <style name="Theme.TeamUp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.TeamUp" parent="Theme.Material3.DayNight.NoActionBar">
 
-      <item name="colorPrimary">@color/blue3</item>
+        <item name="colorPrimary">@color/blue3</item>
 
-  </style>
+    </style>
 
     <style name="Theme.SignUp" parent="Theme.TeamUp">
 

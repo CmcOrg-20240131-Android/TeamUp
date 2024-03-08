@@ -1,12 +1,12 @@
 package com.cmcorg20230301.teamup.api.http;
 
+import org.jetbrains.annotations.Nullable;
+
 import com.cmcorg20230301.teamup.model.dto.SysImSessionSelfPageDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.util.MyHttpUtil;
-
-import org.jetbrains.annotations.Nullable;
 
 import cn.hutool.core.lang.TypeReference;
 
@@ -21,9 +21,7 @@ public class SysImSessionApi {
     public static void myPageSelf(SysImSessionSelfPageDTO dto,
         @Nullable IHttpHandle<Page<SysImSessionDO>> iHttpHandle) {
 
-        MyHttpUtil.post("/sys/im/session/page/self", dto, iHttpHandle,
-            new TypeReference<Page<SysImSessionDO>>() {
-            });
+        MyHttpUtil.post("/sys/im/session/page/self", dto, iHttpHandle, new TypeReference<Page<SysImSessionDO>>() {});
 
     }
 

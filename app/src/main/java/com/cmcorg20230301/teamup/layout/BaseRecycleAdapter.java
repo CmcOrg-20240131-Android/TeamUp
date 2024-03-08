@@ -1,20 +1,22 @@
 package com.cmcorg20230301.teamup.layout;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 基础：RecyclerView适配器
  */
-public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHolder<D>, D> extends
-    RecyclerView.Adapter<T> {
+public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHolder<D>, D>
+    extends RecyclerView.Adapter<T> {
 
     protected Context context;
 
@@ -47,8 +49,8 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
         // 创建自定义布局
         View itemView = View.inflate(context, getItemViewId(), null);
 
-        RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        RecyclerView.LayoutParams layoutParams =
+            new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         itemView.setLayoutParams(layoutParams);
 

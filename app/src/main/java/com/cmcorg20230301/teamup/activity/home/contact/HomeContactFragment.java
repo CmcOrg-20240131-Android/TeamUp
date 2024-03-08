@@ -1,17 +1,8 @@
 package com.cmcorg20230301.teamup.activity.home.contact;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionContentActivity;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApplyApi;
@@ -25,8 +16,21 @@ import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatSelfPageVO;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
 import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
-import java.util.ArrayList;
-import java.util.List;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 
 /**
  * 联系人页
@@ -51,8 +55,7 @@ public class HomeContactFragment extends BaseFragment {
         if (StrUtil.isNotBlank(imContactListJsonStr)) {
 
             // 初始化：RecyclerView
-            initRecyclerView(JSONUtil.toList(imContactListJsonStr,
-                SysImSessionApplyPrivateChatSelfPageVO.class));
+            initRecyclerView(JSONUtil.toList(imContactListJsonStr, SysImSessionApplyPrivateChatSelfPageVO.class));
 
         } else {
 
@@ -67,8 +70,7 @@ public class HomeContactFragment extends BaseFragment {
                 new IHttpHandle<Page<SysImSessionApplyPrivateChatSelfPageVO>>() {
 
                     @Override
-                    public void success(
-                        ApiResultVO<Page<SysImSessionApplyPrivateChatSelfPageVO>> apiResultVO) {
+                    public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatSelfPageVO>> apiResultVO) {
 
                         // 初始化：RecyclerView
                         initRecyclerView(apiResultVO.getData().getRecords());
@@ -79,8 +81,7 @@ public class HomeContactFragment extends BaseFragment {
 
         });
 
-        TextView homeContactGoHomeContactFindNew = findViewById(
-            R.id.homeContactGoHomeContactFindNew);
+        TextView homeContactGoHomeContactFindNew = findViewById(R.id.homeContactGoHomeContactFindNew);
 
         homeContactGoHomeContactFindNew.setOnClickListener(v -> {
 
@@ -88,8 +89,7 @@ public class HomeContactFragment extends BaseFragment {
 
         });
 
-        TextView homeContactGoHomeContactApply = findViewById(
-            R.id.homeContactGoHomeContactApply);
+        TextView homeContactGoHomeContactApply = findViewById(R.id.homeContactGoHomeContactApply);
 
         homeContactGoHomeContactApply.setOnClickListener(v -> {
 
@@ -116,18 +116,15 @@ public class HomeContactFragment extends BaseFragment {
         recyclerView.setAdapter(recyclerAdapter);
 
         // 设置：layoutManager
-        recyclerView.setLayoutManager(
-            new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
 
         // 设置：item的分割线
-        recyclerView.addItemDecoration(
-            new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(myViewHolder -> {
 
-            BaseActivity.getAppNav(HomeChatSessionContentActivity.class,
-                myViewHolder.data.getSessionId());
+            BaseActivity.getAppNav(HomeChatSessionContentActivity.class, myViewHolder.data.getSessionId());
 
         });
 

@@ -29,7 +29,7 @@ public class LogUtil {
 
                 paramsArr = ArrayUtil.remove(paramsArr, paramsArr.length - 1);
 
-                Log.e(TAG, "error: " + StrUtil.format(template, paramsArr), (Throwable) lastParam);
+                Log.e(TAG, "error: " + StrUtil.format(template, paramsArr), (Throwable)lastParam);
 
                 return;
 

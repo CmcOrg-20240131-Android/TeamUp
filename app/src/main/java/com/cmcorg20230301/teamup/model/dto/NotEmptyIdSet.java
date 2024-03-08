@@ -4,8 +4,7 @@ import java.util.Set;
 
 public class NotEmptyIdSet {
 
-    public NotEmptyIdSet() {
-    }
+    public NotEmptyIdSet() {}
 
     public NotEmptyIdSet(Set<Long> idSet) {
         this.idSet = idSet;

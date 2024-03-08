@@ -1,13 +1,7 @@
 package com.cmcorg20230301.teamup.activity.home.contact;
 
-import android.os.Bundle;
-import android.view.KeyEvent;
-import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApplyApi;
@@ -21,8 +15,14 @@ import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatFindNewPag
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -40,41 +40,42 @@ public class HomeContactFindNewActivity extends BaseActivity {
 
         setContentView(R.layout.home_contact_find_new);
 
-        TextInputEditText homeContactFindNewSearchNickname = findViewById(
-                R.id.homeContactFindNewSearchNickname);
+        TextInputEditText homeContactFindNewSearchNickname = findViewById(R.id.homeContactFindNewSearchNickname);
 
-        homeContactFindNewSearchNickname.setOnEditorActionListener(
-                new TextView.OnEditorActionListener() {
+        homeContactFindNewSearchNickname.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
-                    @Override
-                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
 
-                        String searchNickname = textView.getText().toString();
+                String searchNickname = textView.getText().toString();
 
-                        if (StrUtil.isBlank(searchNickname)) {
+                if (StrUtil.isBlank(searchNickname)) {
 
-                            SysImSessionApplyPrivateChatFindNewPageDTO sysImSessionApplyPrivateChatFindNewPageDTO = new SysImSessionApplyPrivateChatFindNewPageDTO();
+                    SysImSessionApplyPrivateChatFindNewPageDTO sysImSessionApplyPrivateChatFindNewPageDTO =
+                        new SysImSessionApplyPrivateChatFindNewPageDTO();
 
-                            sysImSessionApplyPrivateChatFindNewPageDTO.setNickname(searchNickname);
+                    sysImSessionApplyPrivateChatFindNewPageDTO.setNickname(searchNickname);
 
-                            SysImSessionApplyApi.privateChatFindNewPage(sysImSessionApplyPrivateChatFindNewPageDTO, new IHttpHandle<Page<SysImSessionApplyPrivateChatFindNewPageVO>>() {
+                    SysImSessionApplyApi.privateChatFindNewPage(sysImSessionApplyPrivateChatFindNewPageDTO,
+                        new IHttpHandle<Page<SysImSessionApplyPrivateChatFindNewPageVO>>() {
 
-                                @Override
-                                public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatFindNewPageVO>> apiResultVO) {
+                            @Override
+                            public void
+                                success(ApiResultVO<Page<SysImSessionApplyPrivateChatFindNewPageVO>> apiResultVO) {
 
-                                    initRecyclerView(apiResultVO.getData().getRecords());
+                                initRecyclerView(apiResultVO.getData().getRecords());
 
-                                }
+                            }
 
-                            });
+                        });
 
-                        }
+                }
 
-                        return false; // false 隐藏键盘 true 不隐藏键盘
+                return false; // false 隐藏键盘 true 不隐藏键盘
 
-                    }
+            }
 
-                });
+        });
 
     }
 
@@ -93,12 +94,10 @@ public class HomeContactFindNewActivity extends BaseActivity {
         recyclerView.setAdapter(recyclerAdapter);
 
         // 设置：layoutManager
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         // 设置：item的分割线
-        recyclerView.addItemDecoration(
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(myViewHolder -> {

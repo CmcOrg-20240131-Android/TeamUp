@@ -4,8 +4,7 @@ public class CallBack<T> {
 
     private T value;
 
-    public CallBack() {
-    }
+    public CallBack() {}
 
     public CallBack(T value) {
         this.value = value;

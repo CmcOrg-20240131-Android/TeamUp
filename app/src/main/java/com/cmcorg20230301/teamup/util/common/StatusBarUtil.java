@@ -1,8 +1,10 @@
 package com.cmcorg20230301.teamup.util.common;
 
-import android.view.View;
-import androidx.annotation.ColorRes;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
+
+import android.view.View;
+
+import androidx.annotation.ColorRes;
 
 /**
  * 状态栏工具类
@@ -29,8 +31,7 @@ public class StatusBarUtil {
 
         if (lightFlag) {
 
-            BaseActivity.WINDOW.getDecorView()
-                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            BaseActivity.WINDOW.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         }
 

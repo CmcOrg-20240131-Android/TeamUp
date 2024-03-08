@@ -1,11 +1,6 @@
 package com.cmcorg20230301.teamup.activity.home.contact;
 
-import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
 
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApplyApi;
@@ -21,7 +16,12 @@ import com.cmcorg20230301.teamup.util.MyLocalStorage;
 import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
 
-import java.util.List;
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
@@ -41,14 +41,12 @@ public class HomeContactApplyActivity extends BaseActivity {
 
         setContentView(R.layout.home_contact_apply);
 
-        String imContactListJsonStr = MyLocalStorage.getItem(
-                LocalStorageKeyEnum.IM_CONTACT_APPLY_LIST);
+        String imContactListJsonStr = MyLocalStorage.getItem(LocalStorageKeyEnum.IM_CONTACT_APPLY_LIST);
 
         if (StrUtil.isNotBlank(imContactListJsonStr)) {
 
             // 初始化：RecyclerView
-            initRecyclerView(JSONUtil.toList(imContactListJsonStr,
-                    SysImSessionApplyPrivateChatApplySelfPageVO.class));
+            initRecyclerView(JSONUtil.toList(imContactListJsonStr, SysImSessionApplyPrivateChatApplySelfPageVO.class));
 
         }
 
@@ -64,20 +62,18 @@ public class HomeContactApplyActivity extends BaseActivity {
 
         MyThreadUtil.execute(() -> {
 
-            SysImSessionApplyApi.privateChatApplyPageSelf(
-                    new SysImSessionApplyPrivateChatApplySelfPageDTO(),
-                    new IHttpHandle<Page<SysImSessionApplyPrivateChatApplySelfPageVO>>() {
+            SysImSessionApplyApi.privateChatApplyPageSelf(new SysImSessionApplyPrivateChatApplySelfPageDTO(),
+                new IHttpHandle<Page<SysImSessionApplyPrivateChatApplySelfPageVO>>() {
 
-                        @Override
-                        public void success(
-                                ApiResultVO<Page<SysImSessionApplyPrivateChatApplySelfPageVO>> apiResultVO) {
+                    @Override
+                    public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatApplySelfPageVO>> apiResultVO) {
 
-                            // 初始化：RecyclerView
-                            initRecyclerView(apiResultVO.getData().getRecords());
+                        // 初始化：RecyclerView
+                        initRecyclerView(apiResultVO.getData().getRecords());
 
-                        }
+                    }
 
-                    });
+                });
 
         });
 
@@ -98,31 +94,30 @@ public class HomeContactApplyActivity extends BaseActivity {
         recyclerView.setAdapter(recyclerAdapter);
 
         // 设置：layoutManager
-        recyclerView.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         // 设置：item的分割线
-        recyclerView.addItemDecoration(
-                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(myViewHolder -> {
 
             SysImSessionApplyPrivateChatApplySelfPageVO data = myViewHolder.data;
 
-            SysImSessionApplyApi.privateChatAgree(new NotEmptyIdSet(CollUtil.newHashSet(data.getUserId())), new IHttpHandle<String>() {
+            SysImSessionApplyApi.privateChatAgree(new NotEmptyIdSet(CollUtil.newHashSet(data.getUserId())),
+                new IHttpHandle<String>() {
 
-                @Override
-                public void success(ApiResultVO<String> apiResultVO) {
+                    @Override
+                    public void success(ApiResultVO<String> apiResultVO) {
 
-                    ToastUtil.makeText("通过申请成功");
+                        ToastUtil.makeText("通过申请成功");
 
-                    // 刷新页面
-                    doInitRecyclerView();
+                        // 刷新页面
+                        doInitRecyclerView();
 
-                }
+                    }
 
-            });
+                });
 
         });
 

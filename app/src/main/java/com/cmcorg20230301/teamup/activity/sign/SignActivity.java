@@ -1,11 +1,13 @@
 package com.cmcorg20230301.teamup.activity.sign;
 
-import android.os.Bundle;
-import androidx.annotation.ColorRes;
-import androidx.annotation.Nullable;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.sign.in.SignInFragment;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
+
+import android.os.Bundle;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.Nullable;
 
 /**
  * 登录/注册页
@@ -27,9 +29,7 @@ public class SignActivity extends BaseActivity {
 
         setContentView(R.layout.sign);
 
-        getSupportFragmentManager().beginTransaction()
-            .add(R.id.signFragment, SignInFragment.class, null)
-            .commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.signFragment, SignInFragment.class, null).commit();
 
     }
 

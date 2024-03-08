@@ -1,13 +1,5 @@
 package com.cmcorg20230301.teamup.activity.sign.up;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import cn.hutool.core.util.ReUtil;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.sign.in.SignInFragment;
 import com.cmcorg20230301.teamup.api.http.SignSignInNameApi;
@@ -19,6 +11,17 @@ import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.util.common.MyRsaUtil;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
 import com.google.android.material.textfield.TextInputEditText;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import cn.hutool.core.util.ReUtil;
 
 /**
  * 注册页
@@ -43,8 +46,7 @@ public class SignUpFragment extends BaseFragment {
 
         signUpGoSignIn.setOnClickListener(v -> {
 
-            getSupportFragmentManager().beginTransaction()
-                .replace(R.id.signFragment, SignInFragment.class, null)
+            getSupportFragmentManager().beginTransaction().replace(R.id.signFragment, SignInFragment.class, null)
                 .commit();
 
         });
@@ -75,8 +77,7 @@ public class SignUpFragment extends BaseFragment {
 
                 passFlag = false;
 
-                signUpPassword.setError(
-                    "密码限制：必须包含大小写字母和数字，可以使用特殊字符，长度8-20");
+                signUpPassword.setError("密码限制：必须包含大小写字母和数字，可以使用特殊字符，长度8-20");
 
             }
 
@@ -100,8 +101,7 @@ public class SignUpFragment extends BaseFragment {
                         ToastUtil.makeText(apiResultVO.getMsg());
 
                         getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.signFragment, SignInFragment.class, null)
-                            .commit();
+                            .replace(R.id.signFragment, SignInFragment.class, null).commit();
 
                     }
 

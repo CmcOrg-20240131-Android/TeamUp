@@ -1,11 +1,6 @@
 package com.cmcorg20230301.teamup.activity.home.contact;
 
-import android.content.Context;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
+import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
@@ -13,13 +8,17 @@ import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatFindNewPageVO;
 import com.cmcorg20230301.teamup.util.UserUtil;
 
-import java.util.List;
+import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class HomeContactFindNewRecycleAdapter extends
-    BaseRecycleAdapter<HomeContactFindNewRecycleAdapter.ViewHolder, SysImSessionApplyPrivateChatFindNewPageVO> {
+import androidx.annotation.NonNull;
 
-    public HomeContactFindNewRecycleAdapter(Context context,
-        List<SysImSessionApplyPrivateChatFindNewPageVO> dataList) {
+public class HomeContactFindNewRecycleAdapter
+    extends BaseRecycleAdapter<HomeContactFindNewRecycleAdapter.ViewHolder, SysImSessionApplyPrivateChatFindNewPageVO> {
+
+    public HomeContactFindNewRecycleAdapter(Context context, List<SysImSessionApplyPrivateChatFindNewPageVO> dataList) {
         super(context, dataList);
     }
 
@@ -45,8 +44,7 @@ public class HomeContactFindNewRecycleAdapter extends
 
     }
 
-    class ViewHolder extends
-        BaseRecycleAdapter.MyViewHolder<SysImSessionApplyPrivateChatFindNewPageVO> {
+    class ViewHolder extends BaseRecycleAdapter.MyViewHolder<SysImSessionApplyPrivateChatFindNewPageVO> {
 
         ImageView homeContactFindNewItemAvatar;
 

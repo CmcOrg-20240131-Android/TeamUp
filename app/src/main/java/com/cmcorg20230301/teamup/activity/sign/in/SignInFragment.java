@@ -1,13 +1,5 @@
 package com.cmcorg20230301.teamup.activity.sign.in;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import cn.hutool.core.util.ReUtil;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.activity.sign.up.SignUpFragment;
@@ -22,6 +14,17 @@ import com.cmcorg20230301.teamup.model.vo.SignInVO;
 import com.cmcorg20230301.teamup.util.UserUtil;
 import com.cmcorg20230301.teamup.util.common.MyRsaUtil;
 import com.google.android.material.textfield.TextInputEditText;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import cn.hutool.core.util.ReUtil;
 
 /**
  * 登录页
@@ -41,8 +44,7 @@ public class SignInFragment extends BaseFragment {
 
         signInGoSignUp.setOnClickListener(v -> {
 
-            getSupportFragmentManager().beginTransaction()
-                .replace(R.id.signFragment, SignUpFragment.class, null)
+            getSupportFragmentManager().beginTransaction().replace(R.id.signFragment, SignUpFragment.class, null)
                 .commit();
 
         });
@@ -78,19 +80,18 @@ public class SignInFragment extends BaseFragment {
                 signSignInNameSignInPasswordDTO.setPassword(password);
                 signSignInNameSignInPasswordDTO.setSignInName(signInAccountText);
 
-                SignSignInNameApi.signInPassword(signSignInNameSignInPasswordDTO,
-                    new IHttpHandle<SignInVO>() {
+                SignSignInNameApi.signInPassword(signSignInNameSignInPasswordDTO, new IHttpHandle<SignInVO>() {
 
-                        @Override
-                        public void success(ApiResultVO<SignInVO> apiResultVO) {
+                    @Override
+                    public void success(ApiResultVO<SignInVO> apiResultVO) {
 
-                            UserUtil.signInSuccess(apiResultVO, true);
+                        UserUtil.signInSuccess(apiResultVO, true);
 
-                            BaseActivity.getAppNav(HomeActivity.class); // 跳转到：主页
+                        BaseActivity.getAppNav(HomeActivity.class); // 跳转到：主页
 
-                        }
+                    }
 
-                    });
+                });
 
             }
 
