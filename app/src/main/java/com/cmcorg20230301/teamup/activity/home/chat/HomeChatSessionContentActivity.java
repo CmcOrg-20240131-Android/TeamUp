@@ -13,9 +13,12 @@ import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
+import com.cmcorg20230301.teamup.util.common.ToastUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -23,6 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 聊天会话-内容页
@@ -72,6 +76,23 @@ public class HomeChatSessionContentActivity extends BaseActivity {
                     }
 
                 });
+
+        });
+
+        TextView homeChatSessionContentUserInputSend = findViewById(R.id.homeChatSessionContentUserInputSend);
+
+        EditText homeChatSessionContentUserInput = findViewById(R.id.homeChatSessionContentUserInput);
+
+        homeChatSessionContentUserInputSend.setOnClickListener(v -> {
+
+            String homeChatSessionContentUserInputStr = homeChatSessionContentUserInput.getText().toString();
+
+            if (StrUtil.isBlank(homeChatSessionContentUserInputStr)) {
+
+                ToastUtil.makeText("请输入内容");
+                return;
+
+            }
 
         });
 

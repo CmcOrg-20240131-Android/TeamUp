@@ -14,4 +14,26 @@
         tools:itemCount="20"
         tools:listitem="@layout/home_chat_session_content_item" />
 
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flexDirection="row"
+        app:layout_flexShrink="0">
+
+        <EditText
+            android:id="@+id/homeChatSessionContentUserInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint=""
+            app:layout_flexGrow="1" />
+
+        <TextView
+            android:id="@+id/homeChatSessionContentUserInputSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="发送" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+
 </com.google.android.flexbox.FlexboxLayout>
