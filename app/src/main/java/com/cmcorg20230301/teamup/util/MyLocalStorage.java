@@ -1,10 +1,12 @@
 package com.cmcorg20230301.teamup.util;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import cn.hutool.json.JSONUtil;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import cn.hutool.json.JSONUtil;
 
 public class MyLocalStorage {
 
@@ -13,8 +15,7 @@ public class MyLocalStorage {
      */
     private static SharedPreferences getSharedPreferences() {
 
-        return BaseActivity.CURRENT_ACTIVITY.getSharedPreferences("SharedPreferences",
-            Context.MODE_PRIVATE);
+        return BaseActivity.CURRENT_ACTIVITY.getSharedPreferences("SharedPreferences", Context.MODE_PRIVATE);
 
     }
 
@@ -47,7 +48,15 @@ public class MyLocalStorage {
 
     public static void setItem(LocalStorageKeyEnum localStorageKeyEnum, Object object) {
 
-        getEditor().putString(localStorageKeyEnum.name(), JSONUtil.toJsonStr(object)).apply();
+        if (object instanceof Long) {
+
+            getEditor().putString(localStorageKeyEnum.name(), object.toString()).apply();
+
+        } else {
+
+            getEditor().putString(localStorageKeyEnum.name(), JSONUtil.toJsonStr(object)).apply();
+
+        }
 
     }
 
