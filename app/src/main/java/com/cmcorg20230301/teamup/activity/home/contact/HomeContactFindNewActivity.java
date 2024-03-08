@@ -1,13 +1,19 @@
 package com.cmcorg20230301.teamup.activity.home.contact;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.widget.TextView;
+
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatFindNewPageVO;
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.List;
 
 /**
@@ -23,6 +29,23 @@ public class HomeContactFindNewActivity extends BaseActivity {
     public void initView(@Nullable Bundle savedInstanceState) {
 
         setContentView(R.layout.home_contact_find_new);
+
+        TextInputEditText homeContactFindNewSearchNickname = findViewById(
+                R.id.homeContactFindNewSearchNickname);
+
+        homeContactFindNewSearchNickname.setOnEditorActionListener(
+                new TextView.OnEditorActionListener() {
+
+                    @Override
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+
+                        String searchNickname = textView.getText().toString();
+
+                        return false; // false 隐藏键盘 true 不隐藏键盘
+
+                    }
+
+                });
 
     }
 
