@@ -56,8 +56,6 @@ public class HomeChatSessionFragment extends BaseFragment {
 
         }
 
-        FragmentActivity fragmentActivity = getActivity();
-
         MyThreadUtil.execute(() -> {
 
             SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(), new IHttpHandle<Page<SysImSessionDO>>() {
