@@ -10,7 +10,7 @@ import cn.hutool.core.util.StrUtil;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionFragment;
 import com.cmcorg20230301.teamup.activity.home.contact.HomeContactFragment;
-import com.cmcorg20230301.teamup.model.base.BaseActivity;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.util.MyExceptionUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;

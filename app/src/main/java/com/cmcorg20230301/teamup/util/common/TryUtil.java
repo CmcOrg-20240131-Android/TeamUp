@@ -1,9 +1,9 @@
-package com.cmcorg20230301.teamup.util;
-
-import org.jetbrains.annotations.Nullable;
+package com.cmcorg20230301.teamup.util.common;
 
 import cn.hutool.core.lang.func.VoidFunc0;
 import cn.hutool.core.lang.func.VoidFunc1;
+import com.cmcorg20230301.teamup.util.MyExceptionUtil;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * try-catch 工具类

@@ -10,14 +10,14 @@ import cn.hutool.core.convert.Convert;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.api.http.SysImSessionContentApi;
-import com.cmcorg20230301.teamup.model.base.BaseActivity;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentListDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
-import com.cmcorg20230301.teamup.util.MyThreadUtil;
+import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 import java.util.List;
 
 /**

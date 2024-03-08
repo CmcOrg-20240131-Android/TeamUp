@@ -1,18 +1,14 @@
 package com.cmcorg20230301.teamup;
 
 import android.os.Bundle;
-
 import androidx.annotation.ColorRes;
-
+import cn.hutool.core.util.StrUtil;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.activity.sign.SignActivity;
-import com.cmcorg20230301.teamup.model.base.BaseActivity;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
-
 import org.jetbrains.annotations.Nullable;
-
-import cn.hutool.core.util.StrUtil;
 
 public class MainActivity extends BaseActivity {
 

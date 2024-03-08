@@ -5,26 +5,23 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
+import cn.hutool.core.util.ReUtil;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.activity.sign.up.SignUpFragment;
 import com.cmcorg20230301.teamup.api.http.SignSignInNameApi;
-import com.cmcorg20230301.teamup.model.base.BaseActivity;
-import com.cmcorg20230301.teamup.model.base.BaseFragment;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
+import com.cmcorg20230301.teamup.layout.BaseFragment;
 import com.cmcorg20230301.teamup.model.constant.BaseRegexConstant;
 import com.cmcorg20230301.teamup.model.dto.SignSignInNameSignInPasswordDTO;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.SignInVO;
-import com.cmcorg20230301.teamup.util.MyRsaUtil;
 import com.cmcorg20230301.teamup.util.UserUtil;
+import com.cmcorg20230301.teamup.util.common.MyRsaUtil;
 import com.google.android.material.textfield.TextInputEditText;
-
-import cn.hutool.core.util.ReUtil;
 
 /**
  * 登录页

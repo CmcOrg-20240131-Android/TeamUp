@@ -1,4 +1,4 @@
-package com.cmcorg20230301.teamup.util;
+package com.cmcorg20230301.teamup.util.common;
 
 @FunctionalInterface
 public interface VoidFunc3<P1, P2, P3> {

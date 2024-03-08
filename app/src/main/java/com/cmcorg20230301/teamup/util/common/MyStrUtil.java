@@ -1,8 +1,7 @@
-package com.cmcorg20230301.teamup.util;
-
-import java.util.function.Consumer;
+package com.cmcorg20230301.teamup.util.common;
 
 import cn.hutool.core.util.StrUtil;
+import java.util.function.Consumer;
 
 public class MyStrUtil {
 

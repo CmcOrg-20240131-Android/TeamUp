@@ -1,8 +1,7 @@
-package com.cmcorg20230301.teamup.util;
-
-import java.util.Date;
+package com.cmcorg20230301.teamup.util.common;
 
 import cn.hutool.core.date.DateUtil;
+import java.util.Date;
 
 public class MyDateUtil {
 

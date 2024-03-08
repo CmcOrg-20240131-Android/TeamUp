@@ -1,21 +1,17 @@
-package com.cmcorg20230301.teamup.model.base;
+package com.cmcorg20230301.teamup.layout;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
-
 import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
-
+import cn.hutool.json.JSONUtil;
 import com.cmcorg20230301.teamup.exception.MyUncaughtExceptionHandler;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
-import com.cmcorg20230301.teamup.util.LogUtil;
-import com.cmcorg20230301.teamup.util.StatusBarUtil;
-
+import com.cmcorg20230301.teamup.util.common.LogUtil;
+import com.cmcorg20230301.teamup.util.common.StatusBarUtil;
 import org.jetbrains.annotations.Nullable;
-
-import cn.hutool.json.JSONUtil;
 
 /**
  * 所有 activity都需要继承本类

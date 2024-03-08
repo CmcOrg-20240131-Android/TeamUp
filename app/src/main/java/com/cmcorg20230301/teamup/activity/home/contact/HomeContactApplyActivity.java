@@ -9,7 +9,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApplyApi;
-import com.cmcorg20230301.teamup.model.base.BaseActivity;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionApplyPrivateChatApplySelfPageDTO;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
@@ -17,7 +17,7 @@ import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatApplySelfPageVO;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
-import com.cmcorg20230301.teamup.util.MyThreadUtil;
+import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 import java.util.List;
 
 /**

@@ -1,7 +1,6 @@
-package com.cmcorg20230301.teamup.util;
+package com.cmcorg20230301.teamup.util.common;
 
 import android.util.Log;
-
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 

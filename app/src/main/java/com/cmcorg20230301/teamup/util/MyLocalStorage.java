@@ -2,11 +2,9 @@ package com.cmcorg20230301.teamup.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.cmcorg20230301.teamup.model.base.BaseActivity;
-import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
-
 import cn.hutool.json.JSONUtil;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
+import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 
 public class MyLocalStorage {
 

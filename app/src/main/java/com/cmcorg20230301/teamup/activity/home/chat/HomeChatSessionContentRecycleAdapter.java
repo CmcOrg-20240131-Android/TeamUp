@@ -4,19 +4,15 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
+import cn.hutool.core.date.DateUtil;
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
-import com.cmcorg20230301.teamup.model.base.BaseRecycleAdapter;
+import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
-
 import java.util.Date;
 import java.util.List;
-
-import cn.hutool.core.date.DateUtil;
 
 public class HomeChatSessionContentRecycleAdapter extends
     BaseRecycleAdapter<HomeChatSessionContentRecycleAdapter.MyViewHolder, SysImSessionContentDO> {

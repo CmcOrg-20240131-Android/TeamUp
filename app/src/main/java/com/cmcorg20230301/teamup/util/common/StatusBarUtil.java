@@ -1,10 +1,8 @@
-package com.cmcorg20230301.teamup.util;
+package com.cmcorg20230301.teamup.util.common;
 
 import android.view.View;
-
 import androidx.annotation.ColorRes;
-
-import com.cmcorg20230301.teamup.model.base.BaseActivity;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
 
 /**
  * 状态栏工具类

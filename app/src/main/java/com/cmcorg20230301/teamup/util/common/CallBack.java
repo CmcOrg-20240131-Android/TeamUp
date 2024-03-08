@@ -1,4 +1,4 @@
-package com.cmcorg20230301.teamup.util;
+package com.cmcorg20230301.teamup.util.common;
 
 public class CallBack<T> {
 

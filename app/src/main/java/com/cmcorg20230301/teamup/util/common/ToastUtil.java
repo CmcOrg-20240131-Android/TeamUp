@@ -1,10 +1,8 @@
-package com.cmcorg20230301.teamup.util;
+package com.cmcorg20230301.teamup.util.common;
 
 import android.widget.Toast;
-
-import com.cmcorg20230301.teamup.model.base.BaseActivity;
-
 import cn.hutool.core.util.StrUtil;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
 
 /**
  * 提示工具类

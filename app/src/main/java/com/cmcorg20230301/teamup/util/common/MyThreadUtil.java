@@ -1,17 +1,15 @@
-package com.cmcorg20230301.teamup.util;
-
-import org.jetbrains.annotations.Nullable;
-
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ScheduledFuture;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+package com.cmcorg20230301.teamup.util.common;
 
 import cn.hutool.core.lang.func.VoidFunc0;
 import cn.hutool.core.lang.func.VoidFunc1;
 import cn.hutool.core.thread.ExecutorBuilder;
 import cn.hutool.core.thread.NamedThreadFactory;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import org.jetbrains.annotations.Nullable;
 
 public class MyThreadUtil {
 

@@ -1,15 +1,12 @@
-package com.cmcorg20230301.teamup.util;
+package com.cmcorg20230301.teamup.util.common;
 
 import android.util.Log;
-
-import com.cmcorg20230301.teamup.model.constant.CommonConstant;
-
-import java.io.InputStream;
-import java.util.function.Supplier;
-
 import cn.hutool.core.lang.func.VoidFunc0;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.http.HttpRequest;
+import com.cmcorg20230301.teamup.model.constant.CommonConstant;
+import java.io.InputStream;
+import java.util.function.Supplier;
 
 /**
  * 重试工具类

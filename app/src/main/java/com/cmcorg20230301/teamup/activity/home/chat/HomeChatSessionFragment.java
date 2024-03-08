@@ -3,18 +3,18 @@ package com.cmcorg20230301.teamup.activity.home.chat;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApi;
-import com.cmcorg20230301.teamup.model.base.BaseActivity;
-import com.cmcorg20230301.teamup.model.base.BaseFragment;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
+import com.cmcorg20230301.teamup.layout.BaseFragment;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionSelfPageDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
@@ -22,12 +22,8 @@ import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
-import com.cmcorg20230301.teamup.util.MyThreadUtil;
-
+import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 import java.util.List;
-
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 
 /**
  * 聊天会话页

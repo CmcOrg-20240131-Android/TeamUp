@@ -1,16 +1,5 @@
 package com.cmcorg20230301.teamup.util;
 
-import com.cmcorg20230301.teamup.exception.BaseBizCodeEnum;
-import com.cmcorg20230301.teamup.model.constant.CommonConstant;
-import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
-import com.cmcorg20230301.teamup.model.enums.SysRequestCategoryEnum;
-import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
-import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
-
-import org.jetbrains.annotations.Nullable;
-
-import java.util.Map;
-
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpGlobalConfig;
@@ -18,6 +7,17 @@ import cn.hutool.http.HttpRequest;
 import cn.hutool.http.Method;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.cmcorg20230301.teamup.exception.BaseBizCodeEnum;
+import com.cmcorg20230301.teamup.model.constant.CommonConstant;
+import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
+import com.cmcorg20230301.teamup.model.enums.SysRequestCategoryEnum;
+import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
+import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
+import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
+import com.cmcorg20230301.teamup.util.common.ToastUtil;
+import com.cmcorg20230301.teamup.util.common.TryUtil;
+import java.util.Map;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * 网络请求工具类
@@ -51,8 +51,7 @@ public class MyHttpUtil {
 
         httpRequest.setUrl(BASE_URL + urlString);
 
-        httpRequest.header("Authorization", SharedPreferencesUtil.getSharedPreferences()
-            .getString(LocalStorageKeyEnum.JWT.name(), ""));
+        httpRequest.header("Authorization", MyLocalStorage.getItem(LocalStorageKeyEnum.JWT));
 
         httpRequest.header("category", String.valueOf(SysRequestCategoryEnum.ANDROID.getCode()));
 
@@ -114,7 +113,7 @@ public class MyHttpUtil {
 
             if (!hiddenErrorMsgFlag) {
 
-                String jwt = MyLocalStorage.getItem(LocalStorageKeyEnum.JWT.name(), null);
+                String jwt = MyLocalStorage.getItem(LocalStorageKeyEnum.JWT);
 
                 if (StrUtil.isNotBlank(jwt)) {
 

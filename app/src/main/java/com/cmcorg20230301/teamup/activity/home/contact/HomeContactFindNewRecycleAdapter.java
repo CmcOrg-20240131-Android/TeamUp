@@ -7,7 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
-import com.cmcorg20230301.teamup.model.base.BaseRecycleAdapter;
+import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatFindNewPageVO;
 import com.cmcorg20230301.teamup.util.UserUtil;
 import java.util.List;
