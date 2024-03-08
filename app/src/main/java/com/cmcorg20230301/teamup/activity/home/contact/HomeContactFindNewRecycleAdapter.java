@@ -4,30 +4,25 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.model.base.BaseRecycleAdapter;
-import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
-
-import java.util.Date;
+import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatFindNewPageVO;
+import com.cmcorg20230301.teamup.util.UserUtil;
 import java.util.List;
 
-import cn.hutool.core.date.DateUtil;
-
 public class HomeContactFindNewRecycleAdapter extends
-    BaseRecycleAdapter<HomeContactFindNewRecycleAdapter.ViewHolder, SysImSessionDO> {
+    BaseRecycleAdapter<HomeContactFindNewRecycleAdapter.ViewHolder, SysImSessionApplyPrivateChatFindNewPageVO> {
 
-    public HomeContactFindNewRecycleAdapter(Context context, List<SysImSessionDO> dataList) {
+    public HomeContactFindNewRecycleAdapter(Context context,
+        List<SysImSessionApplyPrivateChatFindNewPageVO> dataList) {
         super(context, dataList);
     }
 
     @Override
     public Integer getItemViewId() {
-        return R.layout.home_chat_session_item;
+        return R.layout.home_contact_find_new_item;
     }
 
     @Override
@@ -36,58 +31,31 @@ public class HomeContactFindNewRecycleAdapter extends
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolderData(@NonNull ViewHolder holder, int position,
+        SysImSessionApplyPrivateChatFindNewPageVO data) {
 
-        SysImSessionDO sysImSessionDO = dataList.get(position);
+        String avatarUrl = UserUtil.getAvatarUrl(data.getAvatarUrl());
 
-        Glide.with(context).load(
-                "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg")
-            .into(holder.homeChatSessionItemAvatar);
+        Glide.with(context).load(avatarUrl).into(holder.homeContactFindNewItemAvatar);
 
-        holder.homeChatSessionItemUserName.setText(sysImSessionDO.getName());
-
-        holder.homeChatSessionItemContent.setText(sysImSessionDO.getLastContent());
-
-        holder.homeChatSessionItemTime.setText(
-            DateUtil.formatDateTime(new Date(sysImSessionDO.getLastContentCreateTs())));
+        holder.homeContactFindNewNickname.setText(data.getNickname());
 
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends
+        BaseRecycleAdapter.MyViewHolder<SysImSessionApplyPrivateChatFindNewPageVO> {
 
-        ImageView homeChatSessionItemAvatar;
+        ImageView homeContactFindNewItemAvatar;
 
-        TextView homeChatSessionItemUserName;
-
-        TextView homeChatSessionItemContent;
-
-        TextView homeChatSessionItemTime;
+        TextView homeContactFindNewNickname;
 
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
 
-            homeChatSessionItemAvatar = itemView.findViewById(R.id.homeChatSessionItemAvatar);
+            homeContactFindNewItemAvatar = itemView.findViewById(R.id.homeContactFindNewItemAvatar);
 
-            homeChatSessionItemUserName = itemView.findViewById(R.id.homeChatSessionItemUserName);
-
-            homeChatSessionItemContent = itemView.findViewById(R.id.homeChatSessionItemContent);
-
-            homeChatSessionItemTime = itemView.findViewById(R.id.homeChatSessionItemTime);
-
-            // 在adapter中设置点击事件
-            itemView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(v);
-                    }
-
-                }
-
-            });
+            homeContactFindNewNickname = itemView.findViewById(R.id.homeContactFindNewNickname);
 
         }
 

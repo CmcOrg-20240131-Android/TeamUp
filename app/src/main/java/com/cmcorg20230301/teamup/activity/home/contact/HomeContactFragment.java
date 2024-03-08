@@ -4,14 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionContentActivity;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApplyApi;
@@ -25,12 +25,8 @@ import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatSelfPageVO;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
 import com.cmcorg20230301.teamup.util.MyThreadUtil;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 
 /**
  * 联系人页
@@ -87,6 +83,17 @@ public class HomeContactFragment extends BaseFragment {
             R.id.homeContactGoHomeContactFindNew);
 
         homeContactGoHomeContactFindNew.setOnClickListener(v -> {
+
+            BaseActivity.getAppNav(HomeContactFindNewActivity.class);
+
+        });
+
+        TextView homeContactGoHomeContactApply = findViewById(
+            R.id.homeContactGoHomeContactApply);
+
+        homeContactGoHomeContactApply.setOnClickListener(v -> {
+
+            BaseActivity.getAppNav(HomeContactApplyActivity.class);
 
         });
 

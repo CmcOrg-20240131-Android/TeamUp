@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import cn.hutool.core.util.StrUtil;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionFragment;
+import com.cmcorg20230301.teamup.activity.home.contact.HomeContactFragment;
 import com.cmcorg20230301.teamup.model.base.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.util.MyExceptionUtil;
@@ -54,6 +55,10 @@ public class HomeActivity extends BaseActivity {
 
                     } else if (itemId == R.id.bnm2) {
 
+                        getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.homeFragment, HomeContactFragment.class, null)
+                            .commit();
+
                     } else if (itemId == R.id.bnm3) {
 
                     }
@@ -66,7 +71,7 @@ public class HomeActivity extends BaseActivity {
 
         String fragmentClassName = intent.getStringExtra(CommonConstant.EXTRA);
 
-        Class<? extends Fragment> fClass = HomeChatSessionFragment.class;
+        Class<? extends Fragment> fClass = null;
 
         if (StrUtil.isNotBlank(fragmentClassName)) {
 
@@ -79,6 +84,12 @@ public class HomeActivity extends BaseActivity {
                 MyExceptionUtil.printError(e);
 
             }
+
+        }
+
+        if (fClass == null) {
+
+            fClass = HomeChatSessionFragment.class;
 
         }
 
