@@ -52,6 +52,16 @@ public class HomeContactApplyActivity extends BaseActivity {
 
         }
 
+        // 刷新页面
+        doInitRecyclerView();
+
+    }
+
+    /**
+     * 刷新页面
+     */
+    private void doInitRecyclerView() {
+
         MyThreadUtil.execute(() -> {
 
             SysImSessionApplyApi.privateChatApplyPageSelf(
@@ -106,6 +116,9 @@ public class HomeContactApplyActivity extends BaseActivity {
                 public void success(ApiResultVO<String> apiResultVO) {
 
                     ToastUtil.makeText("通过申请成功");
+
+                    // 刷新页面
+                    doInitRecyclerView();
 
                 }
 

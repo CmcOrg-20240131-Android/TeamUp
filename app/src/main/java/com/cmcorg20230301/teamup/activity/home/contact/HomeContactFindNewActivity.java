@@ -21,6 +21,7 @@ import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatFindNewPag
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
@@ -110,6 +111,9 @@ public class HomeContactFindNewActivity extends BaseActivity {
                 public void success(ApiResultVO<String> apiResultVO) {
 
                     ToastUtil.makeText("申请成功");
+
+                    // 刷新页面
+                    initRecyclerView(new ArrayList<>());
 
                 }
 
