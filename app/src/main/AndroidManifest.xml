@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="组队"
@@ -29,8 +31,12 @@
 
         <activity android:name="com.cmcorg20230301.teamup.activity.sign.SignActivity" />
 
-    </application>
+        <activity android:name="com.cmcorg20230301.teamup.activity.home.contact.HomeContactApplyActivity" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
+        <activity android:name="com.cmcorg20230301.teamup.activity.home.contact.HomeContactFindNewActivity" />
+
+        <activity android:name="com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionContentActivity" />
+
+    </application>
 
 </manifest>

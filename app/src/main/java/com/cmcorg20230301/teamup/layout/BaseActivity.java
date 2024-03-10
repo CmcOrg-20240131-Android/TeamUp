@@ -1,17 +1,21 @@
 package com.cmcorg20230301.teamup.layout;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.Window;
-import androidx.annotation.ColorRes;
-import androidx.appcompat.app.AppCompatActivity;
-import cn.hutool.json.JSONUtil;
+import org.jetbrains.annotations.Nullable;
+
 import com.cmcorg20230301.teamup.exception.MyUncaughtExceptionHandler;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.util.common.LogUtil;
 import com.cmcorg20230301.teamup.util.common.StatusBarUtil;
-import org.jetbrains.annotations.Nullable;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Window;
+
+import androidx.annotation.ColorRes;
+import androidx.appcompat.app.AppCompatActivity;
+
+import cn.hutool.json.JSONUtil;
 
 /**
  * 所有 activity都需要继承本类
@@ -86,13 +90,23 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         Intent intent = new Intent(CURRENT_ACTIVITY, tClass);
 
-        String dataJsonStr = JSONUtil.toJsonStr(extra);
+        String extraStr;
 
-        intent.putExtra(CommonConstant.EXTRA, dataJsonStr);
+        if (extra instanceof Long) {
+
+            extraStr = extra.toString();
+
+        } else {
+
+            extraStr = JSONUtil.toJsonStr(extra);
+
+        }
+
+        intent.putExtra(CommonConstant.EXTRA, extraStr);
 
         CURRENT_ACTIVITY.startActivity(intent);
 
-        LogUtil.debug("路由跳转：{}，数据：{}", tClass.getSimpleName(), dataJsonStr);
+        LogUtil.debug("路由跳转：{}，数据：{}", tClass.getSimpleName(), extraStr);
 
     }
 

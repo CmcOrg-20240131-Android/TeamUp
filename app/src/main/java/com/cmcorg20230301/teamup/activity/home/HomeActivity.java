@@ -8,6 +8,7 @@ import com.cmcorg20230301.teamup.activity.home.contact.HomeContactFragment;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.util.MyExceptionUtil;
+import com.cmcorg20230301.teamup.util.common.LogUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -43,12 +44,14 @@ public class HomeActivity extends BaseActivity {
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
 
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 int itemId = item.getItemId();
+
+                LogUtil.debug("itemId：{}", itemId);
 
                 if (itemId == R.id.bnm1) {
 
@@ -63,6 +66,8 @@ public class HomeActivity extends BaseActivity {
                 } else if (itemId == R.id.bnm3) {
 
                 }
+
+                return true;
 
             }
 
