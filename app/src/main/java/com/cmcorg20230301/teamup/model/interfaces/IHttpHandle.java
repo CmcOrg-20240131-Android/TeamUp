@@ -1,12 +1,12 @@
 package com.cmcorg20230301.teamup.model.interfaces;
 
-import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
-
 import org.jetbrains.annotations.Nullable;
+
+import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 
 public interface IHttpHandle<T> {
 
-    default void success(ApiResultVO<T> apiResultVO) {
+    default void success(ApiResultVO<T> apiResultVO) throws Exception {
 
     }
 
