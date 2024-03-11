@@ -35,6 +35,8 @@ public class WebSocketHelper {
 
     /**
      * 处理：所有 webSocketUrl
+     * 
+     * @return null 表示暂无可连接的 webSocket
      */
     public static Long handleAllWebSocketUrl(List<String> webSocketUrlList) throws Exception {
 
@@ -52,81 +54,75 @@ public class WebSocketHelper {
 
         for (String item : webSocketUrlList) {
 
-            OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
-
-            OkHttpClient okHttpClient = httpBuilder.build();
-
-            Request.Builder requestBuilder = new Request.Builder();
-
-            requestBuilder.url(item);
-
             CallBack<Long> beginTsCallBack = new CallBack<>();
 
-            okHttpClient.newWebSocket(requestBuilder.build(), new WebSocketListener() {
+            new OkHttpClient.Builder().build().newWebSocket(new Request.Builder().url(item).build(),
+                new WebSocketListener() {
 
-                @Override
-                public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
+                    @Override
+                    public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
 
-                    beginTsCallBack.setValue(System.currentTimeMillis());
+                        beginTsCallBack.setValue(System.currentTimeMillis());
 
-                    // 心跳检测，请求
-                    WebSocketApi.heartBeatRequest(webSocket);
+                        // 心跳检测，请求
+                        WebSocketApi.heartBeatRequest(webSocket);
 
-                    MyThreadUtil.schedule(() -> {
+                        MyThreadUtil.schedule(() -> {
 
-                        close(webSocket); // 关闭：webSocket
+                            close(webSocket); // 关闭：webSocket
 
-                    }, checkMaxMs, TimeUnit.MILLISECONDS);
-
-                }
-
-                @Override
-                public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
-
-                    WebSocketMessageDTO<String> webSocketMessageDTO = JSONUtil.toBean(text, WebSocketMessageDTO.class);
-
-                    if (webSocketMessageDTO.getUri().equals(WebSocketApi.NETTY_WEB_SOCKET_HEART_BEAT)) {
-
-                        Long dataLong = Convert.toLong(webSocketMessageDTO.getData());
-
-                        if (dataLong != null) {
-
-                            long ms = System.currentTimeMillis() - beginTsCallBack.getValue();
-
-                            Long minMs = minMsCallBack.getValue();
-
-                            if (minMs == -1 || ms < minMs) {
-
-                                minMsCallBack.setValue(minMs);
-
-                                resWebSocketIdCallBack.setValue(dataLong);
-
-                            }
-
-                        }
-
-                        close(webSocket); // 关闭：webSocket
+                        }, checkMaxMs, TimeUnit.MILLISECONDS);
 
                     }
 
-                }
+                    @Override
+                    public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
 
-                @Override
-                public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t,
-                    @androidx.annotation.Nullable Response response) {
+                        WebSocketMessageDTO<String> webSocketMessageDTO =
+                            JSONUtil.toBean(text, WebSocketMessageDTO.class);
 
-                    countDownLatch.countDown();
+                        if (webSocketMessageDTO.getUri().equals(WebSocketApi.NETTY_WEB_SOCKET_HEART_BEAT)) {
 
-                }
+                            Long dataLong = Convert.toLong(webSocketMessageDTO.getData());
 
-                @Override
-                public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
+                            if (dataLong != null) {
 
-                    countDownLatch.countDown();
+                                long ms = System.currentTimeMillis() - beginTsCallBack.getValue();
 
-                }
+                                Long minMs = minMsCallBack.getValue();
 
-            });
+                                if (minMs == -1 || ms < minMs) {
+
+                                    minMsCallBack.setValue(minMs);
+
+                                    resWebSocketIdCallBack.setValue(dataLong);
+
+                                }
+
+                            }
+
+                            close(webSocket); // 关闭：webSocket
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(@NonNull WebSocket webSocket, @NonNull Throwable t,
+                        @androidx.annotation.Nullable Response response) {
+
+                        countDownLatch.countDown();
+
+                    }
+
+                    @Override
+                    public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
+
+                        countDownLatch.countDown();
+
+                    }
+
+                });
 
         }
 
@@ -138,6 +134,8 @@ public class WebSocketHelper {
 
     /**
      * 获取：延迟最低的 webSocketId
+     * 
+     * @return null 表示暂无可连接的 webSocket
      */
     public static Long getWebSocketId() throws Exception {
 
@@ -180,7 +178,7 @@ public class WebSocketHelper {
 
         if (webSocket == null) {
 
-            webSocket = WebSocketUtil.webSocket;
+            webSocket = WebSocketUtil.myWebSocket;
 
         }
 
