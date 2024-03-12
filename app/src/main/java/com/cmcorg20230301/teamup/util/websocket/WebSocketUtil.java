@@ -6,8 +6,10 @@ import java.util.concurrent.TimeUnit;
 
 import com.cmcorg20230301.teamup.api.http.NettyWebSocket;
 import com.cmcorg20230301.teamup.api.socket.WebSocketApi;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.dto.NotNullIdAndIntegerValue;
 import com.cmcorg20230301.teamup.model.dto.WebSocketMessageDTO;
+import com.cmcorg20230301.teamup.model.enums.AppDispatchKeyEnum;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.enums.SysSocketOnlineTypeEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
@@ -138,6 +140,8 @@ public class WebSocketUtil {
 
                     LogUtil.debug("WebSocket 连接 >> {}", StrUtil.subBefore(webSocketUrl, "?", false));
 
+                    BaseActivity.CURRENT_ACTIVITY.getAppDispatch(AppDispatchKeyEnum.SET_WEB_SOCKET_STATUS, true);
+
                     if (scheduledFuture != null) {
 
                         scheduledFuture.cancel(true);
@@ -160,12 +164,17 @@ public class WebSocketUtil {
 
                     LogUtil.debug("WebSocket 新消息：{}", text);
 
+                    BaseActivity.CURRENT_ACTIVITY.getAppDispatch(AppDispatchKeyEnum.SET_WEB_SOCKET_MESSAGE,
+                        webSocketMessageDTO);
+
                 }
 
                 @Override
                 public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
 
                     LogUtil.debug("WebSocket 关闭");
+
+                    BaseActivity.CURRENT_ACTIVITY.getAppDispatch(AppDispatchKeyEnum.SET_WEB_SOCKET_STATUS, false);
 
                     if (scheduledFuture != null) {
 

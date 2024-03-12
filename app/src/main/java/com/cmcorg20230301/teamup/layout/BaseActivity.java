@@ -1,9 +1,13 @@
 package com.cmcorg20230301.teamup.layout;
 
+import java.util.Map;
+import java.util.function.Consumer;
+
 import org.jetbrains.annotations.Nullable;
 
 import com.cmcorg20230301.teamup.exception.MyUncaughtExceptionHandler;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
+import com.cmcorg20230301.teamup.model.enums.AppDispatchKeyEnum;
 import com.cmcorg20230301.teamup.util.common.LogUtil;
 import com.cmcorg20230301.teamup.util.common.StatusBarUtil;
 
@@ -15,6 +19,7 @@ import android.view.Window;
 import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
 
 /**
@@ -107,6 +112,31 @@ public abstract class BaseActivity extends AppCompatActivity {
         CURRENT_ACTIVITY.startActivity(intent);
 
         LogUtil.debug("路由跳转：{}，数据：{}", tClass.getSimpleName(), extraStr);
+
+    }
+
+    public Map<AppDispatchKeyEnum, Consumer<Object>> getAppDispatchMap() {
+        return null;
+    };
+
+    /**
+     * 调度执行方法
+     */
+    public void getAppDispatch(AppDispatchKeyEnum appDispatchKeyEnum, @Nullable Object data) {
+
+        Map<AppDispatchKeyEnum, Consumer<Object>> appDispatchMap = getAppDispatchMap();
+
+        if (CollUtil.isEmpty(appDispatchMap)) {
+            return;
+        }
+
+        Consumer<Object> consumer = appDispatchMap.get(appDispatchKeyEnum);
+
+        if (consumer == null) {
+            return;
+        }
+
+        consumer.accept(data);
 
     }
 
