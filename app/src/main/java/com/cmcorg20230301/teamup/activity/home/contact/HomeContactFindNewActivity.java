@@ -13,10 +13,9 @@ import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatFindNewPageVO;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
-import com.google.android.material.textfield.TextInputEditText;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.ColorRes;
@@ -51,38 +50,32 @@ public class HomeContactFindNewActivity extends BaseActivity {
 
         setContentView(R.layout.home_contact_find_new);
 
-        TextInputEditText homeContactFindNewSearchNickname = findViewById(R.id.homeContactFindNewSearchNickname);
+        EditText homeContactFindNewSearchNickname = findViewById(R.id.homeContactFindNewSearchNickname);
 
-        homeContactFindNewSearchNickname.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        TextView homeContactFindNewSearch = findViewById(R.id.homeContactFindNewSearch);
 
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        homeContactFindNewSearch.setOnClickListener(v -> {
 
-                String searchNickname = textView.getText().toString();
+            String searchNickname = homeContactFindNewSearchNickname.getText().toString();
 
-                if (StrUtil.isBlank(searchNickname)) {
+            if (StrUtil.isBlank(searchNickname)) {
 
-                    SysImSessionApplyPrivateChatFindNewPageDTO sysImSessionApplyPrivateChatFindNewPageDTO =
-                        new SysImSessionApplyPrivateChatFindNewPageDTO();
+                SysImSessionApplyPrivateChatFindNewPageDTO sysImSessionApplyPrivateChatFindNewPageDTO =
+                    new SysImSessionApplyPrivateChatFindNewPageDTO();
 
-                    sysImSessionApplyPrivateChatFindNewPageDTO.setNickname(searchNickname);
+                sysImSessionApplyPrivateChatFindNewPageDTO.setNickname(searchNickname);
 
-                    SysImSessionApplyApi.privateChatFindNewPage(sysImSessionApplyPrivateChatFindNewPageDTO,
-                        new IHttpHandle<Page<SysImSessionApplyPrivateChatFindNewPageVO>>() {
+                SysImSessionApplyApi.privateChatFindNewPage(sysImSessionApplyPrivateChatFindNewPageDTO,
+                    new IHttpHandle<Page<SysImSessionApplyPrivateChatFindNewPageVO>>() {
 
-                            @Override
-                            public void
-                                success(ApiResultVO<Page<SysImSessionApplyPrivateChatFindNewPageVO>> apiResultVO) {
+                        @Override
+                        public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatFindNewPageVO>> apiResultVO) {
 
-                                doInitRecyclerView(apiResultVO.getData().getRecords());
+                            doInitRecyclerView(apiResultVO.getData().getRecords());
 
-                            }
+                        }
 
-                        });
-
-                }
-
-                return false; // false 隐藏键盘 true 不隐藏键盘
+                    });
 
             }
 

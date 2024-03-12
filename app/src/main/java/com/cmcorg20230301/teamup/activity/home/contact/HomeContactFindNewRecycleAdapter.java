@@ -40,7 +40,7 @@ public class HomeContactFindNewRecycleAdapter
 
         Glide.with(context).load(avatarUrl).into(holder.homeContactFindNewItemAvatar);
 
-        holder.homeContactFindNewNickname.setText(data.getNickname());
+        holder.homeContactFindNewItemNickname.setText(data.getNickname());
 
     }
 
@@ -48,7 +48,7 @@ public class HomeContactFindNewRecycleAdapter
 
         ImageView homeContactFindNewItemAvatar;
 
-        TextView homeContactFindNewNickname;
+        TextView homeContactFindNewItemNickname;
 
         public ViewHolder(@NonNull View itemView) {
 
@@ -56,7 +56,7 @@ public class HomeContactFindNewRecycleAdapter
 
             homeContactFindNewItemAvatar = itemView.findViewById(R.id.homeContactFindNewItemAvatar);
 
-            homeContactFindNewNickname = itemView.findViewById(R.id.homeContactFindNewSearchNickname);
+            homeContactFindNewItemNickname = itemView.findViewById(R.id.homeContactFindNewItemNickname);
 
         }
 

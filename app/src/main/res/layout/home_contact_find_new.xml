@@ -6,18 +6,28 @@
     android:layout_height="match_parent"
     app:flexDirection="column">
 
-    <com.google.android.material.textfield.TextInputLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="昵称">
+        app:alignItems="baseline"
+        app:flexDirection="row"
+        app:layout_flexShrink="0">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:id="@+id/homeContactFindNewSearchNickname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="昵称"
+            app:layout_flexGrow="1" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/homeContactFindNewSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="搜索" />
+
+    </com.google.android.flexbox.FlexboxLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeContactFindNewRecyclerView"
