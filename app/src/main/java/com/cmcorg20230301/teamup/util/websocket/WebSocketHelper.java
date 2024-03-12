@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.cmcorg20230301.teamup.api.http.NettyWebSocket;
+import com.cmcorg20230301.teamup.api.http.NettyWebSocketApi;
 import com.cmcorg20230301.teamup.api.socket.WebSocketApi;
 import com.cmcorg20230301.teamup.model.dto.WebSocketMessageDTO;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
@@ -143,7 +143,7 @@ public class WebSocketHelper {
 
         CountDownLatch countDownLatch = ThreadUtil.newCountDownLatch(1);
 
-        NettyWebSocket.getAllWebSocketUrl(new IHttpHandle<Set<String>>() {
+        NettyWebSocketApi.getAllWebSocketUrl(new IHttpHandle<Set<String>>() {
 
             @Override
             public void success(ApiResultVO<Set<String>> apiResultVO) throws Exception {

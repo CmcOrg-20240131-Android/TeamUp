@@ -4,7 +4,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import com.cmcorg20230301.teamup.api.http.NettyWebSocket;
+import com.cmcorg20230301.teamup.api.http.NettyWebSocketApi;
 import com.cmcorg20230301.teamup.api.socket.WebSocketApi;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.dto.NotNullIdAndIntegerValue;
@@ -70,7 +70,7 @@ public class WebSocketUtil {
 
         CountDownLatch countDownLatch = ThreadUtil.newCountDownLatch(1);
 
-        NettyWebSocket.getWebSocketUrlById(notNullIdAndIntegerValue, new IHttpHandle<String>() {
+        NettyWebSocketApi.getWebSocketUrlById(notNullIdAndIntegerValue, new IHttpHandle<String>() {
 
             @Override
             public void success(ApiResultVO<String> apiResultVO) {

@@ -13,7 +13,7 @@ import cn.hutool.core.lang.TypeReference;
 /**
  * 基础-netty-webSocket
  */
-public class NettyWebSocket {
+public class NettyWebSocketApi {
 
     /**
      * 获取：所有 webSocket连接地址，格式：scheme://ip:port/path?code=xxx
