@@ -1,8 +1,9 @@
 package com.cmcorg20230301.teamup.util;
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.RandomUtil;
-import cn.hutool.core.util.StrUtil;
+import java.util.Date;
+
+import org.jetbrains.annotations.Nullable;
+
 import com.cmcorg20230301.teamup.activity.sign.SignActivity;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
@@ -10,8 +11,10 @@ import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.SignInVO;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
-import java.util.Date;
-import org.jetbrains.annotations.Nullable;
+
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.RandomUtil;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 用户工具类
@@ -58,6 +61,13 @@ public class UserUtil {
             ToastUtil.makeText("欢迎回来~");
 
         }
+
+    }
+
+    /**
+     * 获取：用户信息
+     */
+    public static void getUserSelfInfo() {
 
     }
 

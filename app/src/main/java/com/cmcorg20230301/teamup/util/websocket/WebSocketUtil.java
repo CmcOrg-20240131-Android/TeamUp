@@ -108,10 +108,6 @@ public class WebSocketUtil {
             return;
         }
 
-        if (StrUtil.isBlank(MyLocalStorage.getItem(LocalStorageKeyEnum.JWT))) {
-            return; // 如果没有 jwt，则不重连了，目的：防止一直连
-        }
-
         String webSocketUrl = getWebSocketUrl();
 
         if (webSocketUrl == null) {
