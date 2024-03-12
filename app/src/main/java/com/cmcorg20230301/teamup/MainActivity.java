@@ -1,5 +1,8 @@
 package com.cmcorg20230301.teamup;
 
+import java.security.Security;
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jetbrains.annotations.Nullable;
 
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
@@ -16,6 +19,13 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 
 public class MainActivity extends BaseActivity {
+
+    static {
+
+        // ProviderFactory
+        Security.addProvider(new BouncyCastleProvider());
+
+    }
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
