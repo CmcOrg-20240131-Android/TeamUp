@@ -9,6 +9,7 @@ import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.util.MyExceptionUtil;
 import com.cmcorg20230301.teamup.util.common.LogUtil;
+import com.cmcorg20230301.teamup.util.websocket.WebSocketUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -100,6 +101,8 @@ public class HomeActivity extends BaseActivity {
         }
 
         getSupportFragmentManager().beginTransaction().add(R.id.homeFragment, fClass, null).commit();
+
+        WebSocketUtil.connectWebSocket();
 
     }
 

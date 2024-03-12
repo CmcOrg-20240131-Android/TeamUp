@@ -19,6 +19,7 @@ import com.cmcorg20230301.teamup.util.common.CallBack;
 import com.cmcorg20230301.teamup.util.common.LogUtil;
 import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 import com.cmcorg20230301.teamup.util.common.SysUtil;
+import com.cmcorg20230301.teamup.util.common.TryUtil;
 
 import androidx.annotation.NonNull;
 
@@ -102,93 +103,98 @@ public class WebSocketUtil {
     /**
      * 连接 webSocket
      */
-    public static synchronized void connectWebSocket() throws Exception {
+    public static synchronized void connectWebSocket() {
 
         if (myWebSocket != null) {
             return;
         }
 
-        String webSocketUrl = getWebSocketUrl();
+        TryUtil.tryCatch(() -> {
 
-        if (webSocketUrl == null) {
+            String webSocketUrl = getWebSocketUrl();
 
-            MyThreadUtil.schedule(() -> {
+            if (webSocketUrl == null) {
 
-                myWebSocket = null; // 重置 webSocket对象，为了可以重新获取 webSocket连接地址
+                MyThreadUtil.schedule(() -> {
 
-                connectWebSocket();
+                    myWebSocket = null; // 重置 webSocket对象，为了可以重新获取 webSocket连接地址
 
-            }, retryTime, TimeUnit.MILLISECONDS);
+                    connectWebSocket();
 
-            return;
+                }, retryTime, TimeUnit.MILLISECONDS);
 
-        }
+                return;
 
-        if (myWebSocket != null) {
-            return;
-        }
+            }
 
-        myWebSocket = new OkHttpClient.Builder().build().newWebSocket(new Request.Builder().url(webSocketUrl).build(),
-            new WebSocketListener() {
+            if (myWebSocket != null) {
+                return;
+            }
 
-                @Override
-                public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
+            myWebSocket = new OkHttpClient.Builder().build()
+                .newWebSocket(new Request.Builder().url(webSocketUrl).build(), new WebSocketListener() {
 
-                    LogUtil.debug("WebSocket 连接 >> {}", StrUtil.subBefore(webSocketUrl, "?", false));
+                    @Override
+                    public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
 
-                    BaseActivity.CURRENT_ACTIVITY.getAppDispatch(AppDispatchKeyEnum.SET_WEB_SOCKET_STATUS, true);
+                        LogUtil.debug("WebSocket 连接 >> {}", StrUtil.subBefore(webSocketUrl, "?", false));
 
-                    if (scheduledFuture != null) {
+                        BaseActivity.CURRENT_ACTIVITY.getAppDispatch(AppDispatchKeyEnum.SET_WEB_SOCKET_STATUS, true);
 
-                        scheduledFuture.cancel(true);
+                        if (scheduledFuture != null) {
 
-                    }
+                            scheduledFuture.cancel(true);
 
-                    scheduledFuture = MyThreadUtil.scheduleAtFixedRate(() -> {
+                        }
 
-                        // 心跳检测，请求
-                        WebSocketApi.heartBeatRequest(webSocket);
+                        scheduledFuture = MyThreadUtil.scheduleAtFixedRate(() -> {
 
-                    }, 0, 25 * 1000, TimeUnit.MILLISECONDS);
+                            // 心跳检测，请求
+                            WebSocketApi.heartBeatRequest(webSocket);
 
-                }
-
-                @Override
-                public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
-
-                    WebSocketMessageDTO<String> webSocketMessageDTO = JSONUtil.toBean(text, WebSocketMessageDTO.class);
-
-                    LogUtil.debug("WebSocket 新消息：{}", text);
-
-                    BaseActivity.CURRENT_ACTIVITY.getAppDispatch(AppDispatchKeyEnum.SET_WEB_SOCKET_MESSAGE,
-                        webSocketMessageDTO);
-
-                }
-
-                @Override
-                public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
-
-                    LogUtil.debug("WebSocket 关闭");
-
-                    BaseActivity.CURRENT_ACTIVITY.getAppDispatch(AppDispatchKeyEnum.SET_WEB_SOCKET_STATUS, false);
-
-                    if (scheduledFuture != null) {
-
-                        scheduledFuture.cancel(true);
+                        }, 0, 25 * 1000, TimeUnit.MILLISECONDS);
 
                     }
 
-                    MyThreadUtil.schedule(() -> {
+                    @Override
+                    public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
 
-                        myWebSocket = null; // 重置 webSocket对象，为了可以重新获取 webSocket连接地址
+                        WebSocketMessageDTO<String> webSocketMessageDTO =
+                            JSONUtil.toBean(text, WebSocketMessageDTO.class);
 
-                        connectWebSocket();
+                        LogUtil.debug("WebSocket 新消息：{}", text);
 
-                    }, retryTime, TimeUnit.MILLISECONDS);
+                        BaseActivity.CURRENT_ACTIVITY.getAppDispatch(AppDispatchKeyEnum.SET_WEB_SOCKET_MESSAGE,
+                            webSocketMessageDTO);
 
-                }
+                    }
 
-            });
+                    @Override
+                    public void onClosed(@NonNull WebSocket webSocket, int code, @NonNull String reason) {
+
+                        LogUtil.debug("WebSocket 关闭");
+
+                        BaseActivity.CURRENT_ACTIVITY.getAppDispatch(AppDispatchKeyEnum.SET_WEB_SOCKET_STATUS, false);
+
+                        if (scheduledFuture != null) {
+
+                            scheduledFuture.cancel(true);
+
+                        }
+
+                        MyThreadUtil.schedule(() -> {
+
+                            myWebSocket = null; // 重置 webSocket对象，为了可以重新获取 webSocket连接地址
+
+                            connectWebSocket();
+
+                        }, retryTime, TimeUnit.MILLISECONDS);
+
+                    }
+
+                });
+
+        });
 
     }
 
