@@ -8,6 +8,8 @@ import org.jetbrains.annotations.Nullable;
 import com.cmcorg20230301.teamup.exception.MyUncaughtExceptionHandler;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.enums.AppDispatchKeyEnum;
+import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
+import com.cmcorg20230301.teamup.util.MyLocalStorage;
 import com.cmcorg20230301.teamup.util.common.LogUtil;
 import com.cmcorg20230301.teamup.util.common.StatusBarUtil;
 
@@ -117,14 +119,24 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public Map<AppDispatchKeyEnum, Consumer<Object>> getAppDispatchMap() {
         return null;
-    };
+    }
 
     /**
      * 调度执行方法
      */
-    public void getAppDispatch(AppDispatchKeyEnum appDispatchKeyEnum, @Nullable Object data) {
+    public static void getAppDispatch(AppDispatchKeyEnum appDispatchKeyEnum, @Nullable Object data) {
 
-        Map<AppDispatchKeyEnum, Consumer<Object>> appDispatchMap = getAppDispatchMap();
+        getAppDispatch(appDispatchKeyEnum, data, null);
+
+    }
+
+    /**
+     * 调度执行方法
+     */
+    public static void getAppDispatch(AppDispatchKeyEnum appDispatchKeyEnum, @Nullable Object data,
+        @Nullable LocalStorageKeyEnum localStorageKeyEnum) {
+
+        Map<AppDispatchKeyEnum, Consumer<Object>> appDispatchMap = CURRENT_ACTIVITY.getAppDispatchMap();
 
         if (CollUtil.isEmpty(appDispatchMap)) {
             return;
@@ -137,6 +149,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         consumer.accept(data);
+
+        if (localStorageKeyEnum != null) {
+
+            MyLocalStorage.setItem(localStorageKeyEnum, data);
+
+        }
 
     }
 

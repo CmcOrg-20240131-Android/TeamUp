@@ -48,15 +48,19 @@ public class MyLocalStorage {
 
     public static void setItem(LocalStorageKeyEnum localStorageKeyEnum, Object object) {
 
+        String dataStr;
+
         if (object instanceof Long) {
 
-            getEditor().putString(localStorageKeyEnum.name(), object.toString()).apply();
+            dataStr = object.toString();
 
         } else {
 
-            getEditor().putString(localStorageKeyEnum.name(), JSONUtil.toJsonStr(object)).apply();
+            dataStr = JSONUtil.toJsonStr(object);
 
         }
+
+        getEditor().putString(localStorageKeyEnum.name(), dataStr).apply();
 
     }
 

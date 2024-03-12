@@ -5,13 +5,22 @@ import java.util.Date;
 import org.jetbrains.annotations.Nullable;
 
 import com.cmcorg20230301.teamup.activity.sign.SignActivity;
+import com.cmcorg20230301.teamup.api.http.SysFileApi;
+import com.cmcorg20230301.teamup.api.http.UserSelfApi;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
+import com.cmcorg20230301.teamup.model.constant.BaseConstant;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
+import com.cmcorg20230301.teamup.model.dto.NotEmptyIdSet;
+import com.cmcorg20230301.teamup.model.enums.AppDispatchKeyEnum;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
+import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
+import com.cmcorg20230301.teamup.model.vo.LongObjectMapVO;
 import com.cmcorg20230301.teamup.model.vo.SignInVO;
+import com.cmcorg20230301.teamup.model.vo.UserSelfInfoVO;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
@@ -69,7 +78,45 @@ public class UserUtil {
      */
     public static void getUserSelfInfo() {
 
+        UserSelfApi.userSelfInfo(new IHttpHandle<UserSelfInfoVO>() {
 
+            @Override
+            public void success(ApiResultVO<UserSelfInfoVO> apiResultVO) throws Exception {
+
+                UserSelfInfoVO userSelfInfoVO = apiResultVO.getData();
+
+                BaseActivity.getAppDispatch(AppDispatchKeyEnum.SET_USER_SELF_INFO, userSelfInfoVO,
+                    LocalStorageKeyEnum.USER_SELF_INFO);
+
+                Long avatarFileId = userSelfInfoVO.getAvatarFileId();
+
+                if (!BaseConstant.NEGATIVE_ONE_LONG.equals(avatarFileId)) {
+
+                    NotEmptyIdSet notEmptyIdSet = new NotEmptyIdSet();
+
+                    notEmptyIdSet.setIdSet(CollUtil.newHashSet(avatarFileId));
+
+                    SysFileApi.getPublicUrl(notEmptyIdSet, new IHttpHandle<LongObjectMapVO<String>>() {
+
+                        @Override
+                        public void success(ApiResultVO<LongObjectMapVO<String>> apiResultVO) throws Exception {
+
+                            LongObjectMapVO<String> longObjectMapVO = apiResultVO.getData();
+
+                            String userSelfAvatarUrl = longObjectMapVO.getMap().get(avatarFileId);
+
+                            BaseActivity.getAppDispatch(AppDispatchKeyEnum.SET_USER_SELF_AVATAR_URL, userSelfAvatarUrl,
+                                LocalStorageKeyEnum.USER_SELF_AVATAR_URL);
+
+                        }
+
+                    });
+
+                }
+
+            }
+
+        });
 
     }
 
