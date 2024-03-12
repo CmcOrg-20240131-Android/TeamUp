@@ -12,22 +12,10 @@ import com.cmcorg20230301.teamup.util.common.MyDateUtil;
 
 import android.os.Bundle;
 
-import androidx.annotation.ColorRes;
-
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 
 public class MainActivity extends BaseActivity {
-
-    @Override
-    public @ColorRes Integer getStatusBarColorId() {
-        return R.color.black2;
-    }
-
-    @Override
-    public boolean getStatusBarLightFlag() {
-        return true;
-    }
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {

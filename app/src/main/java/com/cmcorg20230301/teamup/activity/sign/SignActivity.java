@@ -6,23 +6,12 @@ import com.cmcorg20230301.teamup.layout.BaseActivity;
 
 import android.os.Bundle;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
 
 /**
  * 登录/注册页
  */
 public class SignActivity extends BaseActivity {
-
-    @Override
-    public @ColorRes Integer getStatusBarColorId() {
-        return R.color.white1;
-    }
-
-    @Override
-    public boolean getStatusBarLightFlag() {
-        return true;
-    }
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {

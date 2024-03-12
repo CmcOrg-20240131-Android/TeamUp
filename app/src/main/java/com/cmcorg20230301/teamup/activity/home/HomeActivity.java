@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -26,16 +25,6 @@ import cn.hutool.core.util.StrUtil;
  * 主页
  */
 public class HomeActivity extends BaseActivity {
-
-    @Override
-    public @ColorRes Integer getStatusBarColorId() {
-        return R.color.white1;
-    }
-
-    @Override
-    public boolean getStatusBarLightFlag() {
-        return true;
-    }
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {

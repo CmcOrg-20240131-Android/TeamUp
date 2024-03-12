@@ -18,7 +18,6 @@ import com.cmcorg20230301.teamup.util.common.ToastUtil;
 
 import android.os.Bundle;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,16 +31,6 @@ import cn.hutool.json.JSONUtil;
  * 联系人申请页
  */
 public class HomeContactApplyActivity extends BaseActivity {
-
-    @Override
-    public @ColorRes Integer getStatusBarColorId() {
-        return R.color.white1;
-    }
-
-    @Override
-    public boolean getStatusBarLightFlag() {
-        return true;
-    }
 
     private RecyclerView recyclerView;
 

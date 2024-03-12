@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,16 +32,6 @@ import cn.hutool.core.util.StrUtil;
  * 聊天会话-内容页
  */
 public class HomeChatSessionContentActivity extends BaseActivity {
-
-    @Override
-    public @ColorRes Integer getStatusBarColorId() {
-        return R.color.white1;
-    }
-
-    @Override
-    public boolean getStatusBarLightFlag() {
-        return true;
-    }
 
     private RecyclerView recyclerView;
 

@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 
 import org.jetbrains.annotations.Nullable;
 
+import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.exception.MyUncaughtExceptionHandler;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.enums.AppDispatchKeyEnum;
@@ -39,14 +40,14 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 状态栏颜色
      */
     public @ColorRes Integer getStatusBarColorId() {
-        return null;
+        return R.color.white1;
     }
 
     /**
      * 状态栏字体和图标是否显示为黑色，默认：false
      */
     public boolean getStatusBarLightFlag() {
-        return false;
+        return true;
     }
 
     @Override
