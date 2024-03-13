@@ -139,4 +139,13 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
     }
 
+    /**
+     * 获取：前端的消息 id
+     */
+    public static String getContentId(SysImSessionContentDO sysImSessionContentDO) {
+
+        return sysImSessionContentDO.getCreateTs().toString() + sysImSessionContentDO.getCreateId();
+
+    }
+
 }
