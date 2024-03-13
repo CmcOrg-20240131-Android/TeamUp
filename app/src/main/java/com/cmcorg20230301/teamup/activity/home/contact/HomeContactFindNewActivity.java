@@ -49,6 +49,10 @@ public class HomeContactFindNewActivity extends BaseActivity {
 
             if (StrUtil.isBlank(searchNickname)) {
 
+                ToastUtil.makeText("操作失败：请输入昵称");
+
+            } else {
+
                 SysImSessionApplyPrivateChatFindNewPageDTO sysImSessionApplyPrivateChatFindNewPageDTO =
                     new SysImSessionApplyPrivateChatFindNewPageDTO();
 
