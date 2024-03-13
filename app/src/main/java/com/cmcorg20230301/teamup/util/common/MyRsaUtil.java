@@ -1,8 +1,12 @@
 package com.cmcorg20230301.teamup.util.common;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import cn.hutool.crypto.asymmetric.KeyType;
 import cn.hutool.crypto.asymmetric.RSA;
-import cn.hutool.crypto.digest.DigestUtil;
+import cn.hutool.crypto.digest.DigestAlgorithm;
+import cn.hutool.crypto.digest.Digester;
 
 /**
  * 加密工具类
@@ -19,9 +23,20 @@ public class MyRsaUtil {
      */
     public static String passwordRsaEncrypt(String passwordTemp) {
 
-        String password = DigestUtil.sha256Hex((DigestUtil.sha512Hex(passwordTemp)));
+        try {
 
-        return rsaEncryptPro(password);
+            String s =
+                new Digester(MessageDigest.getInstance(DigestAlgorithm.SHA512.getValue())).digestHex(passwordTemp);
+
+            String password = new Digester(MessageDigest.getInstance(DigestAlgorithm.SHA256.getValue())).digestHex(s);
+
+            return rsaEncryptPro(password);
+
+        } catch (NoSuchAlgorithmException e) {
+
+            throw new RuntimeException(e);
+
+        }
 
     }
 

@@ -59,6 +59,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signInAccount"
             android:layout_width="match_parent"
+            android:text="admin"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -72,6 +73,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signInPassword"
             android:layout_width="match_parent"
+            android:text="suancai"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
