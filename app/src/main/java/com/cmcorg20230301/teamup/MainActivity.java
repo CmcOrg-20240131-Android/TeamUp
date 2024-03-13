@@ -14,8 +14,15 @@ import android.os.Bundle;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.crypto.GlobalBouncyCastleProvider;
 
 public class MainActivity extends BaseActivity {
+
+    static {
+
+        GlobalBouncyCastleProvider.setUseBouncyCastle(false);
+
+    }
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {

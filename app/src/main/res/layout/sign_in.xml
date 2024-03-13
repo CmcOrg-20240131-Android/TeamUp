@@ -73,7 +73,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signInPassword"
             android:layout_width="match_parent"
-            android:text="suancai"
+            android:text="wsnbb123."
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
