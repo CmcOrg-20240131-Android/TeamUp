@@ -26,6 +26,9 @@ import cn.hutool.core.util.StrUtil;
  */
 public class HomeActivity extends BaseActivity {
 
+    // 当前选中的菜单 id
+    public int currentMenuId = R.id.bnm1;
+
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
 
@@ -40,17 +43,30 @@ public class HomeActivity extends BaseActivity {
 
                 int itemId = item.getItemId();
 
+                Class<? extends Fragment> fragmentClass = null;
+
                 if (itemId == R.id.bnm1) {
 
-                    getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.homeFragment, HomeChatSessionFragment.class, null).commit();
+                    fragmentClass = HomeChatSessionFragment.class;
 
                 } else if (itemId == R.id.bnm2) {
 
-                    getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.homeFragment, HomeContactFragment.class, null).commit();
+                    fragmentClass = HomeContactFragment.class;
 
                 } else if (itemId == R.id.bnm3) {
+
+                }
+
+                if (currentMenuId != itemId) {
+
+                    currentMenuId = itemId;
+
+                    if (fragmentClass != null) {
+
+                        getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, fragmentClass, null)
+                            .commit();
+
+                    }
 
                 }
 
