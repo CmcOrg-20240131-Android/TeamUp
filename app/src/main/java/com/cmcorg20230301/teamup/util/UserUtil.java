@@ -30,12 +30,19 @@ import cn.hutool.core.util.StrUtil;
  */
 public class UserUtil {
 
+    public static void clearStorage() {
+
+        MyLocalStorage.clear();
+        MySessionStorage.clear();
+
+    }
+
     /**
      * 退出登录
      */
     public static void signOut(@Nullable String msg) {
 
-        MyLocalStorage.clear();
+        clearStorage();
 
         if (StrUtil.isNotBlank(msg)) {
 
