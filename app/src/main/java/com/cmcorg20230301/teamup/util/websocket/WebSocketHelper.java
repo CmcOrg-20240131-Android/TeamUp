@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import com.cmcorg20230301.teamup.api.http.NettyWebSocketApi;
 import com.cmcorg20230301.teamup.api.socket.WebSocketApi;
 import com.cmcorg20230301.teamup.model.dto.WebSocketMessageDTO;
+import com.cmcorg20230301.teamup.model.enums.WebSocketUriEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.util.common.CallBack;
@@ -81,7 +82,8 @@ public class WebSocketHelper {
                         WebSocketMessageDTO<String> webSocketMessageDTO =
                             JSONUtil.toBean(text, WebSocketMessageDTO.class);
 
-                        if (webSocketMessageDTO.getUri().equals(WebSocketApi.NETTY_WEB_SOCKET_HEART_BEAT)) {
+                        if (webSocketMessageDTO.getUri()
+                            .equals(WebSocketUriEnum.NETTY_WEB_SOCKET_HEART_BEAT.getUri())) {
 
                             Long dataLong = Convert.toLong(webSocketMessageDTO.getData());
 
