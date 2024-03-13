@@ -89,7 +89,7 @@ public class HomeContactApplyActivity extends BaseActivity {
     private void initRecyclerView(List<SysImSessionApplyPrivateChatApplySelfPageVO> dataList) {
 
         // 获取：RecyclerView
-        recyclerView = findViewById(R.id.homeChatSessionRecyclerView);
+        recyclerView = findViewById(R.id.homeContactApplyRecyclerView);
 
         // 创建：adapter
         recyclerAdapter = new HomeContactApplyRecycleAdapter(this, dataList);
