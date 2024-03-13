@@ -1,6 +1,8 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
@@ -8,10 +10,12 @@ import com.cmcorg20230301.teamup.api.http.SysImSessionContentApi;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentListDTO;
+import com.cmcorg20230301.teamup.model.dto.SysImSessionContentSendTextDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
+import com.cmcorg20230301.teamup.util.common.MyDateUtil;
 import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
 
@@ -38,6 +42,8 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     private HomeChatSessionContentRecycleAdapter recyclerAdapter;
 
     private Long sessionId;
+
+    private Map<String, SysImSessionContentSendTextDTO> toSendMap = new HashMap<>();
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
@@ -94,6 +100,11 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
             }
 
+            homeChatSessionContentUserInput.setText("");
+
+            SysImSessionContentSendTextDTO sysImSessionContentSendTextDTO =
+                getSysImSessionContentSendTextDTO(homeChatSessionContentUserInputStr);
+
         });
 
     }
@@ -145,6 +156,20 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     public static String getContentId(SysImSessionContentDO sysImSessionContentDO) {
 
         return sysImSessionContentDO.getCreateTs().toString() + sysImSessionContentDO.getCreateId();
+
+    }
+
+    /**
+     * 获取：一个发送消息对象
+     */
+    public static SysImSessionContentSendTextDTO getSysImSessionContentSendTextDTO(String text) {
+
+        SysImSessionContentSendTextDTO sysImSessionContentSendTextDTO = new SysImSessionContentSendTextDTO();
+
+        sysImSessionContentSendTextDTO.setContent(text);
+        sysImSessionContentSendTextDTO.setCreateTs(MyDateUtil.getServerTimestamp());
+
+        return sysImSessionContentSendTextDTO;
 
     }
 
