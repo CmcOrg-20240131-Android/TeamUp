@@ -20,6 +20,7 @@ public class MainActivity extends BaseActivity {
 
     static {
 
+        // 不然会报错
         GlobalBouncyCastleProvider.setUseBouncyCastle(false);
 
     }

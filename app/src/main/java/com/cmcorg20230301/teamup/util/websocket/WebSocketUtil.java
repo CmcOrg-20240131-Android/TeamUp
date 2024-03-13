@@ -103,7 +103,20 @@ public class WebSocketUtil {
     /**
      * 连接 webSocket
      */
-    public static synchronized void connectWebSocket() {
+    public static void connectWebSocket() {
+
+        MyThreadUtil.execute(() -> {
+
+            doConnectWebSocket();
+
+        });
+
+    }
+
+    /**
+     * 连接 webSocket
+     */
+    public static synchronized void doConnectWebSocket() {
 
         if (myWebSocket != null) {
             return;
