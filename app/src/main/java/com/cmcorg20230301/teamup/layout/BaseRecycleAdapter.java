@@ -24,9 +24,9 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
 
     protected OnItemClickListener onItemClickListener;
 
-    public abstract @LayoutRes Integer getItemViewId();
+    public abstract @LayoutRes Integer getItemViewId(@org.jetbrains.annotations.Nullable D data);
 
-    public abstract T getViewHolder(View itemView);
+    public abstract T getViewHolder(View itemView, @org.jetbrains.annotations.Nullable D data);
 
     public BaseRecycleAdapter(Context context, @Nullable List<D> dataList) {
 
@@ -46,15 +46,17 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
     @Override
     public T onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
+        D data = dataList.get(viewType);
+
         // 创建自定义布局
-        View itemView = View.inflate(context, getItemViewId(), null);
+        View itemView = View.inflate(context, getItemViewId(data), null);
 
         RecyclerView.LayoutParams layoutParams =
             new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         itemView.setLayoutParams(layoutParams);
 
-        T viewHolder = getViewHolder(itemView);
+        T viewHolder = getViewHolder(itemView, data);
 
         // 在adapter中设置点击事件
         viewHolder.itemView.setOnClickListener(v -> {
@@ -66,6 +68,9 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
             }
 
         });
+
+        // 设置：数据
+        viewHolder.data = data;
 
         return viewHolder;
 
@@ -80,8 +85,6 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull T holder, int position) {
-
-        holder.data = dataList.get(position);
 
         if (holder.data != null) {
 

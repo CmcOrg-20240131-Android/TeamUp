@@ -23,12 +23,12 @@ public class HomeContactFindNewRecycleAdapter
     }
 
     @Override
-    public Integer getItemViewId() {
+    public Integer getItemViewId(SysImSessionApplyPrivateChatFindNewPageVO data) {
         return R.layout.home_contact_find_new_item;
     }
 
     @Override
-    public ViewHolder getViewHolder(View itemView) {
+    public ViewHolder getViewHolder(View itemView, SysImSessionApplyPrivateChatFindNewPageVO data) {
         return new ViewHolder(itemView);
     }
 

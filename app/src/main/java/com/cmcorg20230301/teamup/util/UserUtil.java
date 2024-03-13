@@ -24,6 +24,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 
 /**
  * 用户工具类
@@ -83,7 +84,18 @@ public class UserUtil {
     /**
      * 获取：用户信息
      */
-    public static void getUserSelfInfo() {
+    public static UserSelfInfoVO getUserSelfInfoFromStorage() {
+
+        String jsonStr = MyLocalStorage.getItem(LocalStorageKeyEnum.USER_SELF_INFO);
+
+        return JSONUtil.toBean(jsonStr, UserSelfInfoVO.class);
+
+    }
+
+    /**
+     * 获取：用户信息
+     */
+    public static void getUserSelfInfoFromServer() {
 
         UserSelfApi.userSelfInfo(new IHttpHandle<UserSelfInfoVO>() {
 

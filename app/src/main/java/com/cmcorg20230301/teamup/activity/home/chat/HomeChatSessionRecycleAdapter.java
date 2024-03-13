@@ -26,12 +26,12 @@ public class HomeChatSessionRecycleAdapter
     }
 
     @Override
-    public Integer getItemViewId() {
+    public Integer getItemViewId(SysImSessionDO data) {
         return R.layout.home_chat_session_item;
     }
 
     @Override
-    public MyViewHolder getViewHolder(View itemView) {
+    public MyViewHolder getViewHolder(View itemView, SysImSessionDO data) {
         return new MyViewHolder(itemView);
     }
 

@@ -23,12 +23,12 @@ public class HomeContactApplyRecycleAdapter
     }
 
     @Override
-    public Integer getItemViewId() {
+    public Integer getItemViewId(SysImSessionApplyPrivateChatApplySelfPageVO data) {
         return R.layout.home_contact_apply_item;
     }
 
     @Override
-    public ViewHolder getViewHolder(View itemView) {
+    public ViewHolder getViewHolder(View itemView, SysImSessionApplyPrivateChatApplySelfPageVO data) {
         return new ViewHolder(itemView);
     }
 
