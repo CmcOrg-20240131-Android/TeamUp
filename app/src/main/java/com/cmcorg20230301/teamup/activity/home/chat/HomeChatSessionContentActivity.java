@@ -465,7 +465,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        linearLayoutManager.setReverseLayout(true); // 布局反向
+        // linearLayoutManager.setReverseLayout(true); // 布局反向
         linearLayoutManager.setStackFromEnd(true); // 从最后一个开始滚动
 
         // 设置：layoutManager

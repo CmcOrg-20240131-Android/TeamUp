@@ -7,12 +7,6 @@
     android:paddingVertical="15dp"
     app:flexDirection="row">
 
-    <TextView
-        android:id="@+id/homeChatSessionContentItemTimeSelf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2024-02-07 20:18:56" />
-
     <com.google.android.flexbox.FlexboxLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,6 +28,12 @@
             android:text="对话内容" />
 
     </com.google.android.flexbox.FlexboxLayout>
+
+    <TextView
+        android:id="@+id/homeChatSessionContentItemTimeSelf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2024-02-07 20:18:56" />
 
     <ImageView
         android:id="@+id/homeChatSessionContentItemAvatarSelf"
