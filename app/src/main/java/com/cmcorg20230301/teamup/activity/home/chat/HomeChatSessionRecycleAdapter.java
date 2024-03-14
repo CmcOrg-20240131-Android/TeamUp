@@ -44,7 +44,13 @@ public class HomeChatSessionRecycleAdapter
 
         holder.homeChatSessionItemContent.setText(data.getLastContent());
 
-        holder.homeChatSessionItemTime.setText(DateUtil.formatDateTime(new Date(data.getLastContentCreateTs())));
+        Long lastContentCreateTs = data.getLastContentCreateTs();
+
+        if (lastContentCreateTs != null) {
+
+            holder.homeChatSessionItemTime.setText(DateUtil.formatDateTime(new Date(lastContentCreateTs)));
+
+        }
 
     }
 
