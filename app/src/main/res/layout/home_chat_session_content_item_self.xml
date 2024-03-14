@@ -11,14 +11,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
+        app:alignItems="flex_end"
         app:flexDirection="column"
         app:layout_flexGrow="1">
 
         <TextView
-            android:id="@+id/homeChatSessionContentItemUserNameSelf"
+            android:id="@+id/homeChatSessionContentItemTimeSelf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="用户名" />
+            android:text="2024-02-07 20:18:56" />
 
         <TextView
             android:id="@+id/homeChatSessionContentItemContentSelf"
@@ -29,17 +30,12 @@
 
     </com.google.android.flexbox.FlexboxLayout>
 
-    <TextView
-        android:id="@+id/homeChatSessionContentItemTimeSelf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2024-02-07 20:18:56" />
-
     <ImageView
         android:id="@+id/homeChatSessionContentItemAvatarSelf"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginLeft="13dp"
-        app:layout_alignSelf="center" />
+        app:layout_alignSelf="center"
+        app:layout_flexShrink="0" />
 
 </com.google.android.flexbox.FlexboxLayout>
