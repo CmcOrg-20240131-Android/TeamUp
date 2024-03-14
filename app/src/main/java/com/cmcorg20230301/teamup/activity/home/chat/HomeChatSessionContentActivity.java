@@ -132,7 +132,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
                 CollUtil.newArrayList(getSysImSessionContentDO(sysImSessionContentSendTextDTO)), false, true);
 
             // 执行：发送
-            doSendToServer(sysImSessionContentSendTextDTO, true, toSendMap);
+            doSendToServer(sysImSessionContentSendTextDTO, true);
 
         });
 
@@ -244,7 +244,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
                 sysImSessionContentSendTextDTO.setCreateTs(item.getCreateTs());
 
-                setToSendMap(sessionId, sysImSessionContentSendTextDTO, true); // 如果已经在后台处理过了，则在 map里面移除
+                setToSendMap(sysImSessionContentSendTextDTO, true); // 如果已经在后台处理过了，则在 map里面移除
 
             }
 
