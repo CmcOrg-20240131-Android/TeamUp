@@ -355,7 +355,9 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
                     USER_INFO_MAP.putAll(map.getMap());
 
-                    recyclerAdapter.notifyDataSetChanged(); // 刷新页面
+                    if (recyclerAdapter != null) {
+                        recyclerAdapter.notifyDataSetChanged(); // 刷新页面
+                    }
 
                 }
 
@@ -610,7 +612,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         }
 
         // 更新页面显示
-        initRecyclerView(contentList);
+        doInitRecyclerView(contentList);
 
         if (scrollFlag) { // 如果是滚动加载
 

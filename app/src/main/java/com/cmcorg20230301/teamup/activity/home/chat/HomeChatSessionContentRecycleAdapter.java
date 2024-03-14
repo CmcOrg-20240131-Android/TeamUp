@@ -34,7 +34,7 @@ public class HomeChatSessionContentRecycleAdapter
     @Override
     public Integer getItemViewId(SysImSessionContentDO data) {
 
-        if (userSelfInfoVO.getId().equals(data.getCreateId())) {
+        if (data.getCreateId().equals(userSelfInfoVO.getId())) {
 
             return R.layout.home_chat_session_content_item_self;
 
