@@ -30,4 +30,6 @@ public enum LocalStorageKeyEnum {
 
     IM_CONTACT_APPLY_LIST, // 联系人申请列表集合
 
+    IM_SESSION_TO_SEND_MAP_JSON_STR, // 即时通讯，未完成发送的消息 map json字符串，备注：后面要跟 sessionId
+
 }

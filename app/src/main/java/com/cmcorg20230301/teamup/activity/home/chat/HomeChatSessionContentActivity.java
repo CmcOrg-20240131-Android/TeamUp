@@ -1,20 +1,30 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
 import com.cmcorg20230301.teamup.api.http.SysImSessionContentApi;
+import com.cmcorg20230301.teamup.api.socket.WebSocketApi;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentListDTO;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentSendTextDTO;
+import com.cmcorg20230301.teamup.model.dto.SysImSessionContentSendTextListDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
+import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
+import com.cmcorg20230301.teamup.model.vo.UserSelfInfoVO;
+import com.cmcorg20230301.teamup.util.MyLocalStorage;
+import com.cmcorg20230301.teamup.util.UserUtil;
+import com.cmcorg20230301.teamup.util.common.LogUtil;
 import com.cmcorg20230301.teamup.util.common.MyDateUtil;
 import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
@@ -29,8 +39,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 
 /**
  * 聊天会话-内容页
@@ -43,7 +56,16 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
     private Long sessionId;
 
-    private Map<String, SysImSessionContentSendTextDTO> toSendMap = new HashMap<>();
+    // key：时间戳
+    private Map<Long, SysImSessionContentSendTextDTO> toSendMap = new HashMap<>();
+
+    private final UserSelfInfoVO userSelfInfoVO = UserUtil.getUserSelfInfoFromStorage();
+
+    // getContentId()
+    private final Set<String> contentIdSet = new ConcurrentHashSet<>();
+
+    // 当前显示的消息列表
+    public List<SysImSessionContentDO> contentList = new ArrayList<>();
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
@@ -104,6 +126,13 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
             SysImSessionContentSendTextDTO sysImSessionContentSendTextDTO =
                 getSysImSessionContentSendTextDTO(homeChatSessionContentUserInputStr);
+
+            // 先：渲染前端页面
+            handleSysImSessionContentDOList(
+                CollUtil.newArrayList(getSysImSessionContentDO(sysImSessionContentSendTextDTO)), false, true);
+
+            // 执行：发送
+            doSendToServer(sysImSessionContentSendTextDTO, true, toSendMap);
 
         });
 
@@ -170,6 +199,161 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         sysImSessionContentSendTextDTO.setCreateTs(MyDateUtil.getServerTimestamp());
 
         return sysImSessionContentSendTextDTO;
+
+    }
+
+    /**
+     * 获取：一个消息对象
+     */
+    public SysImSessionContentDO getSysImSessionContentDO(SysImSessionContentSendTextDTO dto) {
+
+        SysImSessionContentDO sysImSessionContentDO = new SysImSessionContentDO();
+
+        sysImSessionContentDO.setContent(dto.getContent());
+        sysImSessionContentDO.setShowFlag(true);
+        sysImSessionContentDO.setCreateTs(dto.getCreateTs());
+
+        sysImSessionContentDO.setCreateId(userSelfInfoVO.getId());
+
+        return sysImSessionContentDO;
+
+    }
+
+    /**
+     * 处理：数据
+     * 
+     * @param scrollFlag 是否是：滚动加载
+     * @param mustScrollToLastContentFlag 是否：必须滚动到底部
+     */
+    public void handleSysImSessionContentDOList(List<SysImSessionContentDO> sysImSessionContentDOList,
+        boolean scrollFlag, boolean mustScrollToLastContentFlag) {
+
+        if (CollUtil.isEmpty(sysImSessionContentDOList)) {
+            return;
+        }
+
+        boolean addFlag = false;
+
+        for (SysImSessionContentDO item : sysImSessionContentDOList) {
+
+            String contentId = getContentId(item);
+
+            if (item.getId() != null) {
+
+                SysImSessionContentSendTextDTO sysImSessionContentSendTextDTO = new SysImSessionContentSendTextDTO();
+
+                sysImSessionContentSendTextDTO.setCreateTs(item.getCreateTs());
+
+                setToSendMap(sessionId, sysImSessionContentSendTextDTO, true); // 如果已经在后台处理过了，则在 map里面移除
+
+            }
+
+            if (contentIdSet.contains(contentId)) {
+                continue;
+            }
+
+            contentIdSet.add(contentId);
+            contentList.add(item);
+
+            addFlag = true;
+
+        }
+
+        if (addFlag == false) {
+            return;
+        }
+
+        // 排序
+        contentList.sort((a, b) -> {
+
+            Long createTsOne = a.getCreateTs();
+
+            Long createTsTwo = b.getCreateTs();
+
+            if (createTsOne.equals(createTsTwo)) {
+
+                return a.getCreateId() > a.getCreateId() ? 1 : -1;
+
+            } else {
+
+                return createTsOne > createTsTwo ? 1 : -1;
+
+            }
+
+        });
+
+        // 更新页面显示
+        initRecyclerView(contentList);
+
+    }
+
+    /**
+     * 设置：待发送的消息
+     */
+    public void setToSendMap(SysImSessionContentSendTextDTO sysImSessionContentSendTextDTO, boolean removeFlag) {
+
+        Long createTs = sysImSessionContentSendTextDTO.getCreateTs();
+
+        if (createTs == null) {
+            return;
+        }
+
+        if (removeFlag) {
+
+            if (!toSendMap.containsKey(createTs)) {
+                return;
+            }
+
+            toSendMap.remove(createTs);
+
+        } else {
+
+            if (toSendMap.containsKey(createTs)) {
+                return;
+            }
+
+            toSendMap.put(createTs, sysImSessionContentSendTextDTO);
+
+        }
+
+        String jsonStr = JSONUtil.toJsonStr(toSendMap);
+
+        LogUtil.debug("待发送的消息 map：{}，{}", removeFlag ? ("移除：" + createTs) : "", jsonStr);
+
+        MyLocalStorage.setItem(LocalStorageKeyEnum.IM_SESSION_TO_SEND_MAP_JSON_STR.name() + sessionId, jsonStr);
+
+    }
+
+    /**
+     * 执行：发送给服务器
+     */
+    public void doSendToServer(SysImSessionContentSendTextDTO sysImSessionContentSendTextDTO, boolean firstFlag) {
+
+        if (firstFlag) {
+
+            setToSendMap(sysImSessionContentSendTextDTO, false);
+
+        }
+
+        SysImSessionContentSendTextListDTO sysImSessionContentSendTextListDTO =
+            new SysImSessionContentSendTextListDTO();
+
+        sysImSessionContentSendTextListDTO.setSessionId(sessionId);
+        sysImSessionContentSendTextListDTO.setContentSet(CollUtil.newHashSet(sysImSessionContentSendTextDTO));
+
+        // 发送消息
+        boolean sendFlag = WebSocketApi.imSessionContentSendTextUserSelf(sysImSessionContentSendTextListDTO);
+
+        if (!sendFlag) {
+
+            MyThreadUtil.schedule(() -> {
+
+                // 执行：发送
+                doSendToServer(sysImSessionContentSendTextDTO, false);
+
+            }, 2000, TimeUnit.MILLISECONDS);
+
+        }
 
     }
 

@@ -176,7 +176,7 @@ public class WebSocketHelper {
     /**
      * 发送
      */
-    public static void send(@Nullable WebSocket webSocket, WebSocketMessageDTO<Object> dto) {
+    public static boolean send(@Nullable WebSocket webSocket, WebSocketMessageDTO<Object> dto) {
 
         if (webSocket == null) {
 
@@ -186,11 +186,11 @@ public class WebSocketHelper {
 
         if (webSocket == null) {
 
-            return;
+            return false;
 
         }
 
-        webSocket.send(JSONUtil.toJsonStr(dto));
+        return webSocket.send(JSONUtil.toJsonStr(dto));
 
     }
 

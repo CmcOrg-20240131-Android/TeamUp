@@ -36,17 +36,35 @@ public class MyLocalStorage {
 
     public static String getItem(LocalStorageKeyEnum localStorageKeyEnum) {
 
-        return getSharedPreferences().getString(localStorageKeyEnum.name(), null);
+        return getItem(localStorageKeyEnum.name());
+
+    }
+
+    public static String getItem(String key) {
+
+        return getSharedPreferences().getString(key, null);
 
     }
 
     public static void removeItem(LocalStorageKeyEnum localStorageKeyEnum) {
 
-        getEditor().remove(localStorageKeyEnum.name()).apply();
+        removeItem(localStorageKeyEnum.name());
+
+    }
+
+    public static void removeItem(String key) {
+
+        getEditor().remove(key).apply();
 
     }
 
     public static void setItem(LocalStorageKeyEnum localStorageKeyEnum, Object object) {
+
+        setItem(localStorageKeyEnum.name(), object);
+
+    }
+
+    public static void setItem(String key, Object object) {
 
         String dataStr;
 
@@ -60,7 +78,7 @@ public class MyLocalStorage {
 
         }
 
-        getEditor().putString(localStorageKeyEnum.name(), dataStr).apply();
+        getEditor().putString(key, dataStr).apply();
 
     }
 

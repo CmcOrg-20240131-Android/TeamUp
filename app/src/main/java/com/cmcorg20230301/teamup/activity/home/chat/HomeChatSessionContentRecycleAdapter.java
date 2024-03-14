@@ -23,13 +23,11 @@ import cn.hutool.core.date.DateUtil;
 public class HomeChatSessionContentRecycleAdapter
     extends BaseRecycleAdapter<HomeChatSessionContentRecycleAdapter.MyViewHolder, SysImSessionContentDO> {
 
-    private UserSelfInfoVO userSelfInfoVO;
+    private final UserSelfInfoVO userSelfInfoVO = UserUtil.getUserSelfInfoFromStorage();
 
     public HomeChatSessionContentRecycleAdapter(Context context, List<SysImSessionContentDO> dataList) {
 
         super(context, dataList);
-
-        userSelfInfoVO = UserUtil.getUserSelfInfoFromStorage();
 
     }
 
