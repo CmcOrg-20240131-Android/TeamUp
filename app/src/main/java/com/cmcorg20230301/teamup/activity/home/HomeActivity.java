@@ -5,6 +5,7 @@ import org.jetbrains.annotations.Nullable;
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionFragment;
 import com.cmcorg20230301.teamup.activity.home.contact.HomeContactFragment;
+import com.cmcorg20230301.teamup.activity.home.selfcenter.HomeSelfCenterFragment;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.util.MyExceptionUtil;
@@ -54,6 +55,8 @@ public class HomeActivity extends BaseActivity {
                     fragmentClass = HomeContactFragment.class;
 
                 } else if (itemId == R.id.bnm3) {
+
+                    fragmentClass = HomeSelfCenterFragment.class;
 
                 }
 
