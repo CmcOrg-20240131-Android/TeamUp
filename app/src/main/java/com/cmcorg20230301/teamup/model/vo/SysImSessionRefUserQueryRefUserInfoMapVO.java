@@ -12,4 +12,19 @@ public class SysImSessionRefUserQueryRefUserInfoMapVO {
      */
     private String sessionAvatarUrl;
 
+    public String getSessionNickname() {
+        return sessionNickname;
+    }
+
+    public void setSessionNickname(String sessionNickname) {
+        this.sessionNickname = sessionNickname;
+    }
+
+    public String getSessionAvatarUrl() {
+        return sessionAvatarUrl;
+    }
+
+    public void setSessionAvatarUrl(String sessionAvatarUrl) {
+        this.sessionAvatarUrl = sessionAvatarUrl;
+    }
 }

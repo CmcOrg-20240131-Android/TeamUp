@@ -76,7 +76,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     private final List<SysImSessionContentDO> contentList = new CopyOnWriteArrayList<>();
 
     // 会话里面的用户信息
-    private final Map<Long, SysImSessionRefUserQueryRefUserInfoMapVO> userInfoMap = new ConcurrentHashMap<>();
+    public final static Map<Long, SysImSessionRefUserQueryRefUserInfoMapVO> USER_INFO_MAP = new ConcurrentHashMap<>();
 
     // 是否：加载完成所有数据
     private boolean loadFullFlag = false;
@@ -207,11 +207,11 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
                     if (CollUtil.isEmpty(userIdSet)) {
 
-                        userInfoMap.clear();
+                        USER_INFO_MAP.clear();
 
                     }
 
-                    userInfoMap.putAll(map.getMap());
+                    USER_INFO_MAP.putAll(map.getMap());
 
                 }
 

@@ -8,6 +8,7 @@ import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
+import com.cmcorg20230301.teamup.model.vo.SysImSessionRefUserQueryRefUserInfoMapVO;
 import com.cmcorg20230301.teamup.model.vo.UserSelfInfoVO;
 import com.cmcorg20230301.teamup.util.UserUtil;
 import com.cmcorg20230301.teamup.util.common.MyDateUtil;
@@ -53,9 +54,30 @@ public class HomeChatSessionContentRecycleAdapter
     @Override
     public void onBindViewHolderData(@NonNull MyViewHolder holder, int position, SysImSessionContentDO data) {
 
-        Glide.with(context).load(CommonConstant.FIXED_AVATAR_URL).into(holder.homeChatSessionContentItemAvatar);
+        String avatarUrl;
 
-        holder.homeChatSessionContentItemUserName.setText("");
+        String nickname;
+
+        SysImSessionRefUserQueryRefUserInfoMapVO sysImSessionRefUserQueryRefUserInfoMapVO =
+            HomeChatSessionContentActivity.USER_INFO_MAP.get(data.getCreateId());
+
+        if (sysImSessionRefUserQueryRefUserInfoMapVO == null) {
+
+            avatarUrl = CommonConstant.FIXED_AVATAR_URL;
+
+            nickname = "";
+
+        } else {
+
+            avatarUrl = sysImSessionRefUserQueryRefUserInfoMapVO.getSessionAvatarUrl();
+
+            nickname = sysImSessionRefUserQueryRefUserInfoMapVO.getSessionNickname();
+
+        }
+
+        Glide.with(context).load(avatarUrl).into(holder.homeChatSessionContentItemAvatar);
+
+        holder.homeChatSessionContentItemUserName.setText(nickname);
 
         holder.homeChatSessionContentItemContent.setText(data.getContent());
 
