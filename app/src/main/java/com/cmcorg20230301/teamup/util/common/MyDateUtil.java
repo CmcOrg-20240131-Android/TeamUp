@@ -1,7 +1,8 @@
 package com.cmcorg20230301.teamup.util.common;
 
-import cn.hutool.core.date.DateUtil;
 import java.util.Date;
+
+import cn.hutool.core.date.DateUtil;
 
 public class MyDateUtil {
 
@@ -20,6 +21,25 @@ public class MyDateUtil {
     public static long getServerTimestamp() {
 
         return System.currentTimeMillis();
+
+    }
+
+    /**
+     * 格式化时间，如果是今天，则不显示年月日
+     */
+    public static String formatDateTimeForCurrentDay(Date date) {
+
+        long currentDay = getServerTimestamp() / 86400000;
+
+        long checkDay = date.getTime() / 86400000;
+
+        if (currentDay == checkDay) {
+
+            return DateUtil.formatTime(date);
+
+        }
+
+        return DateUtil.formatDateTime(date);
 
     }
 

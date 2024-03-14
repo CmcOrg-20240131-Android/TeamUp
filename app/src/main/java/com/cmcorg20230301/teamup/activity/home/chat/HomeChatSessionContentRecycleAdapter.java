@@ -10,6 +10,7 @@ import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
 import com.cmcorg20230301.teamup.model.vo.UserSelfInfoVO;
 import com.cmcorg20230301.teamup.util.UserUtil;
+import com.cmcorg20230301.teamup.util.common.MyDateUtil;
 
 import android.content.Context;
 import android.view.View;
@@ -17,8 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-
-import cn.hutool.core.date.DateUtil;
 
 public class HomeChatSessionContentRecycleAdapter
     extends BaseRecycleAdapter<HomeChatSessionContentRecycleAdapter.MyViewHolder, SysImSessionContentDO> {
@@ -60,7 +59,8 @@ public class HomeChatSessionContentRecycleAdapter
 
         holder.homeChatSessionContentItemContent.setText(data.getContent());
 
-        holder.homeChatSessionContentItemTime.setText(DateUtil.formatDateTime(new Date(data.getCreateTs())));
+        holder.homeChatSessionContentItemTime
+            .setText(MyDateUtil.formatDateTimeForCurrentDay(new Date(data.getCreateTs())));
 
     }
 
