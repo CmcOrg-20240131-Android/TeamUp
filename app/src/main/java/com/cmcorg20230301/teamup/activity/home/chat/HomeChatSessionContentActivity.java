@@ -27,6 +27,7 @@ import com.cmcorg20230301.teamup.util.UserUtil;
 import com.cmcorg20230301.teamup.util.common.LogUtil;
 import com.cmcorg20230301.teamup.util.common.MyDateUtil;
 import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
+import com.cmcorg20230301.teamup.util.common.RecyclerViewUtil;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
 
 import android.content.Intent;
@@ -187,7 +188,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
-                if (!recyclerView.canScrollVertically(1)) { // 下拉加载
+                if (RecyclerViewUtil.notCanScrollDown(recyclerView)) { // 下拉加载
 
                 }
 
@@ -302,6 +303,32 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         // 更新页面显示
         initRecyclerView(contentList);
+
+        boolean scrollToLastContentFlag = false;
+
+        if (scrollFlag) { // 如果是滚动加载
+
+        } else {
+
+            if (mustScrollToLastContentFlag) {
+
+                scrollToLastContentFlag = true;
+
+            } else {
+
+                scrollToLastContentFlag = RecyclerViewUtil.notCanScrollDown(recyclerView);
+
+            }
+
+        }
+
+        if (scrollFlag) { // 如果是滚动加载
+
+        } else if (scrollToLastContentFlag) { // 滚动到底部
+
+            recyclerView.scrollToPosition(recyclerAdapter.getItemCount() - 1);
+
+        }
 
     }
 
