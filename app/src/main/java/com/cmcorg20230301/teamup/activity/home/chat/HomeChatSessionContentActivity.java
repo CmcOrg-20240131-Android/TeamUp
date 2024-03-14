@@ -334,6 +334,8 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
                 if (RecyclerViewUtil.notCanScrollDown(recyclerView)) { // 下拉加载
 
+                    loadData(contentList.size() > 1 ? contentList.get(0).getCreateTs() : null); // 加载数据
+
                 }
 
             }
