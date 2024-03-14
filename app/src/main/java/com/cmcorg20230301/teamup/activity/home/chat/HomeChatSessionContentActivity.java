@@ -356,7 +356,13 @@ public class HomeChatSessionContentActivity extends BaseActivity {
                     USER_INFO_MAP.putAll(map.getMap());
 
                     if (recyclerAdapter != null) {
-                        recyclerAdapter.notifyDataSetChanged(); // 刷新页面
+
+                        runOnUiThread(() -> {
+
+                            recyclerAdapter.notifyDataSetChanged(); // 刷新页面
+
+                        });
+
                     }
 
                 }
