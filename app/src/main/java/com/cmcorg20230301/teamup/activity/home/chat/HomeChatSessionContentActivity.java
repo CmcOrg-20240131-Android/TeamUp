@@ -1,5 +1,7 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -7,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
@@ -20,8 +23,11 @@ import com.cmcorg20230301.teamup.model.dto.NotNullIdAndLongSet;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentListDTO;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentSendTextDTO;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentSendTextListDTO;
+import com.cmcorg20230301.teamup.model.dto.WebSocketMessageDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
+import com.cmcorg20230301.teamup.model.enums.AppDispatchKeyEnum;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
+import com.cmcorg20230301.teamup.model.enums.WebSocketUriEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.LongObjectMapVO;
@@ -46,11 +52,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 
 /**
@@ -87,6 +96,139 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     private ScheduledFuture<?> scheduleSend = null;
 
     private ScheduledFuture<?> scheduleSync = null;
+
+    private final static Map<AppDispatchKeyEnum, Consumer<Object>> APP_DISPATCH_MAP = new HashMap<>();
+
+    private final static Map<String, Consumer<WebSocketMessageDTO<?>>> URI_MAP = new HashMap<>();
+
+    static {
+
+        APP_DISPATCH_MAP.put(AppDispatchKeyEnum.SET_WEB_SOCKET_MESSAGE, data -> {
+
+            WebSocketMessageDTO<?> webSocketMessageDTO = (WebSocketMessageDTO<?>)data;
+
+            Consumer<WebSocketMessageDTO<?>> webSocketMessageDtoConsumer = URI_MAP.get(webSocketMessageDTO.getUri());
+
+            if (webSocketMessageDtoConsumer != null) {
+
+                webSocketMessageDtoConsumer.accept(webSocketMessageDTO);
+
+            }
+
+        });
+
+    }
+
+    @Override
+    public Map<AppDispatchKeyEnum, Consumer<Object>> getAppDispatchMap() {
+
+        // 接收到新的消息
+        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_CONTENT_SEND.name(), webSocketMessageDTO -> {
+
+            Object data = webSocketMessageDTO.getData();
+
+            if (data != null) {
+
+                SysImSessionContentDO sysImSessionContentDO =
+                    BeanUtil.copyProperties(data, SysImSessionContentDO.class);
+
+                if (sessionId.equals(sysImSessionContentDO.getSessionId())) {
+
+                    handleSysImSessionContentDOList(CollUtil.newArrayList(sysImSessionContentDO), false, false);
+
+                }
+
+            }
+
+        });
+
+        // 发送消息的回调
+        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_CONTENT_WEB_SOCKET_SEND_TEXT_USER_SELF.name(),
+            webSocketMessageDTO -> {
+
+                if (webSocketMessageDTO.getCode().equals(CommonConstant.API_OK_CODE)) {
+
+                    Object data = webSocketMessageDTO.getData();
+
+                    if (data != null) {
+
+                        JSONObject jsonObject = BeanUtil.toBean(data, JSONObject.class);
+
+                        JSONArray jsonArray = jsonObject.getJSONArray(sessionId.toString());
+
+                        if (CollUtil.isNotEmpty(jsonArray)) {
+
+                            for (Object item : jsonArray) {
+
+                                Long createTs = Convert.toLong(item);
+
+                                if (createTs == null) {
+                                    continue;
+                                }
+
+                                SysImSessionContentSendTextDTO sysImSessionContentSendTextDTO =
+                                    new SysImSessionContentSendTextDTO();
+
+                                sysImSessionContentSendTextDTO.setCreateTs(createTs);
+
+                                setToSendMap(sysImSessionContentSendTextDTO, true);
+
+                            }
+
+                        }
+
+                    }
+
+                } else {
+
+                    ToastUtil.makeText(webSocketMessageDTO.getMsg());
+
+                }
+
+            });
+
+        // 加入新用户的回调
+        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_REF_USER_JOIN_USER_ID_SET.name(), webSocketMessageDTO -> {
+
+            Object data = webSocketMessageDTO.getData();
+
+            if (data != null) {
+
+                JSONObject jsonObject = BeanUtil.toBean(data, JSONObject.class);
+
+                JSONArray jsonArray = jsonObject.getJSONArray(sessionId.toString());
+
+                if (CollUtil.isNotEmpty(jsonArray)) {
+
+                    Set<Long> userIdSet = new HashSet<>();
+
+                    for (Object item : jsonArray) {
+
+                        Long userId = Convert.toLong(item);
+
+                        if (userId != null) {
+
+                            userIdSet.add(userId);
+
+                        }
+
+                    }
+
+                    if (CollUtil.isNotEmpty(userIdSet)) {
+
+                        loadUserInfoData(userIdSet);
+
+                    }
+
+                }
+
+            }
+
+        });
+
+        return APP_DISPATCH_MAP;
+
+    }
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {

@@ -176,8 +176,7 @@ public class WebSocketUtil {
                     @Override
                     public void onMessage(@NonNull WebSocket webSocket, @NonNull String text) {
 
-                        WebSocketMessageDTO<String> webSocketMessageDTO =
-                            JSONUtil.toBean(text, WebSocketMessageDTO.class);
+                        WebSocketMessageDTO<?> webSocketMessageDTO = JSONUtil.toBean(text, WebSocketMessageDTO.class);
 
                         LogUtil.debug("WebSocket 新消息：{}", text);
 

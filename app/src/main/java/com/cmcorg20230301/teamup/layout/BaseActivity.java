@@ -137,6 +137,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     public static void getAppDispatch(AppDispatchKeyEnum appDispatchKeyEnum, @Nullable Object data,
         @Nullable LocalStorageKeyEnum localStorageKeyEnum) {
 
+        if (localStorageKeyEnum != null) {
+
+            MyLocalStorage.setItem(localStorageKeyEnum, data);
+
+        }
+
         Map<AppDispatchKeyEnum, Consumer<Object>> appDispatchMap = CURRENT_ACTIVITY.getAppDispatchMap();
 
         if (CollUtil.isEmpty(appDispatchMap)) {
@@ -150,12 +156,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
 
         consumer.accept(data);
-
-        if (localStorageKeyEnum != null) {
-
-            MyLocalStorage.setItem(localStorageKeyEnum, data);
-
-        }
 
     }
 
