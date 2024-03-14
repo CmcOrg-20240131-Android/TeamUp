@@ -1,26 +1,23 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
-import com.cmcorg20230301.teamup.api.http.SysImSessionContentApi;
 import com.cmcorg20230301.teamup.api.socket.WebSocketApi;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
-import com.cmcorg20230301.teamup.model.dto.SysImSessionContentListDTO;
+import com.cmcorg20230301.teamup.model.dto.NotNullId;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentSendTextDTO;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentSendTextListDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
-import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
-import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
-import com.cmcorg20230301.teamup.model.vo.Page;
+import com.cmcorg20230301.teamup.model.vo.SysImSessionRefUserQueryRefUserInfoMapVO;
 import com.cmcorg20230301.teamup.model.vo.UserSelfInfoVO;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
 import com.cmcorg20230301.teamup.util.UserUtil;
@@ -67,7 +64,10 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     private final Set<String> contentIdSet = new ConcurrentHashSet<>();
 
     // 当前显示的消息列表
-    public List<SysImSessionContentDO> contentList = new ArrayList<>();
+    private final List<SysImSessionContentDO> contentList = new CopyOnWriteArrayList<>();
+
+    // 会话里面的用户信息
+    private final Map<Long, SysImSessionRefUserQueryRefUserInfoMapVO> userInfoMap = new ConcurrentHashMap<>();
 
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
@@ -88,26 +88,26 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         setContentView(R.layout.home_chat_session_content);
 
-        MyThreadUtil.execute(() -> {
-
-            SysImSessionContentListDTO sysImSessionContentListDTO = new SysImSessionContentListDTO();
-
-            sysImSessionContentListDTO.setSessionId(sessionId);
-
-            SysImSessionContentApi.scrollPageUserSelf(sysImSessionContentListDTO,
-                new IHttpHandle<Page<SysImSessionContentDO>>() {
-
-                    @Override
-                    public void success(ApiResultVO<Page<SysImSessionContentDO>> apiResultVO) {
-
-                        // 初始化：RecyclerView
-                        doInitRecyclerView(apiResultVO.getData().getRecords());
-
-                    }
-
-                });
-
-        });
+        // MyThreadUtil.execute(() -> {
+        //
+        // SysImSessionContentListDTO sysImSessionContentListDTO = new SysImSessionContentListDTO();
+        //
+        // sysImSessionContentListDTO.setSessionId(sessionId);
+        //
+        // SysImSessionContentApi.scrollPageUserSelf(sysImSessionContentListDTO,
+        // new IHttpHandle<Page<SysImSessionContentDO>>() {
+        //
+        // @Override
+        // public void success(ApiResultVO<Page<SysImSessionContentDO>> apiResultVO) {
+        //
+        // // 初始化：RecyclerView
+        // doInitRecyclerView(apiResultVO.getData().getRecords());
+        //
+        // }
+        //
+        // });
+        //
+        // });
 
         TextView homeChatSessionContentUserInputSend = findViewById(R.id.homeChatSessionContentUserInputSend);
 
@@ -137,6 +137,39 @@ public class HomeChatSessionContentActivity extends BaseActivity {
             doSendToServer(sysImSessionContentSendTextDTO, true);
 
         });
+
+        firstHandleSessionId(); // 第一次：处理：sessionId
+
+    }
+
+    /**
+     * 第一次：处理：sessionId
+     */
+    public void firstHandleSessionId() {
+
+        doSendToSendMap(); // 把之前未发送的消息，再发送一次
+
+        loadUserInfoData(null); // 加载：会话里面的用户信息
+
+        loadData(); // 加载数据
+
+        WebSocketApi.imSessionContentRefUserUpdateLastOpenTsUserSelf(new NotNullId(sessionId)); // 更新-最后一次打开会话的时间戳
+
+    }
+
+    /**
+     * 加载：会话里面的用户信息
+     */
+    public void loadUserInfoData(@org.jetbrains.annotations.Nullable Set<Long> userIdSet) {
+
+    }
+
+    /**
+     * 加载数据
+     * 
+     * @param createTs 当滚动加载时，才会传递该值
+     */
+    public void loadData(@org.jetbrains.annotations.Nullable Long createTs) {
 
     }
 
