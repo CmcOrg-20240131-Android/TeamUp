@@ -151,7 +151,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         loadUserInfoData(null); // 加载：会话里面的用户信息
 
-        loadData(); // 加载数据
+        loadData(null); // 加载数据
 
         WebSocketApi.imSessionContentRefUserUpdateLastOpenTsUserSelf(new NotNullId(sessionId)); // 更新-最后一次打开会话的时间戳
 
