@@ -213,6 +213,8 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
                     USER_INFO_MAP.putAll(map.getMap());
 
+                    recyclerAdapter.notifyDataSetChanged(); // 刷新页面
+
                 }
 
                 @Override

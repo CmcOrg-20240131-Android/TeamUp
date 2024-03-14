@@ -105,7 +105,7 @@ public class HomeActivity extends BaseActivity {
 
         }
 
-        getSupportFragmentManager().beginTransaction().add(R.id.homeFragment, fClass, null).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, fClass, null).commit();
 
         WebSocketUtil.connectWebSocket();
 
