@@ -77,6 +77,8 @@ public class WebSocketUtil {
 
                 webSocketUrlCallBack.setValue(apiResultVO.getData());
 
+                countDownLatch.countDown();
+
             }
 
         });

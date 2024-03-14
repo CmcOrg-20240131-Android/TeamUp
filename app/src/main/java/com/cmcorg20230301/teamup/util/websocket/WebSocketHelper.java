@@ -154,6 +154,8 @@ public class WebSocketHelper {
 
                 resWebSocketIdCallBack.setValue(webSocketId);
 
+                countDownLatch.countDown();
+
             }
 
             @Override

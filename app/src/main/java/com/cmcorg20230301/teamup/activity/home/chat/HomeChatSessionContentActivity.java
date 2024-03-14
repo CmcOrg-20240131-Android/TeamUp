@@ -123,7 +123,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     public Map<AppDispatchKeyEnum, Consumer<Object>> getAppDispatchMap() {
 
         // 接收到新的消息
-        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_CONTENT_SEND.name(), webSocketMessageDTO -> {
+        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_CONTENT_SEND.getUri(), webSocketMessageDTO -> {
 
             Object data = webSocketMessageDTO.getData();
 
@@ -143,7 +143,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         });
 
         // 发送消息的回调
-        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_CONTENT_WEB_SOCKET_SEND_TEXT_USER_SELF.name(),
+        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_CONTENT_WEB_SOCKET_SEND_TEXT_USER_SELF.getUri(),
             webSocketMessageDTO -> {
 
                 if (webSocketMessageDTO.getCode().equals(CommonConstant.API_OK_CODE)) {
@@ -152,7 +152,8 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
                     if (data != null) {
 
-                        JSONObject jsonObject = BeanUtil.toBean(data, JSONObject.class);
+                        // 格式：{"id":"","valueSet":""}
+                        JSONObject jsonObject = (JSONObject)data;
 
                         JSONArray jsonArray = jsonObject.getJSONArray(sessionId.toString());
 
@@ -188,7 +189,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
             });
 
         // 加入新用户的回调
-        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_REF_USER_JOIN_USER_ID_SET.name(), webSocketMessageDTO -> {
+        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_REF_USER_JOIN_USER_ID_SET.getUri(), webSocketMessageDTO -> {
 
             Object data = webSocketMessageDTO.getData();
 
