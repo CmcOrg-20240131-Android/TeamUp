@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import com.cmcorg20230301.teamup.R;
@@ -83,6 +84,10 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     // 上一次加载的 createTs
     private long lastLoadCreateTs;
 
+    private ScheduledFuture<?> scheduleSend = null;
+
+    private ScheduledFuture<?> scheduleSync = null;
+
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
 
@@ -132,6 +137,37 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         });
 
         firstHandleSessionId(); // 第一次：处理：sessionId
+
+        scheduleSend = MyThreadUtil.schedule(() -> {
+
+            doSendToSendMap(); // 把之前未发送的消息，再发送一次
+
+            WebSocketApi.imSessionContentRefUserUpdateLastOpenTsUserSelf(new NotNullId(sessionId)); // 更新-最后一次打开会话的时间戳
+
+        }, CommonConstant.SECOND_3_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+
+        scheduleSync = MyThreadUtil.schedule(() -> {
+
+            loadUserInfoData(null); // 定时，加载会话里面的用户信息
+
+            loadData(null); // 定时，加载最新数据
+
+        }, CommonConstant.SECOND_10_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+
+        if (scheduleSend != null) {
+            scheduleSend.cancel(true);
+        }
+
+        if (scheduleSync != null) {
+            scheduleSync.cancel(true);
+        }
 
     }
 
