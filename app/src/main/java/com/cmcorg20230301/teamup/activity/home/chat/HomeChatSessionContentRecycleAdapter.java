@@ -77,7 +77,11 @@ public class HomeChatSessionContentRecycleAdapter
 
         Glide.with(context).load(avatarUrl).into(holder.homeChatSessionContentItemAvatar);
 
-        holder.homeChatSessionContentItemUserName.setText(nickname);
+        if (holder.homeChatSessionContentItemUserName != null) {
+
+            holder.homeChatSessionContentItemUserName.setText(nickname);
+
+        }
 
         holder.homeChatSessionContentItemContent.setText(data.getContent());
 
@@ -103,8 +107,6 @@ public class HomeChatSessionContentRecycleAdapter
             if (userSelfInfoVO.getId().equals(data.getCreateId())) {
 
                 homeChatSessionContentItemAvatar = itemView.findViewById(R.id.homeChatSessionContentItemAvatarSelf);
-
-                homeChatSessionContentItemUserName = itemView.findViewById(R.id.homeChatSessionContentItemUserNameSelf);
 
                 homeChatSessionContentItemContent = itemView.findViewById(R.id.homeChatSessionContentItemContentSelf);
 
