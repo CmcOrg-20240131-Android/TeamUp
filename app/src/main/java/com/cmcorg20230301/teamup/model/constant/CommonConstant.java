@@ -13,6 +13,8 @@ public interface CommonConstant {
 
     int API_OK_CODE = 200; // api请求成功的 code
 
+    int DEFAULT_PAGE_SIZE = 20; // 默认：每页个数
+
     int SECOND_3_EXPIRE_TIME = 3 * 1000; // 3秒过期
 
     int SECOND_5_EXPIRE_TIME = 5 * 1000; // 5秒过期

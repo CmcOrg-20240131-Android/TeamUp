@@ -214,7 +214,8 @@ public class MyHttpUtil {
         HttpRequest httpRequest = HttpRequest.post(urlString).body(JSONUtil.toJsonStr(body));
 
         // 执行
-        execHttpRequest(httpRequest, false, iHttpHandle, urlString, typeReference);
+        execHttpRequest(httpRequest, iHttpHandle != null && iHttpHandle.getHiddenErrorMsgFlag(), iHttpHandle, urlString,
+            typeReference);
 
     }
 

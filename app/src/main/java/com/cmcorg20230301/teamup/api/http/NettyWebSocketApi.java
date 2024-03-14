@@ -20,8 +20,7 @@ public class NettyWebSocketApi {
      */
     public static void getAllWebSocketUrl(@Nullable IHttpHandle<Set<String>> iHttpHandle) {
 
-        MyHttpUtil.postHiddenError("/netty/webSocket/getAllWebSocketUrl", null, iHttpHandle,
-            new TypeReference<Set<String>>() {});
+        MyHttpUtil.post("/netty/webSocket/getAllWebSocketUrl", null, iHttpHandle, new TypeReference<Set<String>>() {});
 
     }
 

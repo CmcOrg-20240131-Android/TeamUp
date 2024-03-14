@@ -9,14 +9,22 @@ import java.util.concurrent.TimeUnit;
 
 import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.activity.home.HomeActivity;
+import com.cmcorg20230301.teamup.api.http.SysImSessionContentApi;
+import com.cmcorg20230301.teamup.api.http.SysImSessionRefUserApi;
 import com.cmcorg20230301.teamup.api.socket.WebSocketApi;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.dto.NotNullId;
+import com.cmcorg20230301.teamup.model.dto.NotNullIdAndLongSet;
+import com.cmcorg20230301.teamup.model.dto.SysImSessionContentListDTO;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentSendTextDTO;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionContentSendTextListDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
+import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
+import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
+import com.cmcorg20230301.teamup.model.vo.LongObjectMapVO;
+import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionRefUserQueryRefUserInfoMapVO;
 import com.cmcorg20230301.teamup.model.vo.UserSelfInfoVO;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
@@ -69,6 +77,12 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     // 会话里面的用户信息
     private final Map<Long, SysImSessionRefUserQueryRefUserInfoMapVO> userInfoMap = new ConcurrentHashMap<>();
 
+    // 是否：加载完成所有数据
+    private boolean loadFullFlag = false;
+
+    // 上一次加载的 createTs
+    private long lastLoadCreateTs;
+
     @Override
     public void initView(@Nullable Bundle savedInstanceState) {
 
@@ -87,27 +101,6 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         }
 
         setContentView(R.layout.home_chat_session_content);
-
-        // MyThreadUtil.execute(() -> {
-        //
-        // SysImSessionContentListDTO sysImSessionContentListDTO = new SysImSessionContentListDTO();
-        //
-        // sysImSessionContentListDTO.setSessionId(sessionId);
-        //
-        // SysImSessionContentApi.scrollPageUserSelf(sysImSessionContentListDTO,
-        // new IHttpHandle<Page<SysImSessionContentDO>>() {
-        //
-        // @Override
-        // public void success(ApiResultVO<Page<SysImSessionContentDO>> apiResultVO) {
-        //
-        // // 初始化：RecyclerView
-        // doInitRecyclerView(apiResultVO.getData().getRecords());
-        //
-        // }
-        //
-        // });
-        //
-        // });
 
         TextView homeChatSessionContentUserInputSend = findViewById(R.id.homeChatSessionContentUserInputSend);
 
@@ -162,6 +155,37 @@ public class HomeChatSessionContentActivity extends BaseActivity {
      */
     public void loadUserInfoData(@org.jetbrains.annotations.Nullable Set<Long> userIdSet) {
 
+        NotNullIdAndLongSet notNullIdAndLongSet = new NotNullIdAndLongSet();
+
+        notNullIdAndLongSet.setId(sessionId);
+        notNullIdAndLongSet.setValueSet(userIdSet);
+
+        SysImSessionRefUserApi.queryRefUserInfoMap(notNullIdAndLongSet,
+            new IHttpHandle<LongObjectMapVO<SysImSessionRefUserQueryRefUserInfoMapVO>>() {
+
+                @Override
+                public void success(ApiResultVO<LongObjectMapVO<SysImSessionRefUserQueryRefUserInfoMapVO>> apiResultVO)
+                    throws Exception {
+
+                    LongObjectMapVO<SysImSessionRefUserQueryRefUserInfoMapVO> map = apiResultVO.getData();
+
+                    if (CollUtil.isEmpty(userIdSet)) {
+
+                        userInfoMap.clear();
+
+                    }
+
+                    userInfoMap.putAll(map.getMap());
+
+                }
+
+                @Override
+                public boolean getHiddenErrorMsgFlag() {
+                    return true;
+                }
+
+            });
+
     }
 
     /**
@@ -170,6 +194,56 @@ public class HomeChatSessionContentActivity extends BaseActivity {
      * @param createTs 当滚动加载时，才会传递该值
      */
     public void loadData(@org.jetbrains.annotations.Nullable Long createTs) {
+
+        long oldLastLoadCreateTs = lastLoadCreateTs;
+
+        if (createTs != null) {
+
+            if (loadFullFlag) {
+                return;
+            }
+
+            if (lastLoadCreateTs == createTs) {
+                return;
+            }
+
+            lastLoadCreateTs = createTs;
+
+        }
+
+        SysImSessionContentListDTO sysImSessionContentListDTO = new SysImSessionContentListDTO();
+
+        sysImSessionContentListDTO.setSessionId(sessionId);
+        sysImSessionContentListDTO.setId(createTs);
+
+        SysImSessionContentApi.scrollPageUserSelf(sysImSessionContentListDTO,
+            new IHttpHandle<Page<SysImSessionContentDO>>() {
+
+                @Override
+                public void success(ApiResultVO<Page<SysImSessionContentDO>> apiResultVO) throws Exception {
+
+                    if (apiResultVO.getData().getRecords().size() < CommonConstant.DEFAULT_PAGE_SIZE) {
+                        loadFullFlag = true;
+                    }
+
+                    // 处理数据
+                    handleSysImSessionContentDOList(apiResultVO.getData().getRecords(), createTs != null, false);
+
+                }
+
+                @Override
+                public void error(@Nullable ApiResultVO<Page<SysImSessionContentDO>> apiResultVO) {
+
+                    lastLoadCreateTs = oldLastLoadCreateTs;
+
+                }
+
+                @Override
+                public boolean getHiddenErrorMsgFlag() {
+                    return true;
+                }
+
+            });
 
     }
 

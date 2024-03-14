@@ -156,6 +156,11 @@ public class WebSocketHelper {
 
             }
 
+            @Override
+            public boolean getHiddenErrorMsgFlag() {
+                return true;
+            }
+
         });
 
         countDownLatch.await();

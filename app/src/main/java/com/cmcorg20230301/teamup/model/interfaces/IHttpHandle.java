@@ -17,4 +17,11 @@ public interface IHttpHandle<T> {
 
     }
 
+    /**
+     * 是否：隐藏错误消息提示
+     */
+    default boolean getHiddenErrorMsgFlag() {
+        return false;
+    }
+
 }
