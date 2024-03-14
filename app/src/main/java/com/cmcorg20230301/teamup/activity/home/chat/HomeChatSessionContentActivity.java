@@ -1,10 +1,10 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 import com.cmcorg20230301.teamup.R;
@@ -43,6 +43,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.ConcurrentHashSet;
 import cn.hutool.core.convert.Convert;
+import cn.hutool.core.lang.TypeReference;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 
@@ -58,7 +59,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     private Long sessionId;
 
     // key：时间戳
-    private Map<Long, SysImSessionContentSendTextDTO> toSendMap = new HashMap<>();
+    private Map<Long, SysImSessionContentSendTextDTO> toSendMap = new ConcurrentHashMap<>();
 
     private final UserSelfInfoVO userSelfInfoVO = UserUtil.getUserSelfInfoFromStorage();
 
@@ -397,6 +398,43 @@ public class HomeChatSessionContentActivity extends BaseActivity {
                 doSendToServer(sysImSessionContentSendTextDTO, false);
 
             }, 2000, TimeUnit.MILLISECONDS);
+
+        }
+
+    }
+
+    /**
+     * 把之前未发送的消息，再发送一次
+     * <p>
+     * 备注：只会发送创建时间超过 3秒的数据
+     */
+    public void doSendToSendMap() {
+
+        // 把之前未发送的消息，再发送一次
+        String toSendMapJsonStr =
+            MyLocalStorage.getItem(LocalStorageKeyEnum.IM_SESSION_TO_SEND_MAP_JSON_STR.name() + sessionId);
+
+        if (StrUtil.isBlank(toSendMapJsonStr)) {
+            return;
+        }
+
+        Map<Long, SysImSessionContentSendTextDTO> toSendMapTemp =
+            JSONUtil.toBean(toSendMapJsonStr, new TypeReference<Map<Long, SysImSessionContentSendTextDTO>>() {}, false);
+
+        long checkTimestamp = MyDateUtil.getServerTimestamp() - CommonConstant.SECOND_3_EXPIRE_TIME;
+
+        for (Map.Entry<Long, SysImSessionContentSendTextDTO> item : toSendMapTemp.entrySet()) {
+
+            SysImSessionContentSendTextDTO sysImSessionContentSendTextDTO = item.getValue();
+
+            if (sysImSessionContentSendTextDTO.getCreateTs() > checkTimestamp) {
+                continue;
+            }
+
+            LogUtil.debug("恢复数据：{}", JSONUtil.toJsonStr(sysImSessionContentSendTextDTO));
+
+            // 执行：发送
+            doSendToServer(sysImSessionContentSendTextDTO, true);
 
         }
 
