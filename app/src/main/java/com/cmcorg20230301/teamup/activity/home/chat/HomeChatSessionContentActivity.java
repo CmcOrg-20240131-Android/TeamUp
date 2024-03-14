@@ -301,9 +301,6 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         });
 
-        // 更新页面显示
-        initRecyclerView(contentList);
-
         boolean scrollToLastContentFlag = false;
 
         if (scrollFlag) { // 如果是滚动加载
@@ -321,6 +318,9 @@ public class HomeChatSessionContentActivity extends BaseActivity {
             }
 
         }
+
+        // 更新页面显示
+        initRecyclerView(contentList);
 
         if (scrollFlag) { // 如果是滚动加载
 
