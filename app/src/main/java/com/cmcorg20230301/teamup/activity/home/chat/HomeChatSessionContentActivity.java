@@ -166,14 +166,32 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         // 给：RecyclerView设置adapter
         recyclerView.setAdapter(recyclerAdapter);
 
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+
+        linearLayoutManager.setReverseLayout(true); // 布局反向
+        linearLayoutManager.setStackFromEnd(true); // 从最后一个开始滚动
+
         // 设置：layoutManager
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         // 设置：item的分割线
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(myViewHolder -> {
+
+        });
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+
+                if (!recyclerView.canScrollVertically(1)) { // 下拉加载
+
+                }
+
+            }
 
         });
 
