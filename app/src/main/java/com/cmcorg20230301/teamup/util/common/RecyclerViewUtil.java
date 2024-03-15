@@ -55,7 +55,7 @@ public class RecyclerViewUtil {
 
         LogUtil.debug("最后一个可以看到元素下标：{}，总数：{}", lastVisibleItemPosition, itemCount);
 
-        if (lastVisibleItemPosition == -1) {
+        if (lastVisibleItemPosition == -1) { // 这里表示初始值
             return true;
         }
 

@@ -510,7 +510,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         // 更新页面显示
         if (recyclerAdapter != null) {
 
-            int finalContentListAddTotal = contentListAddTotal;
+            int scrollToPosition = contentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER + 2;
 
             runOnUiThread(() -> {
 
@@ -519,13 +519,11 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
                 if (scrollFlag) { // 如果是滚动加载
 
-                    recyclerView.scrollToPosition(finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER);
+                    recyclerView.scrollToPosition(scrollToPosition);
 
-                    SysImSessionContentDO sysImSessionContentDO =
-                        contentList.get(finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER);
+                    SysImSessionContentDO sysImSessionContentDO = contentList.get(scrollToPosition);
 
-                    LogUtil.debug("滚动到的位置：{}，内容：{}", finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER,
-                        sysImSessionContentDO.getContent());
+                    LogUtil.debug("滚动到的位置：{}，内容：{}", scrollToPosition, sysImSessionContentDO.getContent());
 
                 } else if (scrollToLastContentFlag) { // 滚动到底部
 
