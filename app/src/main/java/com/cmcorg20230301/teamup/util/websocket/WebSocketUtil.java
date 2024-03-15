@@ -181,7 +181,8 @@ public class WebSocketUtil {
 
                         WebSocketMessageDTO<?> webSocketMessageDTO = JSONUtil.toBean(text, WebSocketMessageDTO.class);
 
-                        if (!WebSocketUriEnum.NETTY_WEB_SOCKET_HEART_BEAT.equals(webSocketMessageDTO.getUri())) {
+                        if (!WebSocketUriEnum.NETTY_WEB_SOCKET_HEART_BEAT.getUri()
+                            .equals(webSocketMessageDTO.getUri())) {
 
                             LogUtil.debug("WebSocket 新消息：{}", text);
 

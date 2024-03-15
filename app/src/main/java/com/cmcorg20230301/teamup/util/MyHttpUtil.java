@@ -5,6 +5,7 @@ import java.util.Map;
 import org.jetbrains.annotations.Nullable;
 
 import com.cmcorg20230301.teamup.exception.BaseBizCodeEnum;
+import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.enums.SysRequestCategoryEnum;
@@ -70,7 +71,8 @@ public class MyHttpUtil {
                 // 获取：请求的内容
                 String requestStr = getRequestStr(httpRequest);
 
-                LogUtil.debug("发送请求\nurl：{}\njwt：{}\n请求体：{}\n响应体：{}", httpRequest.getUrl(), jwt, requestStr, resStr);
+                LogUtil.debug("发送请求，页面：{}\nurl：{}\njwt：{}\n请求体：{}\n响应体：{}",
+                    BaseActivity.CURRENT_ACTIVITY.getClass().getName(), httpRequest.getUrl(), jwt, requestStr, resStr);
 
                 ApiResultVO<T> apiResultVO = JSONUtil.toBean(resStr, ApiResultVO.class, false);
 
