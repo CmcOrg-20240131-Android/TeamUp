@@ -12,6 +12,7 @@ import com.cmcorg20230301.teamup.model.dto.WebSocketMessageDTO;
 import com.cmcorg20230301.teamup.model.enums.AppDispatchKeyEnum;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.enums.SysSocketOnlineTypeEnum;
+import com.cmcorg20230301.teamup.model.enums.WebSocketUriEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
@@ -180,7 +181,11 @@ public class WebSocketUtil {
 
                         WebSocketMessageDTO<?> webSocketMessageDTO = JSONUtil.toBean(text, WebSocketMessageDTO.class);
 
-                        LogUtil.debug("WebSocket 新消息：{}", text);
+                        if (!WebSocketUriEnum.NETTY_WEB_SOCKET_HEART_BEAT.equals(webSocketMessageDTO.getUri())) {
+
+                            LogUtil.debug("WebSocket 新消息：{}", text);
+
+                        }
 
                         BaseActivity.CURRENT_ACTIVITY.getAppDispatch(AppDispatchKeyEnum.SET_WEB_SOCKET_MESSAGE,
                             webSocketMessageDTO);
