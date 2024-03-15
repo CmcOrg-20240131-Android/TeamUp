@@ -138,7 +138,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         setContentView(R.layout.home_chat_session_content);
 
-        doInitRecyclerView(true);
+        doInitRecyclerView();
 
         TextView homeChatSessionContentUserInputSend = findViewById(R.id.homeChatSessionContentUserInputSend);
 
@@ -329,12 +329,12 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     /**
      * 执行：初始化 RecyclerView
      */
-    private void doInitRecyclerView(boolean stackFromEnd) {
+    private void doInitRecyclerView() {
 
         runOnUiThread(() -> {
 
             // 初始化：RecyclerView
-            initRecyclerView(stackFromEnd);
+            initRecyclerView();
 
         });
 
@@ -343,7 +343,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     /**
      * 初始化：RecyclerView
      */
-    private void initRecyclerView(boolean stackFromEnd) {
+    private void initRecyclerView() {
 
         // 获取：RecyclerView
         recyclerView = findViewById(R.id.homeChatSessionContentRecyclerView);
@@ -356,7 +356,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        linearLayoutManager.setStackFromEnd(stackFromEnd); // 从最后一个开始滚动
+        // linearLayoutManager.setStackFromEnd(stackFromEnd); // 从最后一个开始滚动
 
         // 设置：layoutManager
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -489,9 +489,11 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         });
 
-        boolean scrollToLastContentFlag = false;
+        boolean scrollToLastContentFlag;
 
-        if (scrollFlag) { // 如果是滚动加载
+        if (scrollFlag) {
+
+            scrollToLastContentFlag = false; // 如果是滚动加载
 
         } else {
 
@@ -510,30 +512,26 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         // 更新页面显示
         if (recyclerAdapter != null) {
 
-            // int finalContentListAddTotal = contentListAddTotal;
+            int finalContentListAddTotal = contentListAddTotal;
 
             runOnUiThread(() -> {
 
-                // 初始化：RecyclerView
-                initRecyclerView(false);
+                // 更新页面显示
+                initRecyclerView();
 
-                // recyclerView.scrollToPosition(finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER);
+                if (scrollFlag) { // 如果是滚动加载
+
+                    recyclerView.scrollToPosition(finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER);
+
+                } else if (scrollToLastContentFlag) { // 滚动到底部
+
+                    recyclerView.scrollToPosition(recyclerAdapter.getItemCount() - 1);
+
+                }
 
             });
 
             LogUtil.debug("contentList：{}", JSONUtil.toJsonStr(contentList));
-
-        }
-
-        if (scrollFlag) { // 如果是滚动加载
-
-        } else if (scrollToLastContentFlag) { // 滚动到底部
-
-            runOnUiThread(() -> {
-
-                recyclerView.scrollToPosition(recyclerAdapter.getItemCount() - 1);
-
-            });
 
         }
 
