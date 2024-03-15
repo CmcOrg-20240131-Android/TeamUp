@@ -356,8 +356,6 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        // linearLayoutManager.setStackFromEnd(stackFromEnd); // 从最后一个开始滚动
-
         // 设置：layoutManager
         recyclerView.setLayoutManager(linearLayoutManager);
 
