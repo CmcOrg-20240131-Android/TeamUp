@@ -1,13 +1,17 @@
 package com.cmcorg20230301.teamup.util.common;
 
-import android.widget.Toast;
-import cn.hutool.core.util.StrUtil;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
+
+import android.widget.Toast;
+
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 提示工具类
  */
 public class ToastUtil {
+
+    private static Toast oldToast = null;
 
     /**
      * 短显示
@@ -30,15 +34,23 @@ public class ToastUtil {
         makeText(text, Toast.LENGTH_LONG);
     }
 
-    public static void makeText(CharSequence text, int duration) {
+    public static synchronized void makeText(CharSequence text, int duration) {
 
         if (StrUtil.isBlank(text)) {
             return;
         }
 
+        if (oldToast != null) {
+
+            oldToast.cancel();
+
+        }
+
+        oldToast = Toast.makeText(BaseActivity.CURRENT_ACTIVITY, text, duration);
+
         BaseActivity.CURRENT_ACTIVITY.runOnUiThread(() -> {
 
-            Toast.makeText(BaseActivity.CURRENT_ACTIVITY, text, duration).show();
+            oldToast.show();
 
         });
 
