@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
-import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,8 +21,8 @@ import cn.hutool.core.date.DateUtil;
 public class HomeChatSessionRecycleAdapter
     extends BaseRecycleAdapter<HomeChatSessionRecycleAdapter.MyViewHolder, SysImSessionDO> {
 
-    public HomeChatSessionRecycleAdapter(BaseActivity baseActivity, List<SysImSessionDO> dataList) {
-        super(baseActivity, dataList);
+    public HomeChatSessionRecycleAdapter(Activity activity, List<SysImSessionDO> dataList) {
+        super(activity, dataList);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class HomeChatSessionRecycleAdapter
     @Override
     public void onBindViewHolderData(@NonNull MyViewHolder holder, int position, SysImSessionDO data) {
 
-        Glide.with(baseActivity).load(CommonConstant.FIXED_AVATAR_URL).into(holder.homeChatSessionItemAvatar);
+        Glide.with(activity).load(CommonConstant.FIXED_AVATAR_URL).into(holder.homeChatSessionItemAvatar);
 
         holder.homeChatSessionItemUserName.setText(data.getName());
 

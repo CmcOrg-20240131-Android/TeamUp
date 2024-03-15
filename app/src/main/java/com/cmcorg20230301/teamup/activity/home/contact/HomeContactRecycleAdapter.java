@@ -4,11 +4,11 @@ import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
-import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatSelfPageVO;
 import com.cmcorg20230301.teamup.util.UserUtil;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,8 +18,8 @@ import androidx.annotation.NonNull;
 public class HomeContactRecycleAdapter
     extends BaseRecycleAdapter<HomeContactRecycleAdapter.MyViewHolder, SysImSessionApplyPrivateChatSelfPageVO> {
 
-    public HomeContactRecycleAdapter(BaseActivity baseActivity, List<SysImSessionApplyPrivateChatSelfPageVO> dataList) {
-        super(baseActivity, dataList);
+    public HomeContactRecycleAdapter(Activity activity, List<SysImSessionApplyPrivateChatSelfPageVO> dataList) {
+        super(activity, dataList);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class HomeContactRecycleAdapter
 
         String avatarUrl = UserUtil.getAvatarUrl(data.getAvatarUrl());
 
-        Glide.with(baseActivity).load(avatarUrl).into(holder.homeContactItemAvatar);
+        Glide.with(activity).load(avatarUrl).into(holder.homeContactItemAvatar);
 
         holder.homeContactItemNickname.setText(data.getNickname());
 

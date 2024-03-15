@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.cmcorg20230301.teamup.R;
-import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionContentDO;
@@ -14,6 +13,7 @@ import com.cmcorg20230301.teamup.model.vo.UserSelfInfoVO;
 import com.cmcorg20230301.teamup.util.UserUtil;
 import com.cmcorg20230301.teamup.util.common.MyDateUtil;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,9 +25,9 @@ public class HomeChatSessionContentRecycleAdapter
 
     private final UserSelfInfoVO userSelfInfoVO = UserUtil.getUserSelfInfoFromStorage();
 
-    public HomeChatSessionContentRecycleAdapter(BaseActivity baseActivity, List<SysImSessionContentDO> dataList) {
+    public HomeChatSessionContentRecycleAdapter(Activity activity, List<SysImSessionContentDO> dataList) {
 
-        super(baseActivity, dataList);
+        super(activity, dataList);
 
     }
 
@@ -75,7 +75,7 @@ public class HomeChatSessionContentRecycleAdapter
 
         }
 
-        Glide.with(baseActivity).load(avatarUrl).into(holder.homeChatSessionContentItemAvatar);
+        Glide.with(activity).load(avatarUrl).into(holder.homeChatSessionContentItemAvatar);
 
         if (holder.homeChatSessionContentItemUserName != null) {
 
