@@ -70,7 +70,7 @@ public class MyHttpUtil {
                 // 获取：请求的内容
                 String requestStr = getRequestStr(httpRequest);
 
-                LogUtil.debug("发送请求，url：{}，jwt：{}，body：{}，响应：{}", httpRequest.getUrl(), jwt, requestStr, resStr);
+                LogUtil.debug("发送请求\nurl：{}\njwt：{}\n请求体：{}\n响应体：{}", httpRequest.getUrl(), jwt, requestStr, resStr);
 
                 ApiResultVO<T> apiResultVO = JSONUtil.toBean(resStr, ApiResultVO.class, false);
 
@@ -128,7 +128,7 @@ public class MyHttpUtil {
 
             byte[] byteArr = httpRequest.bodyBytes();
 
-            requestStr = new String(byteArr);
+            requestStr = StrUtil.utf8Str(byteArr);
 
         }
 
