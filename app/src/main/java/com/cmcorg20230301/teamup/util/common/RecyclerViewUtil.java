@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewUtil {
 
-    public static final int UP_LIMIT_NUMBER = 1;
+    public static final int UP_LIMIT_NUMBER = 2;
 
-    public static final int DOWN_LIMIT_NUMBER = 2;
+    public static final int DOWN_LIMIT_NUMBER = 3;
 
     /**
      * 是否不能上滑了
@@ -31,7 +31,7 @@ public class RecyclerViewUtil {
 
         LogUtil.debug("第一个可以看到元素下标：{}，总数：{}", firstVisibleItemPosition, itemCount);
 
-        return firstVisibleItemPosition <= UP_LIMIT_NUMBER;
+        return firstVisibleItemPosition < UP_LIMIT_NUMBER;
 
     }
 
@@ -59,7 +59,7 @@ public class RecyclerViewUtil {
             return true;
         }
 
-        return lastVisibleItemPosition >= itemCount - DOWN_LIMIT_NUMBER;
+        return lastVisibleItemPosition > itemCount - DOWN_LIMIT_NUMBER;
 
     }
 

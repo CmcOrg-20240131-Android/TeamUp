@@ -510,7 +510,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         // 更新页面显示
         if (recyclerAdapter != null) {
 
-            int scrollToPosition = contentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER + 2;
+            int scrollToPosition = contentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER;
 
             runOnUiThread(() -> {
 
