@@ -22,7 +22,7 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
 
     protected List<D> dataList;
 
-    protected OnItemClickListener onItemClickListener;
+    protected OnItemClickListener<D> onItemClickListener;
 
     public abstract @LayoutRes Integer getItemViewId(@org.jetbrains.annotations.Nullable D data);
 
