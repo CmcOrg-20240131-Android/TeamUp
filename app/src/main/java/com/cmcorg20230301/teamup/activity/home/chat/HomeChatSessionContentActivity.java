@@ -521,6 +521,12 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
                     recyclerView.scrollToPosition(finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER);
 
+                    SysImSessionContentDO sysImSessionContentDO =
+                        contentList.get(finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER);
+
+                    LogUtil.debug("滚动到的位置：{}，内容：{}", finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER,
+                        sysImSessionContentDO.getContent());
+
                 } else if (scrollToLastContentFlag) { // 滚动到底部
 
                     recyclerView.scrollToPosition(recyclerAdapter.getItemCount() - 1);
