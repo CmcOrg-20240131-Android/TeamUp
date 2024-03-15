@@ -634,7 +634,11 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         } else if (scrollToLastContentFlag) { // 滚动到底部
 
-            recyclerView.scrollToPosition(recyclerAdapter.getItemCount() - 1);
+            runOnUiThread(() -> {
+
+                recyclerView.scrollToPosition(recyclerAdapter.getItemCount() - 1);
+
+            });
 
         }
 
