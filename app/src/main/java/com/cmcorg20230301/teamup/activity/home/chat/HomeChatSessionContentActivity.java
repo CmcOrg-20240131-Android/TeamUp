@@ -291,13 +291,13 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         }, CommonConstant.SECOND_3_EXPIRE_TIME, CommonConstant.SECOND_3_EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
-        scheduleSync = MyThreadUtil.scheduleAtFixedRate(() -> {
-
-            loadUserInfoData(null); // 定时，加载会话里面的用户信息
-
-            loadData(null); // 定时，加载最新数据
-
-        }, CommonConstant.SECOND_10_EXPIRE_TIME, CommonConstant.SECOND_10_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+        // scheduleSync = MyThreadUtil.scheduleAtFixedRate(() -> {
+        //
+        // loadUserInfoData(null); // 定时，加载会话里面的用户信息
+        //
+        // loadData(null); // 定时，加载最新数据
+        //
+        // }, CommonConstant.SECOND_10_EXPIRE_TIME, CommonConstant.SECOND_10_EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
     }
 
