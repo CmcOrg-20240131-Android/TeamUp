@@ -138,7 +138,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         setContentView(R.layout.home_chat_session_content);
 
-        doInitRecyclerView();
+        doInitRecyclerView(true);
 
         TextView homeChatSessionContentUserInputSend = findViewById(R.id.homeChatSessionContentUserInputSend);
 
@@ -329,12 +329,12 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     /**
      * 执行：初始化 RecyclerView
      */
-    private void doInitRecyclerView() {
+    private void doInitRecyclerView(boolean stackFromEnd) {
 
         runOnUiThread(() -> {
 
             // 初始化：RecyclerView
-            initRecyclerView();
+            initRecyclerView(stackFromEnd);
 
         });
 
@@ -343,7 +343,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     /**
      * 初始化：RecyclerView
      */
-    private void initRecyclerView() {
+    private void initRecyclerView(boolean stackFromEnd) {
 
         // 获取：RecyclerView
         recyclerView = findViewById(R.id.homeChatSessionContentRecyclerView);
@@ -356,7 +356,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        linearLayoutManager.setStackFromEnd(true); // 从最后一个开始滚动
+        linearLayoutManager.setStackFromEnd(stackFromEnd); // 从最后一个开始滚动
 
         // 设置：layoutManager
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -510,14 +510,14 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         // 更新页面显示
         if (recyclerAdapter != null) {
 
-            int finalContentListAddTotal = contentListAddTotal;
+            // int finalContentListAddTotal = contentListAddTotal;
 
             runOnUiThread(() -> {
 
                 // 初始化：RecyclerView
-                initRecyclerView();
+                initRecyclerView(false);
 
-                recyclerView.scrollToPosition(finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER);
+                // recyclerView.scrollToPosition(finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER);
 
             });
 
