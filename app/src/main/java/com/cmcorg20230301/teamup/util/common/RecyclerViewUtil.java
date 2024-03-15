@@ -2,8 +2,6 @@ package com.cmcorg20230301.teamup.util.common;
 
 import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
 
-import android.app.Activity;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,30 +10,6 @@ public class RecyclerViewUtil {
     public static final int UP_LIMIT_NUMBER = 1;
 
     public static final int DOWN_LIMIT_NUMBER = 2;
-
-    /**
-     * 刷新页面：上拉加载
-     */
-    public static void updateLinearLayoutManagerForUp(Activity activity, RecyclerView recyclerView, int preNumber) {
-
-        if (recyclerView == null) {
-            return;
-        }
-
-        LinearLayoutManager linearLayoutManager =
-            new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false);
-
-        linearLayoutManager.setStackFromEnd(true); // 从最后一个开始滚动
-
-        activity.runOnUiThread(() -> {
-
-            recyclerView.setLayoutManager(linearLayoutManager); // 刷新页面
-
-            recyclerView.scrollToPosition(preNumber + UP_LIMIT_NUMBER);
-
-        });
-
-    }
 
     /**
      * 是否不能上滑了

@@ -74,7 +74,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     private Long sessionId;
 
     // key：时间戳
-    private Map<Long, SysImSessionContentSendTextDTO> toSendMap = new ConcurrentHashMap<>();
+    private final Map<Long, SysImSessionContentSendTextDTO> toSendMap = new ConcurrentHashMap<>();
 
     private final UserSelfInfoVO userSelfInfoVO = UserUtil.getUserSelfInfoFromStorage();
 
@@ -510,7 +510,16 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         // 更新页面显示
         if (recyclerAdapter != null) {
 
-            RecyclerViewUtil.updateLinearLayoutManagerForUp(this, recyclerView, contentListAddTotal);
+            int finalContentListAddTotal = contentListAddTotal;
+
+            runOnUiThread(() -> {
+
+                // 初始化：RecyclerView
+                initRecyclerView();
+
+                recyclerView.scrollToPosition(finalContentListAddTotal + RecyclerViewUtil.UP_LIMIT_NUMBER);
+
+            });
 
             LogUtil.debug("contentList：{}", JSONUtil.toJsonStr(contentList));
 
