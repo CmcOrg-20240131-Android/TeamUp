@@ -21,6 +21,12 @@ public class RecyclerViewUtil {
         // 第一个可以看到元素下标
         int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
 
+        LogUtil.debug("第一个可以看到元素下标：{}", firstVisibleItemPosition);
+
+        if (firstVisibleItemPosition < 0) {
+            return false;
+        }
+
         return firstVisibleItemPosition <= 1;
 
     }
@@ -42,6 +48,12 @@ public class RecyclerViewUtil {
         BaseRecycleAdapter<?, ?> baseRecycleAdapter = (BaseRecycleAdapter<?, ?>)recyclerView.getAdapter();
 
         int itemCount = baseRecycleAdapter.getItemCount();
+
+        LogUtil.debug("最后一个可以看到元素下标：{}，总数：{}", lastVisibleItemPosition, itemCount);
+
+        if (lastVisibleItemPosition < 0) {
+            return false;
+        }
 
         return lastVisibleItemPosition >= itemCount - 2;
 

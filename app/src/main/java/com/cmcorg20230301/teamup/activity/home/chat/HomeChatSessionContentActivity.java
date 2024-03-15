@@ -283,21 +283,21 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         firstHandleSessionId(); // 第一次：处理：sessionId
 
-        scheduleSend = MyThreadUtil.schedule(() -> {
+        scheduleSend = MyThreadUtil.scheduleAtFixedRate(() -> {
 
             doSendToSendMap(); // 把之前未发送的消息，再发送一次
 
             WebSocketApi.imSessionContentRefUserUpdateLastOpenTsUserSelf(new NotNullId(sessionId)); // 更新-最后一次打开会话的时间戳
 
-        }, CommonConstant.SECOND_3_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+        }, CommonConstant.SECOND_3_EXPIRE_TIME, CommonConstant.SECOND_3_EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
-        scheduleSync = MyThreadUtil.schedule(() -> {
+        scheduleSync = MyThreadUtil.scheduleAtFixedRate(() -> {
 
             loadUserInfoData(null); // 定时，加载会话里面的用户信息
 
             loadData(null); // 定时，加载最新数据
 
-        }, CommonConstant.SECOND_10_EXPIRE_TIME, TimeUnit.MILLISECONDS);
+        }, CommonConstant.SECOND_10_EXPIRE_TIME, CommonConstant.SECOND_10_EXPIRE_TIME, TimeUnit.MILLISECONDS);
 
     }
 
