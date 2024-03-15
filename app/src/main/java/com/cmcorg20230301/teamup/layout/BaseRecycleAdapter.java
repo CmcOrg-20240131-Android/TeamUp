@@ -3,7 +3,6 @@ package com.cmcorg20230301.teamup.layout;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHolder<D>, D>
     extends RecyclerView.Adapter<T> {
 
-    protected Context context;
+    protected BaseActivity baseActivity;
 
     protected List<D> dataList;
 
@@ -28,9 +27,9 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
 
     public abstract T getViewHolder(View itemView, @org.jetbrains.annotations.Nullable D data);
 
-    public BaseRecycleAdapter(Context context, @Nullable List<D> dataList) {
+    public BaseRecycleAdapter(BaseActivity baseActivity, @Nullable List<D> dataList) {
 
-        this.context = context;
+        this.baseActivity = baseActivity;
         this.dataList = dataList == null ? new ArrayList<>() : dataList;
 
     }
@@ -49,7 +48,7 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
         D data = dataList.get(viewType);
 
         // 创建自定义布局
-        View itemView = View.inflate(context, getItemViewId(data), null);
+        View itemView = View.inflate(baseActivity, getItemViewId(data), null);
 
         RecyclerView.LayoutParams layoutParams =
             new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -95,6 +94,21 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
     }
 
     public abstract void onBindViewHolderData(@NonNull T holder, int position, D data);
+
+    /**
+     * 更新数据
+     */
+    public void updateDataList(List<D> newDataList) {
+
+        dataList = newDataList;
+
+        baseActivity.runOnUiThread(() -> {
+
+            notifyDataSetChanged();
+
+        });
+
+    }
 
     /**
      * 设置：item的监听事件的接口

@@ -1,5 +1,6 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -624,7 +625,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
             runOnUiThread(() -> {
 
-                recyclerAdapter.notifyDataSetChanged(); // 刷新页面
+                recyclerAdapter.updateDataList(new ArrayList<>(contentList)); // 刷新页面
 
             });
 
