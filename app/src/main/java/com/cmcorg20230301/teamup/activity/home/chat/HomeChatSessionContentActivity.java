@@ -250,6 +250,8 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         setContentView(R.layout.home_chat_session_content);
 
+        doInitRecyclerView();
+
         TextView homeChatSessionContentUserInputSend = findViewById(R.id.homeChatSessionContentUserInputSend);
 
         EditText homeChatSessionContentUserInput = findViewById(R.id.homeChatSessionContentUserInput);
@@ -439,12 +441,12 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     /**
      * 执行：初始化 RecyclerView
      */
-    private void doInitRecyclerView(List<SysImSessionContentDO> dataList) {
+    private void doInitRecyclerView() {
 
         runOnUiThread(() -> {
 
             // 初始化：RecyclerView
-            initRecyclerView(dataList);
+            initRecyclerView();
 
         });
 
@@ -453,13 +455,13 @@ public class HomeChatSessionContentActivity extends BaseActivity {
     /**
      * 初始化：RecyclerView
      */
-    private void initRecyclerView(List<SysImSessionContentDO> dataList) {
+    private void initRecyclerView() {
 
         // 获取：RecyclerView
         recyclerView = findViewById(R.id.homeChatSessionContentRecyclerView);
 
         // 创建：adapter
-        recyclerAdapter = new HomeChatSessionContentRecycleAdapter(this, dataList);
+        recyclerAdapter = new HomeChatSessionContentRecycleAdapter(this, contentList);
 
         // 给：RecyclerView设置adapter
         recyclerView.setAdapter(recyclerAdapter);
@@ -618,7 +620,15 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         }
 
         // 更新页面显示
-        doInitRecyclerView(contentList);
+        if (recyclerAdapter != null) {
+
+            runOnUiThread(() -> {
+
+                recyclerAdapter.notifyDataSetChanged(); // 刷新页面
+
+            });
+
+        }
 
         if (scrollFlag) { // 如果是滚动加载
 
