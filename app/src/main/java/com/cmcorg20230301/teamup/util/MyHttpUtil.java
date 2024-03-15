@@ -10,6 +10,7 @@ import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.enums.SysRequestCategoryEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
+import com.cmcorg20230301.teamup.util.common.LogUtil;
 import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
 import com.cmcorg20230301.teamup.util.common.TryUtil;
@@ -54,7 +55,9 @@ public class MyHttpUtil {
 
         httpRequest.setUrl(BASE_URL + urlString);
 
-        httpRequest.header("Authorization", MyLocalStorage.getItem(LocalStorageKeyEnum.JWT));
+        String jwt = MyLocalStorage.getItem(LocalStorageKeyEnum.JWT);
+
+        httpRequest.header("Authorization", jwt);
 
         httpRequest.header("category", String.valueOf(SysRequestCategoryEnum.ANDROID.getCode()));
 
@@ -63,6 +66,11 @@ public class MyHttpUtil {
             try {
 
                 String resStr = httpRequest.execute().body();
+
+                // 获取：请求的内容
+                String requestStr = getRequestStr(httpRequest);
+
+                LogUtil.debug("发送请求，url：{}，jwt：{}，body：{}，响应：{}", httpRequest.getUrl(), jwt, requestStr, resStr);
 
                 ApiResultVO<T> apiResultVO = JSONUtil.toBean(resStr, ApiResultVO.class, false);
 
@@ -102,6 +110,29 @@ public class MyHttpUtil {
             }
 
         });
+
+    }
+
+    /**
+     * 获取：请求的内容
+     */
+    private static String getRequestStr(HttpRequest httpRequest) {
+
+        String requestStr = "";
+
+        if (Method.GET.equals(httpRequest.getMethod())) {
+
+            requestStr = JSONUtil.toJsonStr(httpRequest.form());
+
+        } else if (Method.POST.equals(httpRequest.getMethod())) {
+
+            byte[] byteArr = httpRequest.bodyBytes();
+
+            requestStr = new String(byteArr);
+
+        }
+
+        return requestStr;
 
     }
 
