@@ -97,6 +97,14 @@ public class HomeContactFragment extends BaseFragment {
 
         });
 
+        TextView homeContactGoHomeContactApplyInitiate = findViewById(R.id.homeContactGoHomeContactApplyInitiate);
+
+        homeContactGoHomeContactApplyInitiate.setOnClickListener(v -> {
+
+            // BaseActivity.getAppNav(HomeContactApplyActivity.class);
+
+        });
+
     }
 
     /**
