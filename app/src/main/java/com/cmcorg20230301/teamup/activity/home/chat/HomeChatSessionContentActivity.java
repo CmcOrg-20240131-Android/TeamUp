@@ -628,6 +628,8 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
             });
 
+            LogUtil.debug("contentList：{}", JSONUtil.toJsonStr(contentList));
+
         }
 
         if (scrollFlag) { // 如果是滚动加载
