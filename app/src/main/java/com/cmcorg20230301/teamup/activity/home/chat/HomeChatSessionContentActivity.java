@@ -466,7 +466,6 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-        // linearLayoutManager.setReverseLayout(true); // 布局反向
         linearLayoutManager.setStackFromEnd(true); // 从最后一个开始滚动
 
         // 设置：layoutManager
@@ -485,7 +484,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
 
-                if (RecyclerViewUtil.notCanScrollDown(recyclerView)) { // 下拉加载
+                if (RecyclerViewUtil.notCanScrollUp(recyclerView)) { // 下拉加载
 
                     loadData(contentList.size() > 1 ? contentList.get(0).getCreateTs() : null); // 加载数据
 

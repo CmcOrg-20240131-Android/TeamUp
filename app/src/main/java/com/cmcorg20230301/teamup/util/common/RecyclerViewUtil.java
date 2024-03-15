@@ -1,5 +1,8 @@
 package com.cmcorg20230301.teamup.util.common;
 
+import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerViewUtil {
@@ -13,9 +16,12 @@ public class RecyclerViewUtil {
             return false;
         }
 
-        // -1代表顶部，返回：true表示没到顶，还可以滑
-        // 1代表底部，返回：true表示没到底部，还可以滑
-        return !recyclerView.canScrollVertically(-1);
+        LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
+
+        // 第一个可以看到元素下标
+        int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+
+        return firstVisibleItemPosition <= 1;
 
     }
 
@@ -28,7 +34,16 @@ public class RecyclerViewUtil {
             return false;
         }
 
-        return !recyclerView.canScrollVertically(1);
+        LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
+
+        // 最后一个可以看到元素下标
+        int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+
+        BaseRecycleAdapter<?, ?> baseRecycleAdapter = (BaseRecycleAdapter<?, ?>)recyclerView.getAdapter();
+
+        int itemCount = baseRecycleAdapter.getItemCount();
+
+        return lastVisibleItemPosition >= itemCount - 2;
 
     }
 
