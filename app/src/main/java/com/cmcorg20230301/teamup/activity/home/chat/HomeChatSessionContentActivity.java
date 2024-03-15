@@ -1,6 +1,5 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -117,118 +116,6 @@ public class HomeChatSessionContentActivity extends BaseActivity {
             }
 
         });
-
-    }
-
-    @Override
-    public Map<AppDispatchKeyEnum, Consumer<Object>> getAppDispatchMap() {
-
-        // 接收到新的消息
-        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_CONTENT_SEND.getUri(), webSocketMessageDTO -> {
-
-            Object data = webSocketMessageDTO.getData();
-
-            if (data != null) {
-
-                SysImSessionContentDO sysImSessionContentDO =
-                    BeanUtil.copyProperties(data, SysImSessionContentDO.class);
-
-                if (sessionId.equals(sysImSessionContentDO.getSessionId())) {
-
-                    handleSysImSessionContentDOList(CollUtil.newArrayList(sysImSessionContentDO), false, false);
-
-                }
-
-            }
-
-        });
-
-        // 发送消息的回调
-        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_CONTENT_WEB_SOCKET_SEND_TEXT_USER_SELF.getUri(),
-            webSocketMessageDTO -> {
-
-                if (webSocketMessageDTO.getCode().equals(CommonConstant.API_OK_CODE)) {
-
-                    Object data = webSocketMessageDTO.getData();
-
-                    if (data != null) {
-
-                        // 格式：{"id":"","valueSet":""}
-                        JSONObject jsonObject = (JSONObject)data;
-
-                        JSONArray jsonArray = jsonObject.getJSONArray(sessionId.toString());
-
-                        if (CollUtil.isNotEmpty(jsonArray)) {
-
-                            for (Object item : jsonArray) {
-
-                                Long createTs = Convert.toLong(item);
-
-                                if (createTs == null) {
-                                    continue;
-                                }
-
-                                SysImSessionContentSendTextDTO sysImSessionContentSendTextDTO =
-                                    new SysImSessionContentSendTextDTO();
-
-                                sysImSessionContentSendTextDTO.setCreateTs(createTs);
-
-                                setToSendMap(sysImSessionContentSendTextDTO, true);
-
-                            }
-
-                        }
-
-                    }
-
-                } else {
-
-                    ToastUtil.makeText(webSocketMessageDTO.getMsg());
-
-                }
-
-            });
-
-        // 加入新用户的回调
-        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_REF_USER_JOIN_USER_ID_SET.getUri(), webSocketMessageDTO -> {
-
-            Object data = webSocketMessageDTO.getData();
-
-            if (data != null) {
-
-                JSONObject jsonObject = BeanUtil.toBean(data, JSONObject.class);
-
-                JSONArray jsonArray = jsonObject.getJSONArray(sessionId.toString());
-
-                if (CollUtil.isNotEmpty(jsonArray)) {
-
-                    Set<Long> userIdSet = new HashSet<>();
-
-                    for (Object item : jsonArray) {
-
-                        Long userId = Convert.toLong(item);
-
-                        if (userId != null) {
-
-                            userIdSet.add(userId);
-
-                        }
-
-                    }
-
-                    if (CollUtil.isNotEmpty(userIdSet)) {
-
-                        loadUserInfoData(userIdSet);
-
-                    }
-
-                }
-
-            }
-
-        });
-
-        return APP_DISPATCH_MAP;
 
     }
 
@@ -552,7 +439,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
             return;
         }
 
-        boolean addFlag = false;
+        int contentListAddTotal = 0;
 
         for (SysImSessionContentDO item : sysImSessionContentDOList) {
 
@@ -575,11 +462,11 @@ public class HomeChatSessionContentActivity extends BaseActivity {
             contentIdSet.add(contentId);
             contentList.add(item);
 
-            addFlag = true;
+            contentListAddTotal = contentListAddTotal + 1;
 
         }
 
-        if (addFlag == false) {
+        if (contentListAddTotal == 0) {
             return;
         }
 
@@ -623,11 +510,7 @@ public class HomeChatSessionContentActivity extends BaseActivity {
         // 更新页面显示
         if (recyclerAdapter != null) {
 
-            runOnUiThread(() -> {
-
-                recyclerAdapter.updateDataList(new ArrayList<>(contentList)); // 刷新页面
-
-            });
+            RecyclerViewUtil.updateLinearLayoutManagerForUp(this, recyclerView, contentListAddTotal);
 
             LogUtil.debug("contentList：{}", JSONUtil.toJsonStr(contentList));
 
@@ -751,6 +634,118 @@ public class HomeChatSessionContentActivity extends BaseActivity {
             doSendToServer(sysImSessionContentSendTextDTO, true);
 
         }
+
+    }
+
+    @Override
+    public Map<AppDispatchKeyEnum, Consumer<Object>> getAppDispatchMap() {
+
+        // 接收到新的消息
+        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_CONTENT_SEND.getUri(), webSocketMessageDTO -> {
+
+            Object data = webSocketMessageDTO.getData();
+
+            if (data != null) {
+
+                SysImSessionContentDO sysImSessionContentDO =
+                    BeanUtil.copyProperties(data, SysImSessionContentDO.class);
+
+                if (sessionId.equals(sysImSessionContentDO.getSessionId())) {
+
+                    handleSysImSessionContentDOList(CollUtil.newArrayList(sysImSessionContentDO), false, false);
+
+                }
+
+            }
+
+        });
+
+        // 发送消息的回调
+        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_CONTENT_WEB_SOCKET_SEND_TEXT_USER_SELF.getUri(),
+            webSocketMessageDTO -> {
+
+                if (webSocketMessageDTO.getCode().equals(CommonConstant.API_OK_CODE)) {
+
+                    Object data = webSocketMessageDTO.getData();
+
+                    if (data != null) {
+
+                        // 格式：{"id":"","valueSet":""}
+                        JSONObject jsonObject = (JSONObject)data;
+
+                        JSONArray jsonArray = jsonObject.getJSONArray(sessionId.toString());
+
+                        if (CollUtil.isNotEmpty(jsonArray)) {
+
+                            for (Object item : jsonArray) {
+
+                                Long createTs = Convert.toLong(item);
+
+                                if (createTs == null) {
+                                    continue;
+                                }
+
+                                SysImSessionContentSendTextDTO sysImSessionContentSendTextDTO =
+                                    new SysImSessionContentSendTextDTO();
+
+                                sysImSessionContentSendTextDTO.setCreateTs(createTs);
+
+                                setToSendMap(sysImSessionContentSendTextDTO, true);
+
+                            }
+
+                        }
+
+                    }
+
+                } else {
+
+                    ToastUtil.makeText(webSocketMessageDTO.getMsg());
+
+                }
+
+            });
+
+        // 加入新用户的回调
+        URI_MAP.put(WebSocketUriEnum.SYS_IM_SESSION_REF_USER_JOIN_USER_ID_SET.getUri(), webSocketMessageDTO -> {
+
+            Object data = webSocketMessageDTO.getData();
+
+            if (data != null) {
+
+                JSONObject jsonObject = BeanUtil.toBean(data, JSONObject.class);
+
+                JSONArray jsonArray = jsonObject.getJSONArray(sessionId.toString());
+
+                if (CollUtil.isNotEmpty(jsonArray)) {
+
+                    Set<Long> userIdSet = new HashSet<>();
+
+                    for (Object item : jsonArray) {
+
+                        Long userId = Convert.toLong(item);
+
+                        if (userId != null) {
+
+                            userIdSet.add(userId);
+
+                        }
+
+                    }
+
+                    if (CollUtil.isNotEmpty(userIdSet)) {
+
+                        loadUserInfoData(userIdSet);
+
+                    }
+
+                }
+
+            }
+
+        });
+
+        return APP_DISPATCH_MAP;
 
     }
 

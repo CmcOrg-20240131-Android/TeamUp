@@ -26,9 +26,7 @@ public class HomeChatSessionContentRecycleAdapter
     private final UserSelfInfoVO userSelfInfoVO = UserUtil.getUserSelfInfoFromStorage();
 
     public HomeChatSessionContentRecycleAdapter(Activity activity, List<SysImSessionContentDO> dataList) {
-
         super(activity, dataList);
-
     }
 
     @Override
@@ -48,7 +46,9 @@ public class HomeChatSessionContentRecycleAdapter
 
     @Override
     public MyViewHolder getViewHolder(View itemView, SysImSessionContentDO data) {
+
         return new MyViewHolder(itemView, data);
+
     }
 
     @Override

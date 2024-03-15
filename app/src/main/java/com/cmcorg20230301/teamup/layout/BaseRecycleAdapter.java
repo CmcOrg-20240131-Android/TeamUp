@@ -97,21 +97,6 @@ public abstract class BaseRecycleAdapter<T extends BaseRecycleAdapter.MyViewHold
     public abstract void onBindViewHolderData(@NonNull T holder, int position, D data);
 
     /**
-     * 更新数据
-     */
-    public void updateDataList(List<D> newDataList) {
-
-        dataList = newDataList;
-
-        activity.runOnUiThread(() -> {
-
-            notifyDataSetChanged();
-
-        });
-
-    }
-
-    /**
      * 设置：item的监听事件的接口
      */
     public interface OnItemClickListener<D> {
