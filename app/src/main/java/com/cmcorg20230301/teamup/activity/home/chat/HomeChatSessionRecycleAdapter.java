@@ -8,6 +8,8 @@ import com.cmcorg20230301.teamup.R;
 import com.cmcorg20230301.teamup.layout.BaseRecycleAdapter;
 import com.cmcorg20230301.teamup.model.constant.CommonConstant;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
+import com.cmcorg20230301.teamup.model.vo.UserSelfInfoVO;
+import com.cmcorg20230301.teamup.util.UserUtil;
 
 import android.app.Activity;
 import android.view.View;
@@ -17,9 +19,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.util.StrUtil;
 
 public class HomeChatSessionRecycleAdapter
     extends BaseRecycleAdapter<HomeChatSessionRecycleAdapter.MyViewHolder, SysImSessionDO> {
+
+    private final UserSelfInfoVO userSelfInfoVO = UserUtil.getUserSelfInfoFromStorage();
 
     public HomeChatSessionRecycleAdapter(Activity activity, List<SysImSessionDO> dataList) {
         super(activity, dataList);
@@ -38,9 +43,17 @@ public class HomeChatSessionRecycleAdapter
     @Override
     public void onBindViewHolderData(@NonNull MyViewHolder holder, int position, SysImSessionDO data) {
 
-        Glide.with(activity).load(CommonConstant.FIXED_AVATAR_URL).into(holder.homeChatSessionItemAvatar);
+        String avatarUrl = HomeChatSessionFragment.AVATAR_MAP.get(data.getPrivateChatRefUserId());
 
-        holder.homeChatSessionItemUserName.setText(data.getName());
+        if (StrUtil.isBlank(avatarUrl)) {
+
+            avatarUrl = CommonConstant.FIXED_AVATAR_URL;
+
+        }
+
+        Glide.with(activity).load(avatarUrl).into(holder.homeChatSessionItemAvatar);
+
+        holder.homeChatSessionItemUserName.setText(data.getShowName());
 
         holder.homeChatSessionItemContent.setText(data.getLastContent());
 

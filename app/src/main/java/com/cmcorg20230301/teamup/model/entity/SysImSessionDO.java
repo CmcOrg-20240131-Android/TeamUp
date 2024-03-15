@@ -55,6 +55,16 @@ public class SysImSessionDO extends BaseEntity {
      */
     private Long lastOpenTs;
 
+    /**
+     * 该会话的展示头像地址
+     */
+    private Long showAvatarFileId;
+
+    /**
+     * 该会话的展示名称
+     */
+    private String showName;
+
     public String getName() {
         return name;
     }
@@ -133,6 +143,22 @@ public class SysImSessionDO extends BaseEntity {
 
     public void setLastOpenTs(Long lastOpenTs) {
         this.lastOpenTs = lastOpenTs;
+    }
+
+    public Long getShowAvatarFileId() {
+        return showAvatarFileId;
+    }
+
+    public void setShowAvatarFileId(Long showAvatarFileId) {
+        this.showAvatarFileId = showAvatarFileId;
+    }
+
+    public String getShowName() {
+        return showName;
+    }
+
+    public void setShowName(String showName) {
+        this.showName = showName;
     }
 
 }

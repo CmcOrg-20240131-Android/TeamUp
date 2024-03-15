@@ -13,7 +13,6 @@ import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatApplySelfPageVO;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
-import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 import com.cmcorg20230301.teamup.util.common.ToastUtil;
 
 import android.os.Bundle;
@@ -60,26 +59,22 @@ public class HomeContactApplyActivity extends BaseActivity {
      */
     private void doInitRecyclerView() {
 
-        MyThreadUtil.execute(() -> {
+        SysImSessionApplyApi.privateChatApplyPageSelf(new SysImSessionApplyPrivateChatApplySelfPageDTO(),
+            new IHttpHandle<Page<SysImSessionApplyPrivateChatApplySelfPageVO>>() {
 
-            SysImSessionApplyApi.privateChatApplyPageSelf(new SysImSessionApplyPrivateChatApplySelfPageDTO(),
-                new IHttpHandle<Page<SysImSessionApplyPrivateChatApplySelfPageVO>>() {
+                @Override
+                public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatApplySelfPageVO>> apiResultVO) {
 
-                    @Override
-                    public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatApplySelfPageVO>> apiResultVO) {
+                    runOnUiThread(() -> {
 
-                        runOnUiThread(() -> {
+                        // 初始化：RecyclerView
+                        initRecyclerView(apiResultVO.getData().getRecords());
 
-                            // 初始化：RecyclerView
-                            initRecyclerView(apiResultVO.getData().getRecords());
+                    });
 
-                        });
+                }
 
-                    }
-
-                });
-
-        });
+            });
 
     }
 

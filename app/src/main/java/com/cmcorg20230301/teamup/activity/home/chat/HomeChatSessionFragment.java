@@ -1,19 +1,25 @@
 package com.cmcorg20230301.teamup.activity.home.chat;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import com.cmcorg20230301.teamup.R;
+import com.cmcorg20230301.teamup.api.http.SysFileApi;
 import com.cmcorg20230301.teamup.api.http.SysImSessionApi;
 import com.cmcorg20230301.teamup.layout.BaseActivity;
 import com.cmcorg20230301.teamup.layout.BaseFragment;
+import com.cmcorg20230301.teamup.model.dto.NotEmptyIdSet;
 import com.cmcorg20230301.teamup.model.dto.SysImSessionSelfPageDTO;
 import com.cmcorg20230301.teamup.model.entity.SysImSessionDO;
 import com.cmcorg20230301.teamup.model.enums.LocalStorageKeyEnum;
 import com.cmcorg20230301.teamup.model.interfaces.IHttpHandle;
 import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
+import com.cmcorg20230301.teamup.model.vo.LongObjectMapVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
-import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +32,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 
@@ -37,6 +44,9 @@ public class HomeChatSessionFragment extends BaseFragment {
     private RecyclerView recyclerView;
 
     private HomeChatSessionRecycleAdapter recyclerAdapter;
+
+    // 头像地址，map
+    public static final Map<Long, String> AVATAR_MAP = new ConcurrentHashMap<>();
 
     @Override
     public Integer getLayoutId() {
@@ -56,18 +66,38 @@ public class HomeChatSessionFragment extends BaseFragment {
 
         }
 
-        MyThreadUtil.execute(() -> {
+        SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(), new IHttpHandle<Page<SysImSessionDO>>() {
 
-            SysImSessionApi.myPageSelf(new SysImSessionSelfPageDTO(), new IHttpHandle<Page<SysImSessionDO>>() {
+            @Override
+            public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
 
-                @Override
-                public void success(ApiResultVO<Page<SysImSessionDO>> apiResultVO) {
+                doInitRecyclerView(apiResultVO.getData().getRecords());
 
-                    doInitRecyclerView(apiResultVO.getData().getRecords());
+                Set<Long> avatarFileIdSet = apiResultVO.getData().getRecords().stream()
+                    .map(SysImSessionDO::getShowAvatarFileId).collect(Collectors.toSet());
 
-                }
+                NotEmptyIdSet notEmptyIdSet = new NotEmptyIdSet();
 
-            });
+                notEmptyIdSet.setIdSet(CollUtil.newHashSet(avatarFileIdSet));
+
+                SysFileApi.getPublicUrl(notEmptyIdSet, new IHttpHandle<LongObjectMapVO<String>>() {
+
+                    @Override
+                    public void success(ApiResultVO<LongObjectMapVO<String>> apiResultVO) throws Exception {
+
+                        AVATAR_MAP.putAll(apiResultVO.getData().getMap());
+
+                        getActivity().runOnUiThread(() -> {
+
+                            recyclerAdapter.notifyDataSetChanged(); // 刷新页面
+
+                        });
+
+                    }
+
+                });
+
+            }
 
         });
 

@@ -15,7 +15,6 @@ import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.model.vo.SysImSessionApplyPrivateChatSelfPageVO;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
-import com.cmcorg20230301.teamup.util.common.MyThreadUtil;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -64,22 +63,18 @@ public class HomeContactFragment extends BaseFragment {
 
         }
 
-        MyThreadUtil.execute(() -> {
+        SysImSessionApplyApi.privateChatPageSelf(new SysImSessionApplyPrivateChatSelfPageDTO(),
+            new IHttpHandle<Page<SysImSessionApplyPrivateChatSelfPageVO>>() {
 
-            SysImSessionApplyApi.privateChatPageSelf(new SysImSessionApplyPrivateChatSelfPageDTO(),
-                new IHttpHandle<Page<SysImSessionApplyPrivateChatSelfPageVO>>() {
+                @Override
+                public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatSelfPageVO>> apiResultVO) {
 
-                    @Override
-                    public void success(ApiResultVO<Page<SysImSessionApplyPrivateChatSelfPageVO>> apiResultVO) {
+                    // 初始化：RecyclerView
+                    doInitRecyclerView(apiResultVO.getData().getRecords());
 
-                        // 初始化：RecyclerView
-                        doInitRecyclerView(apiResultVO.getData().getRecords());
+                }
 
-                    }
-
-                });
-
-        });
+            });
 
         TextView homeContactGoHomeContactFindNew = findViewById(R.id.homeContactGoHomeContactFindNew);
 
