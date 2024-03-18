@@ -35,7 +35,9 @@
 
         <activity android:name="com.cmcorg20230301.teamup.activity.home.contact.HomeContactFindNewActivity" />
 
-        <activity android:name="com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionContentActivity" />
+        <activity
+            android:name="com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionContentActivity"
+            android:windowSoftInputMode="adjustResize" />
 
     </application>
 
