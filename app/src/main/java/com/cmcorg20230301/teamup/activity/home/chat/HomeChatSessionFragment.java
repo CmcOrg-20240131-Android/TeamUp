@@ -80,7 +80,7 @@ public class HomeChatSessionFragment extends BaseFragment {
 
                     NotEmptyIdSet notEmptyIdSet = new NotEmptyIdSet();
 
-                    notEmptyIdSet.setIdSet(CollUtil.newHashSet(avatarFileIdSet));
+                    notEmptyIdSet.setIdSet(avatarFileIdSet);
 
                     SysFileApi.getPublicUrl(notEmptyIdSet, new IHttpHandle<LongObjectMapVO<String>>() {
 
