@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingHorizontal="15dp"
     android:paddingVertical="15dp"
+    app:alignItems="center"
     app:flexDirection="row">
 
     <ImageView

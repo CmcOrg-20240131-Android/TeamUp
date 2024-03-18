@@ -31,6 +31,13 @@
         android:text="我的申请"
         android:textSize="16dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
+        android:text="我的好友"
+        android:textSize="16dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/homeContactRecyclerView"
         android:layout_width="match_parent"
