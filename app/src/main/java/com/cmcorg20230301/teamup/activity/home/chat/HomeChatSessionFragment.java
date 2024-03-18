@@ -20,7 +20,6 @@ import com.cmcorg20230301.teamup.model.vo.ApiResultVO;
 import com.cmcorg20230301.teamup.model.vo.LongObjectMapVO;
 import com.cmcorg20230301.teamup.model.vo.Page;
 import com.cmcorg20230301.teamup.util.MyLocalStorage;
-import com.cmcorg20230301.teamup.util.common.LogUtil;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -77,13 +76,13 @@ public class HomeChatSessionFragment extends BaseFragment {
                 Set<Long> avatarFileIdSet = apiResultVO.getData().getRecords().stream()
                     .map(SysImSessionDO::getShowAvatarFileId).collect(Collectors.toSet());
 
+                CollUtil.removeNull(avatarFileIdSet); // 移除：null元素
+
                 if (CollUtil.isNotEmpty(avatarFileIdSet)) {
 
                     NotEmptyIdSet notEmptyIdSet = new NotEmptyIdSet();
 
                     notEmptyIdSet.setIdSet(avatarFileIdSet);
-
-                    LogUtil.debug("avatarFileIdSet：{}", JSONUtil.toJsonStr(avatarFileIdSet));
 
                     SysFileApi.getPublicUrl(notEmptyIdSet, new IHttpHandle<LongObjectMapVO<String>>() {
 
