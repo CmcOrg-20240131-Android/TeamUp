@@ -32,6 +32,8 @@ public class HomeSelfCenterFragment extends BaseFragment {
 
             UserUtil.signOut(null);
 
+            getActivity().finish();
+
         });
 
     }
