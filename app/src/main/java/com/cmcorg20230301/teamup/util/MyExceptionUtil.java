@@ -19,7 +19,7 @@ public class MyExceptionUtil {
      */
     public static void printHttpError(Throwable e, String url) {
 
-        LogUtil.error("异常日志打印：页面：{}，url：{}", BaseActivity.CURRENT_ACTIVITY.getClass().getName(), url, e);
+        LogUtil.error("异常日志打印：页面：{}\nurl：{}", BaseActivity.CURRENT_ACTIVITY.getClass().getName(), url, e);
 
     }
 
