@@ -76,26 +76,30 @@ public class HomeChatSessionFragment extends BaseFragment {
                 Set<Long> avatarFileIdSet = apiResultVO.getData().getRecords().stream()
                     .map(SysImSessionDO::getShowAvatarFileId).collect(Collectors.toSet());
 
-                NotEmptyIdSet notEmptyIdSet = new NotEmptyIdSet();
+                if (CollUtil.isNotEmpty(avatarFileIdSet)) {
 
-                notEmptyIdSet.setIdSet(CollUtil.newHashSet(avatarFileIdSet));
+                    NotEmptyIdSet notEmptyIdSet = new NotEmptyIdSet();
 
-                SysFileApi.getPublicUrl(notEmptyIdSet, new IHttpHandle<LongObjectMapVO<String>>() {
+                    notEmptyIdSet.setIdSet(CollUtil.newHashSet(avatarFileIdSet));
 
-                    @Override
-                    public void success(ApiResultVO<LongObjectMapVO<String>> apiResultVO) throws Exception {
+                    SysFileApi.getPublicUrl(notEmptyIdSet, new IHttpHandle<LongObjectMapVO<String>>() {
 
-                        AVATAR_MAP.putAll(apiResultVO.getData().getMap());
+                        @Override
+                        public void success(ApiResultVO<LongObjectMapVO<String>> apiResultVO) throws Exception {
 
-                        getActivity().runOnUiThread(() -> {
+                            AVATAR_MAP.putAll(apiResultVO.getData().getMap());
 
-                            recyclerAdapter.notifyDataSetChanged(); // 刷新页面
+                            getActivity().runOnUiThread(() -> {
 
-                        });
+                                recyclerAdapter.notifyDataSetChanged(); // 刷新页面
 
-                    }
+                            });
 
-                });
+                        }
+
+                    });
+
+                }
 
             }
 
