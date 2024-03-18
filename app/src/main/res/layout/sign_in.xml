@@ -59,7 +59,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signInAccount"
             android:layout_width="match_parent"
-            android:text="admin"
+            android:text="cmc0"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -73,7 +73,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/signInPassword"
             android:layout_width="match_parent"
-            android:text="wsnbb123."
+            android:text="CmcOrg@20230301"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
