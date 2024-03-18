@@ -106,7 +106,17 @@ public class HomeActivity extends BaseActivity {
 
         }
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, fClass, null).commit();
+        int size = getSupportFragmentManager().getFragments().size();
+
+        if (size == 0) {
+
+            getSupportFragmentManager().beginTransaction().add(R.id.homeFragment, fClass, null).commit();
+
+        } else {
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFragment, fClass, null).commit();
+
+        }
 
         UserUtil.getUserSelfInfoFromServer();
 
