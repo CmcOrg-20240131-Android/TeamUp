@@ -46,9 +46,9 @@ public class ToastUtil {
 
         }
 
-        oldToast = Toast.makeText(BaseActivity.CURRENT_ACTIVITY, text, duration);
-
         BaseActivity.CURRENT_ACTIVITY.runOnUiThread(() -> {
+
+            oldToast = Toast.makeText(BaseActivity.CURRENT_ACTIVITY, text, duration);
 
             oldToast.show();
 

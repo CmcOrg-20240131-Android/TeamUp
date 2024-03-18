@@ -89,6 +89,8 @@ public class SignInFragment extends BaseFragment {
 
                         BaseActivity.getAppNav(HomeActivity.class); // 跳转到：主页
 
+                        getActivity().finish();
+
                     }
 
                 });
