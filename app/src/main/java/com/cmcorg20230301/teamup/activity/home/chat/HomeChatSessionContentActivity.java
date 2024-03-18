@@ -48,7 +48,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -358,9 +357,6 @@ public class HomeChatSessionContentActivity extends BaseActivity {
 
         // 设置：layoutManager
         recyclerView.setLayoutManager(linearLayoutManager);
-
-        // 设置：item的分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(myViewHolder -> {

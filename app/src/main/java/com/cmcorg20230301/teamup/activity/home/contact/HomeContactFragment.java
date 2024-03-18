@@ -24,7 +24,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -134,9 +133,6 @@ public class HomeContactFragment extends BaseFragment {
 
         // 设置：layoutManager
         recyclerView.setLayoutManager(new LinearLayoutManager(fragmentActivity, LinearLayoutManager.VERTICAL, false));
-
-        // 设置：item的分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(fragmentActivity, DividerItemDecoration.VERTICAL));
 
         // 设置：元素点击事件
         recyclerAdapter.setOnItemClickListener(myViewHolder -> {
