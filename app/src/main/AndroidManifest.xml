@@ -37,7 +37,7 @@
 
         <activity
             android:name="com.cmcorg20230301.teamup.activity.home.chat.HomeChatSessionContentActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 
