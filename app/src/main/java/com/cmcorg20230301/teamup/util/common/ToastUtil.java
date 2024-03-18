@@ -34,7 +34,7 @@ public class ToastUtil {
         makeText(text, Toast.LENGTH_LONG);
     }
 
-    public static synchronized void makeText(CharSequence text, int duration) {
+    public static void makeText(CharSequence text, int duration) {
 
         if (StrUtil.isBlank(text)) {
             return;
